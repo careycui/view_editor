@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <h1>页面可视化编辑</h1>
   </div>
 </template>
 
@@ -9,10 +8,7 @@
 import Hello from './components/Hello'
 
 export default {
-  name: 'app',
-  components: {
-    Hello
-  }
+  name: 'app'
 }
 </script>
 
