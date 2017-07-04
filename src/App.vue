@@ -1,11 +1,17 @@
 <template>
   <div id="app">
-    <h1>页面可视化编辑</h1>
+    <div class="top-bar">
+      <div class="ys-grid-row">
+        <div class="ys-cell-3 top-bar--title">
+          <h3>崔氏页面编辑器 <small>V 0.0.1</small></h3>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import Hello from './components/main'
 
 export default {
   name: 'app'
@@ -13,12 +19,24 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import '/static/sys.min.css';
+.top-bar{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #333;
+}
+.top-bar--title{
+  height: 40px;
+  vertical-align: middle;
+  line-height: 40px;
+  color: #f1f1f1;
+}
+.top-bar--title h3{
+  font-weight: normal;
+}
+.top-bar--title h3 small{
+  color: #f1f1f1;
 }
 </style>
