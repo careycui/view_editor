@@ -1,0 +1,17 @@
+
+.container{
+	position: relative;
+	width: 1920px;
+	height: 800px;
+	left: 50%;
+	margin-left: -960px;
+	background-color: #fff;
+}
+
+.section{
+	position: relative;
+	width: 1920px;
+	left: 50%;
+	margin-left: -960px;
+	border: 1px solid #dedede;
+}
