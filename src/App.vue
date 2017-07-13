@@ -14,43 +14,68 @@
     <div class="right-bar">
       <editor-panel></editor-panel>
     </div>
-    <div class="app-content" v-for="con in page">
-      <component :is="con.name">
-        <component :is="child.name" v-for="child in con.children"></component>
+    <div class="app-content">
+      <component v-if="page.name" :is="page.name" :formkey = "page.key">
+        <component :is="section.name" :formkey = "section.key" v-for="section in page.children">
+          <component :is="ele.name" :formkey = "ele.key" v-for="ele in section.children"></component>
+        </component>
       </component>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Hello from './components/main'
 import ComPanel from './components/com_panel'
 import EditorPanel from './components/editor_panel'
-import { component, components } from './sys_components/config.js'
+import store from './store/store.js'
+import { component, components, comData } from './sys_components/config.js'
 
 export default {
   name: 'app',
-  data () {
-    return {
-     page:[],
-     forms:[]
-    }
-  },
+  store,
   components: {
     ComPanel,EditorPanel
   },
-  mounted () {
+  beforeMount () {
+    this.addMain(); // 页面初始化
   },
+  computed : mapState(['page', 'forms', 'currentDom']),
   methods:{
+    getCurrent (com) {
+      let indexArr = this.currentDom.split(':');
+      let page = this.page;
+      let currDom = page;
+      let nextDom;
+      indexArr.forEach(function(val,i){
+        if(i > 0 && i < 2){
+            currDom = currDom.children[val];
+          }
+      });
+
+      if(com.level > 0){
+          nextDom = page;
+      }else{
+          if(indexArr.length > 1){
+            nextDom = currDom;
+          }else{
+            nextDom = page;
+          }
+      }
+      return nextDom;
+    },
     add (type) {
-      this.page[0].children.push(components[type]());
-      console.log(this.page[0].children);
+      let com = components[type]();
+      let currDom = this.getCurrent(com);
+
+      this.$store.dispatch('add', {currDom : currDom , com: com, formData: comData[type]()});
     },
     addMain () {
-      this.page.push(components['container']());
+        this.$store.dispatch('addMain', {page: components.container(), formData: comData.container()});
     },
     change () {
-      this.page[0].level = 100;
+      this.$store.dispatch('count');
     }
   }
 }

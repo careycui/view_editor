@@ -1,19 +1,21 @@
 <template>
-	<div class="container">
+	<div class="container" :style="style">
 		<slot></slot>
 	</div>
 </template>
 <script>
+import { mapState } from 'vuex'
+import { common } from './utils'
+
 	export default {
 		name: 'container',
-		data () {
-			return {
-				style: [
-				],
-				data: [
-				],
-				interaction:[
-				]
+		mixins: [common],
+		mounted () {
+			
+		},
+		methods: {
+			show () {
+				console.log(this.$store.getters.getForms);
 			}
 		}
 	}

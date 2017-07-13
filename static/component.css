@@ -6,6 +6,9 @@
 	left: 50%;
 	margin-left: -960px;
 	background-color: #fff;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-align: center;
 }
 
 .section{
@@ -13,5 +16,6 @@
 	width: 1920px;
 	left: 50%;
 	margin-left: -960px;
+
 	border: 1px solid #dedede;
 }

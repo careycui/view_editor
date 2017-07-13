@@ -16,7 +16,7 @@
           </div>
           <div class="ys-cell-12">
             <ul class="list-unstyle page-construct">
-              <li v-for="con in page">
+              <li v-if="page.name">
                 页面
               </li>
             </ul>
@@ -35,11 +35,21 @@
     <div class="bar-cnt--panel ys-grid">
       <div class="ys-grid-row">
         <div class="ys-cell-12">
+          <div class="list-title">
+            <i class="fa fa-chevron-down"></i> 布局
+          </div>
           <ul class="list-inline com-list">
             <li class="com-list--item" @click="add('sectionPanel')">
               <i class="fa fa-pencil-square-o fa-lg"></i><br>
               面板
             </li>
+          </ul>
+        </div>
+        <div class="ys-cell-12">
+          <div class="list-title">
+            <i class="fa fa-chevron-down"></i> 组件
+          </div>
+          <ul class="list-inline com-list">
             <li class="com-list--item" @click="add('banner')">
               <i class="fa fa-columns fa-lg"></i><br>
               通栏图
@@ -48,6 +58,13 @@
               <i class="fa fa-file-image-o fa-lg"></i><br>
               图片链接
             </li>
+          </ul>
+        </div>
+        <div class="ys-cell-12">
+          <div class="list-title">
+            <i class="fa fa-chevron-down"></i> 元素
+          </div>
+          <ul class="list-inline com-list">
             <li class="com-list--item" @click="add('imageEle')">
               <i class="fa fa-image fa-lg"></i><br>
               图片
@@ -72,7 +89,7 @@ export default {
   name: 'com-panel',
   props:{
     page : {
-      type: Array,
+      type: Object,
       default: {}
     },
     addcom:{
@@ -85,7 +102,7 @@ export default {
     }
   },
   created () {
-    console.log(this);
+    
   },
   data () {
     return {
@@ -174,5 +191,10 @@ export default {
   }
   .page-construct{
     font-size: 12px;
+  }
+  .list-title{
+    padding: 5px 10px;
+    margin: 0 -10px;
+    border-top: 1px solid #bfbfbf;
   }
 </style>

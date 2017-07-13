@@ -1,6 +1,6 @@
 <template>
 	<div class="banner">
-		Banner
+		
 	</div>
 </template>
 <script>
