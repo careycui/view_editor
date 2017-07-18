@@ -1,5 +1,8 @@
 <template>
 	<div class="bar-cnt">
+		<div class="bar-cnt--line" style="height:auto;overflow:hidden;padding-left:5px;">
+			<h4 class="mt-10">{{title}}</h4>
+		</div>
 		<div v-if="form && form.style">
 			<div class="bar-cnt--title ys-grid">
 		      <div class="ys-grid-row">
@@ -13,20 +16,11 @@
 			    		<div class="ys-cell-12 title-line">
 			    			<div class="title-line-t">位移</div>
 			    		</div>
-			    		<div class="ys-cell-12 ys-form-group ys-form-group-sm">
-			    			<label class="ys-cell-2 no-padding t-align--l">位置</label>
-			    			<div class="ys-cell-10 no-padding">
-			    				<select class="ys-field ys-field-sm no-padding">
-			    					<option>居左</option>
-			    					<option>居中</option>
-			    					<option>居右</option>
-			    				</select>
-			    			</div>
-			    		</div>
 		    			<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="dataP in form.style.position">
 		    				<label class="ys-cell-2 no-padding t-align--l">{{dataP.label}}</label>
 		    				<div class="ys-cell-10 no-padding">
-		    					<input type="text" class="ys-field ys-field-sm" v-model="dataP.val">
+		    					<component :is="dataP.formEle.type" size="mini" v-model="dataP.val">
+		    					</component>
 		    				</div>
 		    			</div>
 		    		</div>
@@ -37,7 +31,8 @@
 			    		<div class="ys-form-group ys-form-group-sm ys-cell-12" v-for="dataB in form.style.background">
 			    			<label class="ys-cell-2 no-padding t-align--l">{{dataB.label}}</label>
 			    			<div class="ys-cell-10 no-padding">
-			    				<input type="text" class="ys-field ys-field-sm" v-model="dataB.val">
+			    				<component :is="dataB.formEle.type" size="mini" v-model="dataB.val">
+			    				</component>
 			    			</div>
 			    		</div>
 		    		</div>
@@ -48,7 +43,7 @@
 			    		<div class="ys-form-group ys-form-group-sm ys-cell-12" v-for="dataF in form.style.font">
 			    			<label class="ys-cell-2 no-padding t-align--l">{{dataF.label}}</label>
 			    			<div class="ys-cell-10 no-padding">
-			    				<input type="text" class="ys-field ys-field-sm" v-model="dataF.val">
+			    				<component :is="dataF.formEle.type" size="mini" v-model="dataF.val"></component>
 			    			</div>
 			    		</div>
 		    		</div>
@@ -59,7 +54,7 @@
 			    		<div class="ys-form-group ys-form-group-sm ys-cell-12" v-for="dataBd in form.style.border">
 			    			<label class="ys-cell-2 no-padding t-align--l">{{dataBd.label}}</label>
 			    			<div class="ys-cell-10 no-padding">
-			    				<input type="text" class="ys-field ys-field-sm" v-model="dataBd.val">
+			    				<component :is="dataBd.formEle.type" size="mini" v-model="dataBd.val"></component>
 			    			</div>
 			    		</div>
 		    		</div>
@@ -84,7 +79,7 @@
 			    		<div class="ys-form-group ys-form-group-sm ys-cell-12" v-for="action1 in form.action.jump">
 			    			<label class="ys-cell-2 no-padding t-align--l">{{action1.label}}</label>
 			    			<div class="ys-cell-10 no-padding">
-			    				<input type="text" class="ys-field ys-field-sm" v-model="action1.val">
+			    				<component :is="action1.formEle.type" size="mini" v-model="action1.val"></component>
 			    			</div>
 			    		</div>
 		    		</div>
@@ -95,7 +90,7 @@
 			    		<div class="ys-form-group ys-form-group-sm ys-cell-12" v-for="action2 in form.action.hover">
 			    			<label class="ys-cell-2 no-padding t-align--l">{{action2.label}}</label>
 			    			<div class="ys-cell-10 no-padding">
-			    				<input type="text" class="ys-field ys-field-sm" v-model="action2.val">
+			    				<component :is="action2.formEle.type" size="mini" v-model="action2.val"></component>
 			    			</div>
 			    		</div>
 		    		</div>
@@ -110,11 +105,7 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'editor-panel',
-  data () {
-  	return {
-  		title: 'test1'
-  	}
-  },
+  props: ['title'],
   computed: {
   	form : {
   		get () {
@@ -126,16 +117,13 @@ export default {
   	}
   },
   methods: {
-  	show () {
-  		console.log(this.form);
-  	},
-  	changeForm (e) {
-  		this.$store.dispatch('changeForm', {form:Object.assign({},this.form),key:this.$store.state.currentDom});
+  	select (form) {
+  		console.log(form);
   	}
   }
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss">
 	.bar-cnt{
 		font-size: 12px;
 	}
@@ -187,4 +175,16 @@ export default {
 		margin-top: 0;
 		margin-bottom: 0;
 	}
+	.el-input-number--mini{
+		.el-input-number__decrease, .el-input-number__increase{
+			width: 24px !important;
+			line-height: 22px;
+		}
+		.el-input-number__decrease{
+			right: 27px;
+		}
+		.el-input-number__increase{
+			right: 2px;
+		}
+	} 
 </style>

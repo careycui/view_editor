@@ -9,6 +9,7 @@
 	background-repeat: no-repeat;
 	background-position: center center;
 	text-align: center;
+	border: 1px solid transparent;
 }
 
 .section{
@@ -18,4 +19,7 @@
 	margin-left: -960px;
 
 	border: 1px solid #dedede;
+}
+.banner{
+	position: absolute;
 }

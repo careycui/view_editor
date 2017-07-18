@@ -1,6 +1,5 @@
 <template>
-	<div class="section" :style="style">
-		Section
+	<div class="section outer-html" :style="style" :class="{active: isActive}" v-drag="setPos">
 		<slot></slot>
 	</div>
 </template>
@@ -10,8 +9,12 @@ import { common } from './utils'
 	export default {
 		name: 'setion-panel',
 		mixins: [common],
+		computed: {
+			isActive () {
+				return this.formkey == this.currentDom;
+			}
+		},
 		mounted () {
-			console.log('section : ', this.formkey);
 		}
 	}
 </script>

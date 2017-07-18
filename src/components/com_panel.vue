@@ -6,20 +6,30 @@
       </div>
     </div>
     <hr>
-    <div class="bar-cnt--panel ys-grid">
+    <div class="bar-cnt--panel ys-grid" style="height:30px;">
       <div class="ys-grid-row">
           <div class="ys-cell-12 title-line">
             <div class="title-line-t">
-              <button class="ys-btn toolbar-btn" @click="addPage"><i class="fa fa-plus"></i></button>
+              <button class="ys-btn toolbar-btn" @click="deletePage"><i class="fa fa-pencil"></i></button>
               <button class="ys-btn toolbar-btn" @click="deletePage"><i class="fa fa-trash"></i></button>
             </div>
           </div>
+      </div>
+    </div>
+    <div class="bar-cnt--panel ys-grid">
+      <div class="ys-grid-row">
           <div class="ys-cell-12">
-            <ul class="list-unstyle page-construct">
-              <li v-if="page.name">
-                页面
-              </li>
-            </ul>
+            <el-tree 
+              :data="treeData" 
+              node-key="key" 
+              ref="tree"
+              show-checkbox
+              check-strictly
+              :auto-expand-parent="true"
+              :default-expand-all="true"
+              @check-change="handleChange"
+              highlight-current>
+            </el-tree>
           </div>
       </div>
     </div>
@@ -85,13 +95,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { Message } from 'element-ui'
 export default {
   name: 'com-panel',
   props:{
-    page : {
-      type: Object,
-      default: {}
-    },
     addcom:{
       type: Function,
       default: null
@@ -101,27 +109,52 @@ export default {
       default: null
     }
   },
-  created () {
-    
-  },
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  computed:{
+    page () {
+      return this.$store.getters.getPage;
+    },
+    currentDom () {
+      return this.$store.getters.getCDOM;
+    },
+    treeData () {
+      return new Array(this.page);
     }
   },
   methods:{
     add (type) {
       if(this.addcom){
-        this.addcom(type);
+        this.addcom(type, () => {
+          this.$refs.tree.setCheckedKeys([this.currentDom]);
+        });
       }
     },
     addPage (){
-      if(this.addmain){
-        this.addmain();
+      if(this.addmain){ 
+        this.addmain(() => {
+          this.$refs.tree.setCheckedKeys([this.currentDom]);
+        });
       }
     },
     deletePage () {
-
+      if(this.selected && this.selected!='0'){
+        this.$store.dispatch('deleteCom', this.selected).then(() => {
+          this.selected = '';
+        });
+      }else{
+        Message({
+          showClose:true,
+          message: '未选中组件或当前组件不可删除',
+          type: 'error',
+          duration: 0
+        });
+      }
+    },
+    handleChange (data, checked, haveChecked) {
+      if(checked){
+        this.selected = data.key;
+        this.$store.commit('SET_CDOM',data.key);
+        this.$refs.tree.setCheckedKeys([this.currentDom]);
+      }
     }
   }
 }
@@ -196,5 +229,19 @@ export default {
     padding: 5px 10px;
     margin: 0 -10px;
     border-top: 1px solid #bfbfbf;
+  }
+  .el-tree-node__expand-icon{
+      border: 6px solid transparent;
+      border-right-width: 0;
+      border-left-color: rgb(190, 170, 151);
+      border-left-width: 8px;
+  }
+  .el-tree-node__content {
+    line-height: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+  .el-tree-node__label {
+    font-size: 12px;
   }
 </style>

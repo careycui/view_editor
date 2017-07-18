@@ -1,20 +1,21 @@
 <template>
-	<div class="banner">
+	<div class="banner outer-html" :style="style" :class="{active: isActive}" v-drag="setPos">
 		
 	</div>
 </template>
 <script>
+import { mapState } from 'vuex'
+import { common } from './utils'
 	export default {
 		name: 'banner',
-		data () {
-			return {
-				style: [
-				],
-				data: [
-				],
-				interaction:[
-				]
+		mixins: [common],
+		computed: {
+			isActive () {
+				return this.formkey == this.currentDom;
 			}
+		},
+		mounted () {
+			console.log('banner : ', this.formkey);
 		}
 	}
 </script>
