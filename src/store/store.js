@@ -49,16 +49,9 @@ const mutations = {
 			}
 		});
 	},
-	DEL_COM (state, key) {
-		delete state.forms[key];
-		let keyArr = key.split(':');
-		let com = state.page;
-		keyArr.forEach((item,i) => {
-			if(i > 1){
-				com = com.children[keyArr[i-1]];
-			}
-		});
-		com.children.splice(keyArr[keyArr.length-1],1);
+	DEL_COM (state, obj) {
+		delete state.forms[obj.key];
+		obj.currCom.children.splice(obj.index,1);
 	}
 }
 const getters = {
@@ -98,8 +91,8 @@ const actions = {
 	setPostion ({commit}, obj) {
 		commit('SET_POSITION', obj);
 	},
-	deleteCom ({commit}, key) {
-		commit('DEL_COM', key);
+	deleteCom ({commit}, obj) {
+		commit('DEL_COM', obj);
 	}
 }
 export default new Vuex.Store({

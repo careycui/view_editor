@@ -27,6 +27,7 @@
               check-strictly
               :auto-expand-parent="true"
               :default-expand-all="true"
+              :default-checked-keys="defaultChecks"
               @check-change="handleChange"
               highlight-current>
             </el-tree>
@@ -118,6 +119,9 @@ export default {
     },
     treeData () {
       return new Array(this.page);
+    },
+    defaultChecks () {
+      return new Array(this.currentDom);
     }
   },
   methods:{
@@ -137,7 +141,32 @@ export default {
     },
     deletePage () {
       if(this.selected && this.selected!='0'){
-        this.$store.dispatch('deleteCom', this.selected).then(() => {
+        let currCom = this.page;
+        let index = 0;
+        
+        let _get = function(curr,key){
+            for (let i=0;i<curr.children.length;i++) {
+              let item = curr.children[i];
+              if(item.key ===  key){
+                currCom = item;
+                index = i;
+                break;
+              }else{
+                if(item.children){
+                  _get(item, key);
+                }
+              }
+            }
+        }
+        _get(currCom, this.selected);//获得当前选中组件
+        //获得当前组件的父容器
+        if(currCom._parent_ === this.page.key){
+          currCom = this.page;
+        }else{
+         _get(this.page, currCom._parent_);
+        }
+        debugger;
+        this.$store.dispatch('deleteCom', {key: this.selected, currCom: currCom, index: index}).then(() => {
           this.selected = '';
         });
       }else{

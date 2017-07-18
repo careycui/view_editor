@@ -87,7 +87,6 @@ export default {
     add (type, callback) {
       let com = components[type]();
       let currDom = this.getCurrent(com);
-      debugger;
       if(currDom){
         this.$store.dispatch('add', {currDom : currDom , com: com, formData: comData[type]()}).then(() => {
           this.com_title = type;
