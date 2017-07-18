@@ -10,7 +10,6 @@
       <div class="ys-grid-row">
           <div class="ys-cell-12 title-line">
             <div class="title-line-t">
-              <button class="ys-btn toolbar-btn" @click="deletePage"><i class="fa fa-pencil"></i></button>
               <button class="ys-btn toolbar-btn" @click="deletePage"><i class="fa fa-trash"></i></button>
             </div>
           </div>

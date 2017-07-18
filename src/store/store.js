@@ -69,6 +69,25 @@ const getters = {
 	},
 	getCurrentForm () {
 		return state.forms[state.currentDom];
+	},
+	getCurrentCom (state) {
+		let currCom = state.page;
+        
+        let _get = function(curr,key){
+            for (let i=0;i<curr.children.length;i++) {
+              let item = curr.children[i];
+              if(item.key ===  key){
+                currCom = item;
+                break;
+              }else{
+                if(item.children){
+                  _get(item, key);
+                }
+              }
+            }
+        }
+        _get(currCom, state.currentDom);
+        return currCom;
 	}
 }
 const actions = {

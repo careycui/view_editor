@@ -23,6 +23,7 @@ import  {Input,
 		OptionGroup,
 		Button,
 		ButtonGroup,
+		Tag,
 		Tree} from 'element-ui'
 
 Vue.use(Input);
@@ -39,6 +40,7 @@ Vue.use(OptionGroup);
 Vue.use(Button);
 Vue.use(ButtonGroup);
 Vue.use(Tree);
+Vue.use(Tag);
 
 Vue.config.productionTip = false
 Vue.component('container', Container);
