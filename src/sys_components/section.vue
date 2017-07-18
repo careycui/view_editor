@@ -1,5 +1,5 @@
 <template>
-	<div class="section outer-html" :style="style" :class="{active: isActive}" v-drag="setPos">
+	<div class="section outer-html" :style="style" :class="{active: isActive}">
 		<slot></slot>
 	</div>
 </template>

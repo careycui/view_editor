@@ -17,9 +17,19 @@
 	width: 1920px;
 	left: 50%;
 	margin-left: -960px;
-
-	border: 1px solid #dedede;
 }
 .banner{
 	position: absolute;
+}
+.btn-ele{
+	position: absolute;
+	display: inline-block;
+}
+.image-ele{
+	position: absolute;
+	display: inline-block;
+}
+.img-link{
+	position: absolute;
+	display: inline-block;
 }

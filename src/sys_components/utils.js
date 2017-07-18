@@ -15,7 +15,10 @@ const COM_MIXIN = {
 				});
 			});
 			return style;
-		}
+		},
+		isActive () {
+				return this.formkey == this.currentDom;
+			}
 	},
 	methods : {
 		setPos (val) {

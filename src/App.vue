@@ -150,6 +150,7 @@ export default {
   left: 0;
   border-right:1px solid #fff;
   box-shadow: 0 2px 5px rgba(0,0,0, .4), 0 4px 15px rgba(0,0,0, .2);
+  overflow: auto;
 }
 .right-bar{
   @extend %pos;

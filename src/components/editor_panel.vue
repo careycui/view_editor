@@ -83,7 +83,6 @@
 			    			</div>
 			    		</div>
 		    		</div>
-		    		
 		    	</div>
 		    </div>
 		</div>
@@ -156,7 +155,7 @@ export default {
 		font-size: 12px;
 	}
 	.bar-cnt--panel{
-		height: 400px;
+		height: 300px;
 		overflow-y: auto;
 	}
 	.margin-no--t{

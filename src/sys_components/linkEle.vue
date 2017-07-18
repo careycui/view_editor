@@ -1,21 +1,14 @@
 <template>
-	<div class="link-ele">
+	<div class="link-ele outer-html" :style="style" :class="{active: isActive}" v-drag="setPos">
 		Link Element
 	</div>
 </template>
 <script>
+import { mapState } from 'vuex'
+import { common } from './utils'
 	export default {
 		name: 'link-ele',
-		data () {
-			return {
-				style: [
-				],
-				data: [
-				],
-				interaction:[
-				]
-			}
-		}
+		mixins: [common]
 	}
 </script>
 <style lang="scss" scoped>

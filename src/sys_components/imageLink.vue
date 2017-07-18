@@ -1,21 +1,14 @@
 <template>
-	<div class="img-link">
+	<div class="img-link outer-html" :style="style" :class="{active: isActive}" v-drag="setPos">
 		Image Link
 	</div>
 </template>
 <script>
+import { mapState } from 'vuex'
+import { common } from './utils'
 	export default {
 		name: 'image-link',
-		data () {
-			return {
-				style: [
-				],
-				data: [
-				],
-				interaction:[
-				]
-			}
-		}
+		mixins: [common]
 	}
 </script>
 <style lang="scss" scoped>
