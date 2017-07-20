@@ -16,6 +16,25 @@ const COM_MIXIN = {
 			});
 			return style;
 		},
+		data () {
+			let data = {};
+			let form = this.form;
+			Object.keys(form).forEach((item, i) => {
+				data[item] = {};
+				Object.keys(form[item]).forEach((item2, j) => {
+					let temp = form[item][item2];
+					temp.forEach((item3, h)=>{
+						data[item][item3.name] = {
+							label: item3.label,
+							val: item3.val,
+							type: item2
+						};
+					});
+
+				});
+			});
+			return data;
+		},
 		isActive () {
 				return this.formkey == this.currentDom;
 			}

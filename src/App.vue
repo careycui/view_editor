@@ -111,7 +111,8 @@ export default {
 #app {
   padding-top: 50px;
   & .app-content{
-    margin: 0 280px 0 200px;
+    width: 100%;
+    margin: 0 auto;
   }
 }
 .top-bar{
@@ -158,6 +159,7 @@ export default {
   right: 0;
   border-left:1px solid #fff;
   box-shadow: 0 -2px 5px rgba(0,0,0, .4), 0 -4px 15px rgba(0,0,0, .2);
+  overflow: auto;
 }
 .outer-html.active{
   outline: 2px dashed #f26a18;

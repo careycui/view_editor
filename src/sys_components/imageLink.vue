@@ -8,7 +8,10 @@ import { mapState } from 'vuex'
 import { common } from './utils'
 	export default {
 		name: 'image-link',
-		mixins: [common]
+		mixins: [common],
+		mounted () {
+			console.log(this.data);
+		},
 	}
 </script>
 <style lang="scss" scoped>

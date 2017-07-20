@@ -154,22 +154,6 @@ const coms_data = {
 							unit: 'px'
 						}
 					},{
-						label: 'X',
-						name: 'left',
-						val: '960',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: 'Y',
-						name: 'top',
-						val: '0',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
 						label: 'ML',
 						name: 'marginLeft',
 						val: '-960',
@@ -405,7 +389,7 @@ const coms_data = {
 					}],
 					hover:[{
 						label: '样式',
-						name: '',
+						name: 'class',
 						val: '',
 						formEle: {
 							type: 'el-input'
