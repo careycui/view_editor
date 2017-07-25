@@ -12,7 +12,7 @@
       <com-panel :addcom="add" :addmain="addMain"></com-panel>
     </div>
     <div class="right-bar">
-      <editor-panel :title="com_title"></editor-panel>
+      <editor-panel></editor-panel>
     </div>
     <div class="app-content">
       <component v-if="page.name" :is="page.name" :formkey = "page.key">
@@ -41,11 +41,6 @@ export default {
   },
   beforeMount () {
     this.addMain(); // 页面初始化
-  },
-  data () {
-    return {
-      com_title: ''
-    }
   },
   computed : mapState(['page', 'forms', 'currentDom']),
   methods:{
@@ -89,14 +84,12 @@ export default {
       let currDom = this.getCurrent(com);
       if(currDom){
         this.$store.dispatch('add', {currDom : currDom , com: com, formData: comData[type]()}).then(() => {
-          this.com_title = type;
           callback && callback();
         });
       }
     },
     addMain (callback) {
         this.$store.dispatch('addMain', {page: components.container(), formData: comData.container()}).then(() => {
-          this.com_title = 'Container';
           callback && callback();
         });
     },
@@ -144,7 +137,7 @@ export default {
   padding-top: 40px;
   width: 200px;
   background-color: #fafafa;
-  z-index: 1;
+  z-index: 10;
 }
 .left-bar{
   @extend %pos;
@@ -164,5 +157,6 @@ export default {
 .outer-html.active{
   outline: 2px dashed #f26a18;
   outline-offset: -2px;
+  z-index: 1;
 }
 </style>

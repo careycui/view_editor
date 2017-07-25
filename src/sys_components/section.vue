@@ -1,6 +1,9 @@
 <template>
-	<div class="section outer-html" :style="style" :class="{active: isActive}">
+	<div class="section outer-html" :style="[pos, bg, ff]" :class="{active: isActive}">
 		<slot></slot>
+		<div class="container-bg" v-if="data.style.type.val == 'IL'">
+			<img :src="data.style.backgroundImage.val" class="bg-img">
+		</div>
 	</div>
 </template>
 <script>
@@ -13,8 +16,6 @@ import { common } from './utils'
 			isActive () {
 				return this.formkey == this.currentDom;
 			}
-		},
-		mounted () {
 		}
 	}
 </script>

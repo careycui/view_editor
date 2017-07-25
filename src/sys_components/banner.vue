@@ -1,6 +1,8 @@
 <template>
-	<div class="banner outer-html" :style="style" :class="{active: isActive}" v-drag="setPos">
-		
+	<div class="banner outer-html" :style="[pos, bg, ff]" :class="{active: isActive}" v-drag="setPos">
+		<div class="container-bg" v-if="data.style.type.val == 'IL'">
+			<img :src="data.style.backgroundImage.val" class="bg-img">
+		</div>
 	</div>
 </template>
 <script>
@@ -13,9 +15,6 @@ import { common } from './utils'
 			isActive () {
 				return this.formkey == this.currentDom;
 			}
-		},
-		mounted () {
-			console.log('banner : ', this.formkey);
 		}
 	}
 </script>

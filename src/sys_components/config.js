@@ -97,16 +97,23 @@ const coms_data = {
 					},{
 						label: '图片',
 						name: 'backgroundImage',
-						val: '',
+						val: 'about:blank',
 						formEle: {
 							type: 'el-input'
 						}
 					},{
 						label: '类型',
 						name: 'type',
-						val: '',
+						val: 'BG',
 						formEle: {
-							type: 'el-input'
+							type: 'el-select',
+							data: [{
+								value: 'BG',
+								label: 'Background Image'
+							},{
+								value: 'IL',
+								label: 'Image Layer'
+							}]
 						}
 					}],
 					font:[{
@@ -181,7 +188,7 @@ const coms_data = {
 					},{
 						label: '图片',
 						name: 'backgroundImage',
-						val: '',
+						val: 'about:blank',
 						formEle: {
 							type: 'el-input',
 							unit: ''
@@ -189,10 +196,16 @@ const coms_data = {
 					},{
 						label: '类型',
 						name: 'type',
-						val: '',
+						val: 'BG',
 						formEle: {
-							type: 'el-input',
-							unit: ''
+							type: 'el-select',
+							data: [{
+								value: 'BG',
+								label: 'Background Image'
+							},{
+								value: 'IL',
+								label: 'Image Layer'
+							}]
 						}
 					}],
 					font:[{
@@ -282,9 +295,16 @@ const coms_data = {
 					},{
 						label: '类型',
 						name: 'type',
-						val: '',
+						val: 'BG',
 						formEle: {
-							type: 'el-input'
+							type: 'el-select',
+							data: [{
+								value: 'BG',
+								label: 'Background Image'
+							},{
+								value: 'IL',
+								label: 'Image Layer'
+							}]
 						}
 					}],
 					font:[{
@@ -347,28 +367,6 @@ const coms_data = {
 							type: 'el-input-number',
 							unit: 'px'
 						}
-					}],
-					font:[{
-						label: '字体',
-						name: 'fontFamily',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					},{
-						label: '颜色',
-						name: 'color',
-						val: '#000',
-						formEle: {
-							type: 'el-input'
-						}
-					},{
-						label: '行高',
-						name: 'lineHeight',
-						val: '1.5',
-						formEle: {
-							type: 'el-input'
-						}
 					}]
 				},
 				action:{
@@ -382,9 +380,16 @@ const coms_data = {
 					},{
 						label: '方式',
 						name: 'target',
-						val: '',
+						val: '_blank',
 						formEle: {
-							type: 'el-input'
+							type: 'el-select',
+							data:[{
+								label: '当前页',
+								value: '_self'
+							},{
+								label: '新页面',
+								value: '_blank'
+							}]
 						}
 					}],
 					hover:[{
@@ -395,79 +400,99 @@ const coms_data = {
 							type: 'el-input'
 						}
 					}]
+				},
+				data:{
+					base: [{
+						label: '图片',
+						name: 'img',
+						val: '',
+						formEle: {
+							type: 'el-input'
+						}
+					}]
 				}
 		}
 	},
 	imageEle() {
 		return {
-				style:{
-					position: [{
-						label: 'W',
-						name: 'width',
-						val: '300',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: 'H',
-						name: 'height',
-						val: '200',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: 'X',
-						name: 'left',
-						val: '0',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: 'Y',
-						name: 'top',
-						val: '0',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					}],
-					border:[{
-						label: '宽度',
-						name: 'borderWidth',
-						val: '',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: '颜色',
-						name: 'borderColor',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					},{
-						label: '样式',
-						name: 'borderStyle',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					}]
-				},
-				action:{
-					hover:[{
-						label: '样式',
-						name: '',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					}]
-				}
+			style:{
+				position: [{
+					label: 'W',
+					name: 'width',
+					val: '300',
+					formEle: {
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				},{
+					label: 'H',
+					name: 'height',
+					val: '200',
+					formEle: {
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				},{
+					label: 'X',
+					name: 'left',
+					val: '0',
+					formEle: {
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				},{
+					label: 'Y',
+					name: 'top',
+					val: '0',
+					formEle: {
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				}],
+				border:[{
+					label: '宽度',
+					name: 'borderWidth',
+					val: '',
+					formEle: {
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				},{
+					label: '颜色',
+					name: 'borderColor',
+					val: '',
+					formEle: {
+						type: 'el-input'
+					}
+				},{
+					label: '样式',
+					name: 'borderStyle',
+					val: '',
+					formEle: {
+						type: 'el-input'
+					}
+				}]
+			},
+			action:{
+				hover:[{
+					label: '样式',
+					name: '',
+					val: '',
+					formEle: {
+						type: 'el-input'
+					}
+				}]
+			},
+			data:{
+				base:[{
+					label: '图片',
+					name: 'img',
+					val: '',
+					formEle: {
+						type: 'el-input'
+					}
+				}]
+			}
 		}
 	},
 	linkEle () {
@@ -484,7 +509,7 @@ const coms_data = {
 					},{
 						label: 'H',
 						name: 'height',
-						val: '200',
+						val: '60',
 						formEle: {
 							type: 'el-input-number',
 							unit: 'px'
@@ -514,15 +539,8 @@ const coms_data = {
 							type: 'el-input'
 						}
 					},{
-						label: '图片',
+						label: '背景图',
 						name: 'backgroundImage',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					},{
-						label: '类型',
-						name: 'type',
 						val: '',
 						formEle: {
 							type: 'el-input'
@@ -534,6 +552,14 @@ const coms_data = {
 						val: '',
 						formEle: {
 							type: 'el-input'
+						}
+					},{
+						label: '字号',
+						name: 'fontSize',
+						val: '14',
+						formEle:{
+							type: 'el-input-number',
+							unit: 'px'
 						}
 					},{
 						label: '颜色',
@@ -586,14 +612,31 @@ const coms_data = {
 					},{
 						label: '方式',
 						name: 'target',
-						val: '',
-						formEle : {
-							type: 'el-input'
+						val: '_blank',
+						formEle: {
+							type: 'el-select',
+							data:[{
+								label: '当前页',
+								value: '_self'
+							},{
+								label: '新页面',
+								value: '_blank'
+							}]
 						}
 					}],
 					hover:[{
 						label: '样式',
 						name: '',
+						val: '',
+						formEle:{
+							type: 'el-input'
+						}
+					}]
+				},
+				data:{
+					base:[{
+						label: '文本',
+						name: 'txt',
 						val: '',
 						formEle:{
 							type: 'el-input'
@@ -646,15 +689,8 @@ const coms_data = {
 							type: 'el-input'
 						}
 					},{
-						label: '图片',
+						label: '背景图',
 						name: 'backgroundImage',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					},{
-						label: '类型',
-						name: 'type',
 						val: '',
 						formEle: {
 							type: 'el-input'
@@ -666,6 +702,14 @@ const coms_data = {
 						val: '',
 						formEle: {
 							type: 'el-input'
+						}
+					},{
+						label: '字号',
+						name: 'fontSize',
+						val: '14',
+						formEle:{
+							type: 'el-input-number',
+							unit: 'px'
 						}
 					},{
 						label: '颜色',
@@ -727,6 +771,16 @@ const coms_data = {
 						name: '',
 						val: '',
 						formEle: {
+							type: 'el-input'
+						}
+					}]
+				},
+				data:{
+					base:[{
+						label: '文本',
+						name: 'txt',
+						val: '',
+						formEle:{
 							type: 'el-input'
 						}
 					}]

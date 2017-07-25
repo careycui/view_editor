@@ -1,30 +1,35 @@
 <template>
 	<div class="bar-cnt">
-		<div class="bar-cnt--line" style="height:auto;overflow:hidden;padding-left:5px;">
-			<h4 class="mt-10">{{title}}</h4>
-		</div>
-		<div>
-			<div class="bar-cnt--title ys-grid">
-				<div class="ys-grid-row">
-					 <h4 class="ys-cell-12 mt-10 margin-no--b"><i class="fa fa-file-o"></i> 基本信息</h4>
-				</div>
+		<div class="bar-cnt--title ys-grid">
+			<div class="ys-grid-row">
+				 <h4 class="ys-cell-12 mt-10 margin-no--b"><i class="fa fa-file-o"></i> 基本信息</h4>
 			</div>
-			<hr>
-			<div class="bar-cnt--panel ys-grid"  style="height:auto;overflow:hidden">
-				<div class="ys-grid-row">
-					<div class="ys-cell-12 ys-form-group ys-form-group-sm">
-	    				<label class="ys-cell-2 no-padding t-align--l">别名</label>
-	    				<div class="ys-cell-10 no-padding">
-	    					<el-input size="mini" v-model="com.label"></el-input>
+		</div>
+		<hr>
+		<div class="bar-cnt--panel ys-grid"  style="height:auto;overflow:hidden">
+			<div class="ys-grid-row">
+				<div class="ys-cell-12 ys-form-group ys-form-group-sm">
+    				<label class="ys-cell-2 no-padding t-align--l">别名</label>
+    				<div class="ys-cell-10 no-padding">
+    					<el-input size="mini" v-model="com.label"></el-input>
+    				</div>
+    			</div>
+    			<div class="ys-cell-12 ys-form-group ys-form-group-sm">
+    				<label class="ys-cell-2 no-padding t-align--l">组件名</label>
+    				<div class="ys-cell-10 no-padding">
+    					<el-tag type="primary">{{ com.name }}</el-tag>
+    				</div>
+    			</div>
+    			<div v-if="form.data && form.data.base">
+    				<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="base in form.data.base">
+    					<label class="ys-cell-2 no-padding t-align--l">{{base.label}}</label>
+    					<div class="ys-cell-10 no-padding">
+	    					<component :is="base.formEle.type" size="mini" v-model="base.val">
+	    						<el-option v-if="base.formEle.type == 'el-select'" v-for="item in base.formEle.data" :key="item.value" :label="item.label" :value="item.value"></el-option>
+	    					</component>
 	    				</div>
-	    			</div>
-	    			<div class="ys-cell-12 ys-form-group ys-form-group-sm">
-	    				<label class="ys-cell-2 no-padding t-align--l">组件名</label>
-	    				<div class="ys-cell-10 no-padding">
-	    					<el-tag type="primary">{{ com.name }}</el-tag>
-	    				</div>
-	    			</div>
-				</div>
+    				</div>
+    			</div>
 			</div>
 		</div>
 		<div class="bar-cnt--line"></div>
@@ -45,6 +50,7 @@
 		    				<label class="ys-cell-2 no-padding t-align--l">{{dataP.label}}</label>
 		    				<div class="ys-cell-10 no-padding">
 		    					<component :is="dataP.formEle.type" size="mini" v-model="dataP.val">
+		    						<el-option v-if="dataP.formEle.type == 'el-select'" v-for="item in dataP.formEle.data" :key="item.value" :label="item.label" :value="item.value"></el-option>
 		    					</component>
 		    				</div>
 		    			</div>
@@ -57,6 +63,7 @@
 			    			<label class="ys-cell-2 no-padding t-align--l">{{dataB.label}}</label>
 			    			<div class="ys-cell-10 no-padding">
 			    				<component :is="dataB.formEle.type" size="mini" v-model="dataB.val">
+			    					<el-option v-if="dataB.formEle.type == 'el-select'" v-for="item in dataB.formEle.data" :key="item.value" :label="item.label" :value="item.value"></el-option>
 			    				</component>
 			    			</div>
 			    		</div>
@@ -68,7 +75,9 @@
 			    		<div class="ys-form-group ys-form-group-sm ys-cell-12" v-for="dataF in form.style.font">
 			    			<label class="ys-cell-2 no-padding t-align--l">{{dataF.label}}</label>
 			    			<div class="ys-cell-10 no-padding">
-			    				<component :is="dataF.formEle.type" size="mini" v-model="dataF.val"></component>
+			    				<component :is="dataF.formEle.type" size="mini" v-model="dataF.val">
+			    					<el-option v-if="dataF.formEle.type == 'el-select'" v-for="item in dataF.formEle.data" :key="item.value" :label="item.label" :value="item.value"></el-option>
+			    				</component>
 			    			</div>
 			    		</div>
 		    		</div>
@@ -79,7 +88,9 @@
 			    		<div class="ys-form-group ys-form-group-sm ys-cell-12" v-for="dataBd in form.style.border">
 			    			<label class="ys-cell-2 no-padding t-align--l">{{dataBd.label}}</label>
 			    			<div class="ys-cell-10 no-padding">
-			    				<component :is="dataBd.formEle.type" size="mini" v-model="dataBd.val"></component>
+			    				<component :is="dataBd.formEle.type" size="mini" v-model="dataBd.val">
+			    					<el-option v-if="dataBd.formEle.type == 'el-select'" v-for="item in dataBd.formEle.data" :key="item.value" :label="item.label" :value="item.value"></el-option>
+			    				</component>
 			    			</div>
 			    		</div>
 		    		</div>
@@ -103,7 +114,9 @@
 			    		<div class="ys-form-group ys-form-group-sm ys-cell-12" v-for="action1 in form.action.jump">
 			    			<label class="ys-cell-2 no-padding t-align--l">{{action1.label}}</label>
 			    			<div class="ys-cell-10 no-padding">
-			    				<component :is="action1.formEle.type" size="mini" v-model="action1.val"></component>
+			    				<component :is="action1.formEle.type" size="mini" v-model="action1.val">
+			    					<el-option v-if="action1.formEle.type == 'el-select'" v-for="item in action1.formEle.data" :key="item.value" :label="item.label" :value="item.value"></el-option>
+			    				</component>
 			    			</div>
 			    		</div>
 		    		</div>
@@ -114,7 +127,9 @@
 			    		<div class="ys-form-group ys-form-group-sm ys-cell-12" v-for="action2 in form.action.hover">
 			    			<label class="ys-cell-2 no-padding t-align--l">{{action2.label}}</label>
 			    			<div class="ys-cell-10 no-padding">
-			    				<component :is="action2.formEle.type" size="mini" v-model="action2.val"></component>
+			    				<component :is="action2.formEle.type" size="mini" v-model="action2.val">
+			    					<el-option v-if="action2.formEle.type == 'el-select'" v-for="item in action2.formEle.data" :key="item.value" :label="item.label" :value="item.value"></el-option>
+			    				</component>
 			    			</div>
 			    		</div>
 		    		</div>
@@ -129,7 +144,6 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'editor-panel',
-  props: ['title'],
   computed: {
   	form : {
   		get () {

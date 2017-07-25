@@ -164,7 +164,6 @@ export default {
         }else{
          _get(this.page, currCom._parent_);
         }
-        debugger;
         this.$store.dispatch('deleteCom', {key: this.selected, currCom: currCom, index: index}).then(() => {
           this.selected = '';
         });
