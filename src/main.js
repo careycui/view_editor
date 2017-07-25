@@ -24,7 +24,9 @@ import  {Input,
 		Button,
 		ButtonGroup,
 		Tag,
-		Tree} from 'element-ui'
+		Tree,
+		Collapse,
+		CollapseItem} from 'element-ui'
 
 Vue.use(Input);
 Vue.use(InputNumber);
@@ -41,6 +43,8 @@ Vue.use(Button);
 Vue.use(ButtonGroup);
 Vue.use(Tree);
 Vue.use(Tag);
+Vue.use(Collapse);
+Vue.use(CollapseItem);
 
 Vue.config.productionTip = false
 Vue.component('container', Container);

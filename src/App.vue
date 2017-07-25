@@ -114,7 +114,7 @@ export default {
   width: 100%;
   height: 40px;
   background-color: #333;
-  z-index: 10;
+  z-index: 100;
 }
 .top-bar--title{
   height: 40px;

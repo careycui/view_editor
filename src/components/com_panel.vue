@@ -15,7 +15,7 @@
           </div>
       </div>
     </div>
-    <div class="bar-cnt--panel ys-grid">
+    <div class="bar-cnt--panel ys-grid" style="height:200px;">
       <div class="ys-grid-row">
           <div class="ys-cell-12">
             <el-tree 
@@ -187,12 +187,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .mt-10{
     margin-top: 10px;
-  }
-  .bar-cnt--panel{
-    height: 300px;
   }
   .bar-cnt--line{
     width:100%;
@@ -202,7 +199,7 @@ export default {
   .com-list{
     margin: 0 -10px 0 -10px;
     word-spacing: -6px;
-    
+
     & .com-list--item{
       height: 60px;
       padding-top: 12px;
