@@ -8,11 +8,13 @@
       </div>
     </div>
 
-    <div class="left-bar">
+    <div class="left-bar" v-drawer="{'attr':'left', 'w': '200px'}">
       <com-panel :addcom="add" :addmain="addMain"></com-panel>
+      <div class="bar-cntrl"></div>
     </div>
-    <div class="right-bar">
+    <div class="right-bar" v-drawer="{'attr':'right', 'w': '280px'}">
       <editor-panel></editor-panel>
+      <div class="bar-cntrl"></div>
     </div>
     <div class="app-content">
       <component v-if="page.name" :is="page.name" :formkey = "page.key">
@@ -138,13 +140,24 @@ export default {
   width: 200px;
   background-color: #fafafa;
   z-index: 10;
+
+  -webkit-transition: all .6s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  -moz-transition: all .6s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  transition: all .6s cubic-bezier(0.895, 0.03, 0.685, 0.22);
 }
 .left-bar{
   @extend %pos;
   left: 0;
   border-right:1px solid #fff;
   box-shadow: 0 2px 5px rgba(0,0,0, .4), 0 4px 15px rgba(0,0,0, .2);
-  overflow: auto;
+
+  &.close{
+    left: -200px;
+
+    & .bar-cntrl{
+      right: -11px;
+    }
+  }
 }
 .right-bar{
   @extend %pos;
@@ -152,7 +165,30 @@ export default {
   right: 0;
   border-left:1px solid #fff;
   box-shadow: 0 -2px 5px rgba(0,0,0, .4), 0 -4px 15px rgba(0,0,0, .2);
-  overflow: auto;
+
+  &.close{
+    right: -280px;
+
+    & .bar-cntrl{
+      left: -11px;
+    }
+  }
+}
+.bar-cntrl{
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  margin-top: -20px;
+  width: 10px;
+  height: 40px;
+  background-color: #f0f;
+
+  -webkit-transition: all .1s linear .5s;
+  -moz-transition: all .1s linear .5s;
+  transition: all .1s linear .5s;
+}
+.right-bar .bar-cntrl{
+  left: -1px;
 }
 .outer-html.active{
   outline: 2px dashed #f26a18;
