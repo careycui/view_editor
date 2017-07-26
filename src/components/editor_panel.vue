@@ -260,7 +260,6 @@ export default {
 		font-size: 12px;
 	}
 	.bar-cnt--panel{
-		height: 300px;
 		overflow-y: auto;
 	}
 	.margin-no--t{
