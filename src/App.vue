@@ -9,7 +9,7 @@
           <button class="ys-btn ys-btn-sm ys-btn--c" title="上传PSD文件"><i class="fa fa-upload fa-2x"></i></button>
           <button class="ys-btn ys-btn-sm ys-btn--c" title="控制侧边栏" @click="barChange('all')"><i class="fa fa-columns fa-2x"></i></button>
           <button class="ys-btn ys-btn-sm ys-btn--c" title="HTML"><i class="fa fa-code fa-2x"></i></button>
-          <button class="ys-btn ys-btn-sm ys-btn--c" title="保存"><i class="fa fa-cloud fa-2x"></i></button>
+          <button class="ys-btn ys-btn-sm ys-btn--c" title="保存"><i class="fa fa-floppy-o fa-2x"></i></button>
         </div>
       </div>
     </div>
@@ -34,6 +34,7 @@
       </component>
     </div>
     <div class="line-container">
+      {{ line }}
       <div class="v-l"></div>
       <div class="v-m"></div>
       <div class="v-r"></div>
@@ -68,7 +69,41 @@ export default {
   beforeMount () {
     this.addMain(); // 页面初始化
   },
-  computed : mapState(['page', 'forms', 'currentDom']),
+  computed : {
+    line () {
+      let forms = this.$store.getters.getForms;
+      let currCom = this.$store.getters.getCurrentCom;
+      let currForm = this.$store.getters.getCurrentForm;
+      let parCom = forms[currCom._parent_];
+      let children = [];
+      if(currCom.children){
+          currCom.children.forEach(function(item, i){
+            children.push(forms[item.key]);
+          });
+      }
+      
+      console.log(currForm);
+      console.log(children);
+      console.log(parCom);
+      let l;
+      let t;
+      let r;
+      let b;
+      if(currForm.style.position){
+        let pos = currForm.style.position;
+        
+      }
+    },
+    page () {
+      return this.$store.getters.getPage;
+    },
+    forms () {
+      return this.$store.getters.getForms;
+    },
+    currentDom () {
+      return this.$store.getters.getCurrentDom;
+    }
+  },
   methods:{
     getCurrent (com) {
       let currCom = this.page;

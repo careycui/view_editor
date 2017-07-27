@@ -84,23 +84,6 @@ Vue.directive('drag', { bind : function (el, binding) {
         }
     }
 );
-Vue.directive('drawer', {bind:function(el, binding){
-	let offset = binding.value.w;
-	let attr = binding.value.ele;
-	let cntrl = el.querySelector('.bar-cntrl');
-	let o = el;
-	cntrl.addEventListener('click',function(){
-		let clas = o.className;
-		console.log(clas);
-		if(clas.indexOf('close') > -1){
-			o.style[attr] = 0;
-			o.className = clas.replace(/\sclose/g, '');
-		}else{
-			o.style[attr] = '-' + offset;
-			o.className = clas + ' close';
-		}
-	},false);
-}});
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
