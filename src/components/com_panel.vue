@@ -53,6 +53,10 @@
               <i class="fa fa-pencil-square-o fa-lg"></i><br>
               面板
             </li>
+            <li class="com-list--item" @click="add('banner')">
+              <i class="fa fa-columns fa-lg"></i><br>
+              通栏图
+            </li>
           </ul>
         </div>
         <div class="ys-cell-12">
@@ -60,10 +64,6 @@
             <i class="fa fa-chevron-down"></i> 组件
           </div>
           <ul class="list-inline com-list">
-            <li class="com-list--item" @click="add('banner')">
-              <i class="fa fa-columns fa-lg"></i><br>
-              通栏图
-            </li>
             <li class="com-list--item" @click="add('imageLink')">
               <i class="fa fa-file-image-o fa-lg"></i><br>
               图片链接

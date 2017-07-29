@@ -11,6 +11,12 @@
           <button class="ys-btn ys-btn-sm ys-btn--c" title="HTML"><i class="fa fa-code fa-2x"></i></button>
           <button class="ys-btn ys-btn-sm ys-btn--c" title="保存"><i class="fa fa-floppy-o fa-2x"></i></button>
         </div>
+        <div class="ys-cell-6 top-bar--btn" style="text-align:center;">
+          <button class="ys-btn ys-btn-sm ys-btn--c" title="撤销"><i class="fa fa-reply fa-2x"></i></button>
+          <button class="ys-btn ys-btn-sm ys-btn--c" title="恢复"><i class="fa fa-share fa-2x"></i></button>
+          <button class="ys-btn ys-btn-sm ys-btn--c" title="放大"><i class="fa fa-search-plus fa-2x"></i></button>
+          <button class="ys-btn ys-btn-sm ys-btn--c" title="放小"><i class="fa fa-search-minus fa-2x"></i></button>
+        </div>
       </div>
     </div>
 
@@ -27,6 +33,7 @@
       </div>
     </div>
     <div class="app-content">
+      {{line}}
       <component v-if="page.name" :is="page.name" :formkey = "page.key">
         <component :is="section.name" :formkey = "section.key" v-for="section in page.children" :key="section.key">
           <component :is="ele.name" :formkey = "ele.key" v-for="ele in section.children" :key="ele.key"></component>
@@ -34,7 +41,6 @@
       </component>
     </div>
     <div class="line-container">
-      {{ line }}
       <div class="v-l"></div>
       <div class="v-m"></div>
       <div class="v-r"></div>
@@ -82,16 +88,34 @@ export default {
           });
       }
       
-      console.log(currForm);
-      console.log(children);
-      console.log(parCom);
-      let l;
-      let t;
+      let l = 0;
+      let t = 0;
       let r;
       let b;
       if(currForm.style.position){
         let pos = currForm.style.position;
-        
+        pos.forEach((item, i) => {
+          if(item.name == 'left'){
+            l = item.val;
+          }
+          if(item.name == 'top'){
+            t = item.val;
+          }
+        });
+        pos.forEach((item, i) => {
+          if(item.name == 'width'){
+            r = l + item.val;
+          }
+          if(item.name == 'height'){
+            b = t + item.val;
+          }
+        });
+        return {
+          l : l,
+          t : t,
+          r : r,
+          b : b
+        }
       }
     },
     page () {

@@ -28,7 +28,7 @@ const coms = {
 			name : 'banner',
 			label: '通栏图',
 			children:[],
-		    level: 0,
+		    level: 1,
 		    active: false
 		}
 	},
@@ -74,14 +74,6 @@ const coms_data = {
 						label: 'W',
 						name: 'width',
 						val: '1920',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: 'H',
-						name: 'height',
-						val: '800',
 						formEle: {
 							type: 'el-input-number',
 							unit: 'px'
@@ -262,16 +254,16 @@ const coms_data = {
 							unit: 'px'
 						}
 					},{
-						label: 'X',
-						name: 'left',
-						val: '0',
+						label: 'ML',
+						name: 'marginLeft',
+						val: '-960',
 						formEle: {
 							type: 'el-input-number',
 							unit: 'px'
 						}
 					},{
-						label: 'Y',
-						name: 'top',
+						label: 'MT',
+						name: 'marginTop',
 						val: '0',
 						formEle: {
 							type: 'el-input-number',

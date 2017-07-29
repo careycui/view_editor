@@ -2,6 +2,7 @@
 .container{
 	position: relative;
 	width: 1920px;
+	min-height: 600px;
 	left: 50%;
 	margin-left: -960px;
 	background-color: #fff;
@@ -29,7 +30,10 @@
 	margin-left: -960px;
 }
 .banner{
-	position: absolute;
+	position: relative;
+	width: 1920px;
+	left: 50%;
+	margin-left: -960px;
 }
 .img-link, .image-ele, .btn-ele, .link-ele{
 	position: absolute;
