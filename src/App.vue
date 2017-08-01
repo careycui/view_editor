@@ -33,15 +33,15 @@
       </div>
     </div>
     <div class="app-content">
-      {{line}}
-      <component v-if="page.name" :is="page.name" :formkey = "page.key">
-        <component :is="section.name" :formkey = "section.key" v-for="section in page.children" :key="section.key">
-          <component :is="ele.name" :formkey = "ele.key" v-for="ele in section.children" :key="ele.key"></component>
+      <component v-if="page.name" :is="page.name" :formkey = "page.key" :ref="page.key">
+        <component :is="section.name" :formkey = "section.key" v-for="section in page.children" :key="section.key" :ref="section.key">
+          <component :is="ele.name" :formkey = "ele.key" v-for="ele in section.children" :key="ele.key" :ref="ele.key"></component>
         </component>
       </component>
     </div>
     <div class="line-container">
-      <div class="v-l"></div>
+      {{ line }}
+      <div class="v-l" :style="line.left"></div>
       <div class="v-m"></div>
       <div class="v-r"></div>
       <div class="h-t"></div>
@@ -60,6 +60,29 @@ import store from './store/store.js'
 import { component, components, comData } from './sys_components/config.js'
 import { Message } from 'element-ui'
 
+let getLeft = function (lines, cRect) {
+  let cl = cRect.left;
+  let offset = {
+    o: void 0,
+    left: 0,
+    top: 0,
+    height: '600px',
+    width: '1px'
+  };
+  lines.forEach((item, i) => {
+    if(!offset.o){
+      offset.o = Math.abs(cl - item.left);
+      offset.left = item.left + 'px';
+      offset.top = item.top + 'px';
+    }else{
+      offset.o = offset.o > Math.abs(cl - item.left)?Math.abs(cl - item.left): offset.o; 
+      offset.left = item.left + 'px';
+      offset.top = item.top + 'px';
+    }
+  });
+  console.log(offset);
+  return offset;
+};
 export default {
   name: 'app',
   store,
@@ -73,49 +96,37 @@ export default {
     }
   },
   beforeMount () {
-    this.addMain(); // 页面初始化
+    this.addMain(function(){}); // 页面初始化
   },
   computed : {
     line () {
       let forms = this.$store.getters.getForms;
+      let currDom = this.$store.getters.getCurrentDom;
       let currCom = this.$store.getters.getCurrentCom;
-      let currForm = this.$store.getters.getCurrentForm;
-      let parCom = forms[currCom._parent_];
-      let children = [];
-      if(currCom.children){
-          currCom.children.forEach(function(item, i){
-            children.push(forms[item.key]);
-          });
-      }
-      
-      let l = 0;
-      let t = 0;
-      let r;
-      let b;
-      if(currForm.style.position){
-        let pos = currForm.style.position;
-        pos.forEach((item, i) => {
-          if(item.name == 'left'){
-            l = item.val;
+      let parCom = this.$store.getters.getParentCom;
+      let lines =[];
+      let leftLine;
+
+      if(currCom.$dom){
+        if(parCom.key !== currDom){
+          lines.push(parCom.$dom.getBoundingClientRect());
+          if(parCom.children){
+              parCom.children.forEach(function(item, i){
+                if(item.key != currDom){
+
+                  let rect = item.$dom.getBoundingClientRect();
+                  
+                  lines.push(rect);
+                }
+              });
           }
-          if(item.name == 'top'){
-            t = item.val;
-          }
-        });
-        pos.forEach((item, i) => {
-          if(item.name == 'width'){
-            r = l + item.val;
-          }
-          if(item.name == 'height'){
-            b = t + item.val;
-          }
-        });
-        return {
-          l : l,
-          t : t,
-          r : r,
-          b : b
         }
+        let cRect = currCom.$dom.getBoundingClientRect();
+        leftLine = getLeft(lines, cRect);
+        
+      }
+      return {
+        left: leftLine
       }
     },
     page () {
@@ -169,12 +180,22 @@ export default {
       let currDom = this.getCurrent(com);
       if(currDom){
         this.$store.dispatch('add', {currDom : currDom , com: com, formData: comData[type]()}).then(() => {
+          let $com = this.$refs[this.currentDom];
+          if(Object.prototype.toString.call($com) === '[object Array]'){
+            $com = $com[0];
+          }
+          this.$store.dispatch('addDomNode', {dom: $com.$el});
           callback && callback();
         });
       }
     },
     addMain (callback) {
         this.$store.dispatch('addMain', {page: components.container(), formData: comData.container()}).then(() => {
+          let $com = this.$refs[this.currentDom];
+          if(Object.prototype.toString.call($com) === '[object Array]'){
+            $com = $com[0];
+          }
+          this.$store.dispatch('addDomNode', {dom: $com.$el});
           callback && callback();
         });
     },
@@ -194,7 +215,7 @@ export default {
           this.rightBarClose = true;
         }
       }
-    } 
+    },
   }
 }
 </script>
@@ -341,7 +362,7 @@ export default {
   position: absolute;
   width:0;
   height:0;
-  left:50%;
+  left:0;
   top:45px;
 }
 .v-l, .v-m, .v-r{

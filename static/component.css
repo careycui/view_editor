@@ -39,6 +39,10 @@
 	position: absolute;
 	display: inline-block;
 }
+.btn-ele button {
+	width: 100%;
+	height: 100%;
+}
 .img-link a{
 	display: block;
 	width: 100%;

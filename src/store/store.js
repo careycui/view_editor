@@ -52,6 +52,9 @@ const mutations = {
 	DEL_COM (state, obj) {
 		delete state.forms[obj.key];
 		obj.currCom.children.splice(obj.index,1);
+	},
+	ADD_NODE (state, obj) {
+		Vue.set(obj.com, '$dom', obj.dom);
 	}
 }
 const getters = {
@@ -67,8 +70,28 @@ const getters = {
 	getCurrentDom (state) {
 		return state.currentDom;
 	},
-	getCurrentForm () {
+	getCurrentForm (state) {
 		return state.forms[state.currentDom];
+	},
+	getParentCom (state, getters) {
+		let currCom = state.page;
+		let key = getters.getCurrentCom._parent_;
+
+        let _get = function(curr,key){
+            for (let i=0;i<curr.children.length;i++) {
+              let item = curr.children[i];
+              if(item.key ===  key){
+                currCom = item;
+                break;
+              }else{
+                if(item.children){
+                  _get(item, key);
+                }
+              }
+            }
+        }
+        _get(currCom, key);
+        return currCom;
 	},
 	getCurrentCom (state) {
 		let currCom = state.page;
@@ -92,17 +115,27 @@ const getters = {
 }
 const actions = {
 	add ({dispatch, commit, getters}, obj) {
-		commit('SET_CDOM', new Date().getTime()+'com');
-		commit('ADD_COM',obj);
-		commit('ADD_FORM', obj.formData);
+		return new Promise((resolve, reject) => {
+			commit('SET_CDOM', new Date().getTime()+'com');
+			commit('ADD_COM',obj);
+			commit('ADD_FORM', obj.formData);
+			resolve();
+		});
 	},
 	addMain ({commit, getters}, obj) {
-		let page = getters.getPage;
-		if(!page.name){
-			commit('SET_CDOM', new Date().getTime()+'com');
-			commit('ADD_MAIN', obj.page);
-			commit('ADD_FORM', obj.formData);
-		}
+		return new Promise((resolve, reject) => {
+			let page = getters.getPage;
+			if(!page.name){
+				commit('SET_CDOM', new Date().getTime()+'com');
+				commit('ADD_MAIN', obj.page);
+				commit('ADD_FORM', obj.formData);
+			}
+			resolve();
+		});
+	},
+	addDomNode ({commit, getters}, obj) {
+		let com = getters.getCurrentCom;
+		commit('ADD_NODE',{ dom: obj.dom, com : com});
 	},
 	changeForm ({commit, getters}, obj) {
 		commit('CHANGE_FORM', obj);

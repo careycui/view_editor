@@ -84,6 +84,13 @@ Vue.directive('drag', { bind : function (el, binding) {
         }
     }
 );
+Vue.directive('run', function(el, binding){
+		let offsetLeft = el.offsetLeft;
+		let offsetTop = el.offsetTop;
+
+		binding.value({ox: offsetLeft, oy: offsetTop});
+	}
+);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

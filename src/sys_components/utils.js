@@ -33,7 +33,7 @@ const COM_MIXIN = {
 				});
 				if(style.type && style.type == 'BG'){
 					style.backgroundImage = 'url('+ style.backgroundImage + ')';	
-				}else{
+				}else if(style.type != undefined && style.type != 'BG'){
 					style = {};
 				}
 			}
