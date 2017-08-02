@@ -84,11 +84,11 @@ Vue.directive('drag', { bind : function (el, binding) {
         }
     }
 );
-Vue.directive('run', function(el, binding){
-		let offsetLeft = el.offsetLeft;
-		let offsetTop = el.offsetTop;
+Vue.directive('window', function(el, binding){
+		let width = window.screen.width;
+		let height = window.screen.height;
 
-		binding.value({ox: offsetLeft, oy: offsetTop});
+		binding.value({w: width, h: height});
 	}
 );
 /* eslint-disable no-new */

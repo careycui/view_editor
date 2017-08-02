@@ -1,3 +1,145 @@
+let getLeft = function (lines, cRect) {
+  let cl = cRect.left;
+  let offset = {
+    o: void 0,
+    left: 0,
+    height: '600px',
+    width: '1px',
+    display: 'none'
+  };
+  lines.forEach((item, i) => {
+    let co = Math.abs(cl - item.left);
+    let ro = Math.abs(cl - item.right);
+    let key;
+    let o;
+    if(co < ro){
+    	key = 'left';
+    	o = co - 100;
+    }else{
+    	key = 'right';
+    	o = ro - 100;
+    }
+    if(o <= 0){
+    	offset.display = 'block';
+	    if(!offset.o){
+	      offset.o = Math.abs(o);
+	      offset.left = item[key] + 'px';
+	      offset.height = item.height + 'px';
+	    }else{
+	      if(offset.o < Math.abs(o)){
+	        offset.o = Math.abs(o);
+	        offset.left = item[key]+ 'px';
+	        offset.height = item.height + 'px';
+	      }
+    	}
+    }
+  });
+  return offset;
+};
+let getV = function (lines, cRect) {
+	let vl = (cRect.left + cRect.right)/2;
+	let offset = {
+	    o: void 0,
+	    top: 0,
+	    left: 0,
+	    height: '600px',
+	    width: '1px',
+	    display: 'none'
+	  };
+
+	lines.forEach((item, i) => {
+		let io = (item.left+item.right)/2;
+		let o = Math.abs(vl - io) - 50;
+		if(o <= 0){
+			offset.display = 'block';
+			if(!offset.o){
+		      offset.o = Math.abs(o);
+		      offset.top = item.top + 'px';
+		      offset.left = io + 'px';
+		      offset.height = item.height + 'px';
+		    }else{
+		      if(offset.o < Math.abs(o)){
+		        offset.o = Math.abs(o);
+		        offset.top = item.top + 'px';
+		        offset.left = io+ 'px';
+		        offset.height = item.height + 'px';
+		      }
+	    	}
+		}
+	});
+	return offset;
+};
+let getTop = function (lines, cRect){
+  let ct = cRect.top;
+  let offset = {
+    o: void 0,
+    top: 0,
+    height: '1px',
+    width: '600px',
+    display: 'none'
+  };
+  lines.forEach((item, i) => {
+  	let to = Math.abs(ct - item.top);
+  	let bo = Math.abs(ct - item.bottom);
+  	let o;
+  	let key;
+  	if(to < bo){
+    	key = 'top';
+    	o = to - 100;
+    }else{
+    	key = 'bottom';
+    	o = bo - 100;
+    }
+    if(o <= 0){
+    	offset.display = 'block';
+	    if(!offset.o){
+	      offset.o = Math.abs(o);
+	      offset.top = item[key] + 'px';
+	      offset.width = item.width + 'px';
+	    }else{
+	      if(offset.o < Math.abs(o)){
+	        offset.o = Math.abs(o);
+	        offset.top = item[key] + 'px';
+	        offset.width = item.width + 'px';
+	      }
+    	}
+    }
+  });
+  return offset;
+};
+let getH = function (lines, cRect) {
+	let ht = (cRect.top + cRect.bottom)/2;
+	let offset = {
+	    o: void 0,
+	    top: 0,
+	    left: 0,
+	    height: '600px',
+	    width: '1px',
+	    display: 'none'
+	  };
+
+	lines.forEach((item, i) => {
+		let io = (item.top+item.bottom)/2;
+		let o = Math.abs(ht - io) - 50;
+		if(o <= 0){
+			offset.display = 'block';
+			if(!offset.o){
+		      offset.o = Math.abs(o);
+		      offset.top = io + 'px';
+		      offset.left = item.left + 'px';
+		      offset.width = item.width + 'px';
+		    }else{
+		      if(offset.o < Math.abs(o)){
+		        offset.o = Math.abs(o);
+		        offset.top = io + 'px';
+		        offset.left = item.left+ 'px';
+		        offset.width = item.width + 'px';
+		      }
+	    	}
+		}
+	});
+	return offset;
+};
 const COM_MIXIN = {
 	props: ['formkey'],
 	computed : {
@@ -80,6 +222,43 @@ const COM_MIXIN = {
 		isActive () {
 				return this.formkey == this.currentDom;
 			}
+	},
+	watch : {
+		pos : function (v, o){
+			let _this = this;
+			setTimeout(function(){
+			  let currDom = _this.$store.getters.getCurrentDom;
+		      let currCom = _this.$store.getters.getCurrentCom;
+		      let parCom = _this.$store.getters.getParentCom;
+		      let lines =[];
+		      let leftLine;
+		      let topLine;
+		      let vLine;
+		      let hLine;
+
+		      if(currCom.$dom){
+		        if(parCom.key !== currDom){
+		          lines.push(parCom.$dom.getBoundingClientRect());
+		          if(parCom.children){
+		              parCom.children.forEach(function(item, i){
+		                if(item.key != currDom){
+
+		                  let rect = item.$dom.getBoundingClientRect();
+		                  
+		                  lines.push(rect);
+		                }
+		              });
+		          }
+		        }
+		        let cRect = currCom.$dom.getBoundingClientRect();
+		        leftLine = getLeft(lines, cRect);
+		        topLine = getTop(lines, cRect);
+		        vLine = getV(lines, cRect);
+		        hLine = getH(lines, cRect);
+		      }
+		      _this.$emit('setLine',{ left: leftLine, top: topLine, vertical: vLine, horizon: hLine});
+			},0);
+		}
 	},
 	methods : {
 		setPos (val) {
