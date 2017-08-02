@@ -8,7 +8,7 @@
         <div class="ys-cell-3 top-bar--btn">
           <button class="ys-btn ys-btn-sm ys-btn--c" title="上传PSD文件"><i class="fa fa-upload fa-2x"></i></button>
           <button class="ys-btn ys-btn-sm ys-btn--c" title="控制侧边栏" @click="barChange('all')"><i class="fa fa-columns fa-2x"></i></button>
-          <button class="ys-btn ys-btn-sm ys-btn--c" title="HTML"><i class="fa fa-code fa-2x"></i></button>
+          <button class="ys-btn ys-btn-sm ys-btn--c" title="HTML" @click="openCodes"><i class="fa fa-code fa-2x"></i></button>
           <button class="ys-btn ys-btn-sm ys-btn--c" title="保存"><i class="fa fa-floppy-o fa-2x"></i></button>
         </div>
         <div class="ys-cell-6 top-bar--btn" style="text-align:center;">
@@ -90,7 +90,7 @@ export default {
     getCurrent (com) {
       let currCom = this.page;
       let _this = this;
-      
+
       let _get = function(curr,key){
           for (let i=0;i<curr.children.length;i++) {
             let item = curr.children[i];
@@ -167,8 +167,12 @@ export default {
       this.line = obj;
     },
     getWindow (obj) {
-      this.width = obj.w;
-      this.height = obj.h;
+      this.wrect.width = obj.w + 'px';
+      this.wrect.height = obj.h + 'px';
+    },
+    openCodes () {
+      let $cnt = this.$el.querySelector('.app-content');
+      alert($cnt.innerHTML);
     }
   }
 }
