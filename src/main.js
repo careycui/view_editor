@@ -26,7 +26,9 @@ import  {Input,
 		Tag,
 		Tree,
 		Collapse,
-		CollapseItem} from 'element-ui'
+		CollapseItem,
+		Dialog,
+		Tooltip} from 'element-ui'
 
 Vue.use(Input);
 Vue.use(InputNumber);
@@ -45,6 +47,8 @@ Vue.use(Tree);
 Vue.use(Tag);
 Vue.use(Collapse);
 Vue.use(CollapseItem);
+Vue.use(Dialog);
+Vue.use(Tooltip);
 
 Vue.config.productionTip = false
 Vue.component('container', Container);

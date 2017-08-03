@@ -6,16 +6,35 @@
           <h3>页面编辑器 <small>V 0.0.1</small></h3>
         </div>
         <div class="ys-cell-3 top-bar--btn">
-          <button class="ys-btn ys-btn-sm ys-btn--c" title="上传PSD文件"><i class="fa fa-upload fa-2x"></i></button>
-          <button class="ys-btn ys-btn-sm ys-btn--c" title="控制侧边栏" @click="barChange('all')"><i class="fa fa-columns fa-2x"></i></button>
-          <button class="ys-btn ys-btn-sm ys-btn--c" title="HTML" @click="openCodes"><i class="fa fa-code fa-2x"></i></button>
-          <button class="ys-btn ys-btn-sm ys-btn--c" title="保存"><i class="fa fa-floppy-o fa-2x"></i></button>
+          <el-tooltip content="上传PSD文件">
+            <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-upload fa-2x"></i></button>
+          </el-tooltip>
+          <el-tooltip content="控制侧边栏">
+            <button class="ys-btn ys-btn-sm ys-btn--c" @click="barChange('all')"><i class="fa fa-columns fa-2x"></i></button>
+          </el-tooltip>
+          <el-tooltip content="导出HTML">
+            <button class="ys-btn ys-btn-sm ys-btn--c" @click="dialogVisible = true"><i class="fa fa-code fa-2x"></i></button>
+          </el-tooltip>
+          <el-tooltip content="保存">
+            <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-floppy-o fa-2x"></i></button>
+          </el-tooltip>
+          <el-tooltip content="预览">
+            <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-eye fa-2x"></i></button>
+          </el-tooltip>
         </div>
         <div class="ys-cell-6 top-bar--btn" style="text-align:center;">
-          <button class="ys-btn ys-btn-sm ys-btn--c" title="撤销"><i class="fa fa-reply fa-2x"></i></button>
-          <button class="ys-btn ys-btn-sm ys-btn--c" title="恢复"><i class="fa fa-share fa-2x"></i></button>
-          <button class="ys-btn ys-btn-sm ys-btn--c" title="放大"><i class="fa fa-search-plus fa-2x"></i></button>
-          <button class="ys-btn ys-btn-sm ys-btn--c" title="放小"><i class="fa fa-search-minus fa-2x"></i></button>
+          <el-tooltip content="撤销">
+            <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-reply fa-2x"></i></button>
+          </el-tooltip>
+          <el-tooltip content="恢复">
+            <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-share fa-2x"></i></button>
+          </el-tooltip>
+          <el-tooltip content="放大">
+            <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-search-plus fa-2x"></i></button>
+          </el-tooltip>
+          <el-tooltip content="放小">
+            <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-search-minus fa-2x"></i></button>
+          </el-tooltip>
         </div>
       </div>
     </div>
@@ -40,6 +59,20 @@
       </component>
     </div>
     <lines :line="line" :wrect="wrect"></lines>
+    <el-dialog title="HTML CODES" :visible.sync="dialogVisible" size="small" :close-on-click-modal="false" @open="openCodes">
+      <div class="pre-code ys-grid">
+        <div class="ys-grid-row">
+          <div class="ys-cell-10">
+            <el-input :autosize="{minRows: 8, maxRows: 16}" type="textarea" :value="html" resize="none" ref="htmlText" :autofocus="true"></el-input>
+          </div>
+          <div class="ys-cell-2">
+            <button class="ys-btn ys-color-btn-primary" @click="selectAll"><i class="fa fa-clipboard"></i> 全选复制</button>
+            <div class="placeholder"></div>
+            <button class="ys-btn ys-color-btn-primary"><i class="fa fa-eye"></i> 预览</button>
+          </div>
+        </div>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -69,7 +102,9 @@ export default {
       wrect : {
         width: '1920px',
         height: '1080px'
-      }
+      },
+      dialogVisible: false,
+      html: ''
     }
   },
   beforeMount () {
@@ -172,7 +207,14 @@ export default {
     },
     openCodes () {
       let $cnt = this.$el.querySelector('.app-content');
-      alert($cnt.innerHTML);
+      this.html = $cnt.innerHTML.replace(/(&quot;)+/g, '\"').replace(/(data\-v\-[\w]+\=[\"]{2})+/g, '').replace(/(\n)+/g, '')
+                                .replace(/(\<\![\-]{4}\>)+/g, '');
+    },
+    selectAll () {
+      let $area = this.$refs.htmlText.$el.querySelector('textarea');
+      $area.focus();
+      $area.select();
+      document.execCommand('copy');
     }
   }
 }
@@ -315,5 +357,17 @@ export default {
 }
 .fa-2x{
   font-size: 1.5em;
+}
+.pre-code{
+  div {
+    overflow: auto;
+    border-radius: 5px;
+  }
+}
+.placeholder{
+  height: 20px;
+}
+.el-textarea.is-disabled .el-textarea__inner{
+  color: #666;
 }
 </style>
