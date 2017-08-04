@@ -6,33 +6,33 @@
           <h3>页面编辑器 <small>V 0.0.1</small></h3>
         </div>
         <div class="ys-cell-3 top-bar--btn">
-          <el-tooltip content="上传PSD文件">
+          <el-tooltip :open-delay="500" content="上传PSD文件">
             <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-upload fa-2x"></i></button>
           </el-tooltip>
-          <el-tooltip content="控制侧边栏">
+          <el-tooltip :open-delay="500" content="控制侧边栏">
             <button class="ys-btn ys-btn-sm ys-btn--c" @click="barChange('all')"><i class="fa fa-columns fa-2x"></i></button>
           </el-tooltip>
-          <el-tooltip content="导出HTML">
+          <el-tooltip :open-delay="500" content="导出HTML">
             <button class="ys-btn ys-btn-sm ys-btn--c" @click="dialogVisible = true"><i class="fa fa-code fa-2x"></i></button>
           </el-tooltip>
-          <el-tooltip content="保存">
+          <el-tooltip :open-delay="500" content="保存">
             <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-floppy-o fa-2x"></i></button>
           </el-tooltip>
-          <el-tooltip content="预览">
+          <el-tooltip :open-delay="500" content="预览">
             <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-eye fa-2x"></i></button>
           </el-tooltip>
         </div>
         <div class="ys-cell-6 top-bar--btn" style="text-align:center;">
-          <el-tooltip content="撤销">
+          <el-tooltip :open-delay="500" content="撤销">
             <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-reply fa-2x"></i></button>
           </el-tooltip>
-          <el-tooltip content="恢复">
+          <el-tooltip :open-delay="500" content="恢复">
             <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-share fa-2x"></i></button>
           </el-tooltip>
-          <el-tooltip content="放大">
+          <el-tooltip :open-delay="500" content="放大">
             <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-search-plus fa-2x"></i></button>
           </el-tooltip>
-          <el-tooltip content="放小">
+          <el-tooltip :open-delay="500" content="放小">
             <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-search-minus fa-2x"></i></button>
           </el-tooltip>
         </div>
@@ -59,7 +59,7 @@
       </component>
     </div>
     <lines :line="line" :wrect="wrect"></lines>
-    <el-dialog title="HTML CODES" :visible.sync="dialogVisible" size="small" :close-on-click-modal="false" @open="openCodes">
+    <el-dialog title="HTML CODES" custom-class="cudialog" :visible.sync="dialogVisible" size="small" :close-on-click-modal="false" @open="openCodes">
       <div class="pre-code ys-grid">
         <div class="ys-grid-row">
           <div class="ys-cell-10">
@@ -369,5 +369,8 @@ export default {
 }
 .el-textarea.is-disabled .el-textarea__inner{
   color: #666;
+}
+.cudialog{
+  min-width: 800px;
 }
 </style>
