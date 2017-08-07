@@ -158,11 +158,20 @@ export default {
   },
   methods: {
   	change (align) {
-  		if(this.form.style.position){
-			this.form.style.position.forEach((item, i) => {
+  		let pos = this.form.style.position;
+  		if(pos){
+  			let w = 0;
+  			for(let i=0;i<pos.length;i++){
+  				let item = pos[i];
+  				if(item.name === 'width'){
+  					w = item.val;
+  				}
+  			}
+			pos.forEach((item, i) => {
 				if(item.name === 'marginLeft'){
 					if(align === 'C'){
 						item.formEle.disabled = true;
+						item.val = -w/2;
 					}else{
 						item.formEle.disabled = false;
 					}

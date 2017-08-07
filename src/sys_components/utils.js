@@ -190,7 +190,8 @@ const COM_MIXIN = {
 						break;
 					case 'R':
 						style['right'] = 0;
-						style['left'] = 'none';
+						style['marginLeft'] = 'auto';
+						style['left'] = 'auto';
 						break;
 					default:
 						style['left'] = '50%';
