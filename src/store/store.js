@@ -55,6 +55,9 @@ const mutations = {
 	},
 	ADD_NODE (state, obj) {
 		Vue.set(obj.com, '$dom', obj.dom);
+	},
+	CHANGE_ML (state, obj) {
+		
 	}
 }
 const getters = {

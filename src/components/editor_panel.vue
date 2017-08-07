@@ -37,6 +37,15 @@
 			<el-collapse-item title="样式" v-if="form && form.style" name="style">
 			    <div class="bar-cnt--panel ys-grid">
 			    	<div class="ys-grid-row">
+			    		<div v-if="form.style.custom">
+			    			<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="data in form.style.custom">
+			    				<label class="ys-cell-2 no-padding t-align--l" style="padding-top:6px;">{{ data.label }}</label>
+			    				<div class="ys-cell-10 no-padding">
+			    					<component :is="data.formEle.type" :data="data.formEle.data" v-model="data.val" @handleCallback="change">
+			    					</component>
+			    				</div>
+			    			</div>
+			    		</div>
 			    		<div v-if="form.style.position">
 				    		<div class="ys-cell-12 title-line">
 				    			<div class="title-line-t">位移</div>
@@ -44,7 +53,7 @@
 			    			<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="dataP in form.style.position">
 			    				<label class="ys-cell-2 no-padding t-align--l">{{dataP.label}}</label>
 			    				<div class="ys-cell-10 no-padding">
-			    					<component :is="dataP.formEle.type" size="mini" v-model="dataP.val">
+			    					<component :is="dataP.formEle.type" size="mini" v-model="dataP.val" :disabled="dataP.formEle.disabled">
 			    						<el-option v-if="dataP.formEle.type == 'el-select'" v-for="item in dataP.formEle.data" :key="item.value" :label="item.label" :value="item.value"></el-option>
 			    					</component>
 			    				</div>
@@ -129,9 +138,11 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import YsAlign from './align'
 
 export default {
   name: 'editor-panel',
+  components: {YsAlign},
   computed: {
   	form : {
   		get () {
@@ -146,8 +157,18 @@ export default {
   	}
   },
   methods: {
-  	select (form) {
-  		console.log(form);
+  	change (align) {
+  		if(this.form.style.position){
+			this.form.style.position.forEach((item, i) => {
+				if(item.name === 'marginLeft'){
+					if(align === 'C'){
+						item.formEle.disabled = true;
+					}else{
+						item.formEle.disabled = false;
+					}
+				}
+			});
+  		}
   	}
   }
 }

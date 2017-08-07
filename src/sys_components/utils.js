@@ -149,6 +149,15 @@ const COM_MIXIN = {
 		form () {
 			return this.$store.getters.getForms[this.formkey];
 		},
+		custom () {
+			let custom = {};
+			if(this.form.style['custom']){
+				this.form.style['custom'].forEach((attr, j) => {
+					custom[attr.name] = attr.val + (attr.formEle.unit?attr.formEle.unit:'');
+				});
+			}
+			return custom;
+		},
 		style () {
 			let style = {};
 			Object.keys(this.form.style).forEach((item, i) => {
@@ -160,10 +169,35 @@ const COM_MIXIN = {
 		},
 		pos () {
 			let style = {};
+			let align = this.custom['align'];
+
 			if(this.form.style['position']){
 				this.form.style['position'].forEach((attr, j) => {
 					style[attr.name] = attr.val + (attr.formEle.unit?attr.formEle.unit:'');
 				});
+				switch (align) {
+					case 'L':
+						style['left'] = 0;
+						if(style['right'] != undefined){
+							delete style['right'];
+						}
+						break;
+					case 'C':
+						style['left'] = '50%';
+						style['marginLeft'] = -(style['width'].replace(/px/g, '')*1)/2 + 'px';
+						delete style['right'];
+						delete style['marginRight'];
+						break;
+					case 'R':
+						style['right'] = 0;
+						style['left'] = 'none';
+						break;
+					default:
+						style['left'] = '50%';
+						style['marginLeft'] = -(style['width'].replace(/px/g, '')*1)/2 + 'px';
+						delete style['right'];
+						delete style['marginRight'];
+				}
 			}
 			return style;
 		},

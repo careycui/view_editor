@@ -70,6 +70,15 @@ const coms_data = {
 	container () {
 		return {
 				style:{
+					custom:[{
+						label: '排列',
+						name: 'align',
+						val: 'C',//LEFT : L, CENTER: C, RIGHT: R
+						formEle: {
+							type: 'ys-align',
+							data: ['L', 'C', 'R']
+						}
+					}],
 					position: [{
 						label: 'W',
 						name: 'width',
@@ -136,6 +145,15 @@ const coms_data = {
 	sectionPanel () {
 		return {
 				style:{
+					custom:[{
+						label: '排列',
+						name: 'align',
+						val: 'C',//LEFT : L, CENTER: C, RIGHT: R
+						formEle: {
+							type: 'ys-align',
+							data: ['L', 'C', 'R']
+						}
+					}],
 					position: [{
 						label: 'W',
 						name: 'width',
@@ -158,7 +176,8 @@ const coms_data = {
 						val: '-960',
 						formEle: {
 							type: 'el-input-number',
-							unit: 'px'
+							unit: 'px',
+							disabled: false
 						}
 					},{
 						label: 'MT',
@@ -523,21 +542,6 @@ const coms_data = {
 							unit: 'px'
 						}
 					}],
-					background:[{
-						label: '背景色',
-						name: 'backgroundColor',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					},{
-						label: '背景图',
-						name: 'backgroundImage',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					}],
 					font:[{
 						label: '字体',
 						name: 'fontFamily',
@@ -564,30 +568,6 @@ const coms_data = {
 						label: '行高',
 						name: 'lineHeight',
 						val: '1.5',
-						formEle: {
-							type: 'el-input'
-						}
-					}],
-					border:[{
-						label: '宽度',
-						name: 'borderWidth',
-						val: '',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: '颜色',
-						name: 'borderColor',
-						val: '',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: '样式',
-						name: 'borderStyle',
-						val: '',
 						formEle: {
 							type: 'el-input'
 						}

@@ -207,8 +207,10 @@ export default {
     },
     openCodes () {
       let $cnt = this.$el.querySelector('.app-content');
-      this.html = $cnt.innerHTML.replace(/(&quot;)+/g, '\"').replace(/(data\-v\-[\w]+\=[\"]{2})+/g, '').replace(/(\n)+/g, '')
+      let html = $cnt.innerHTML.replace(/(&quot;)+/g, '\"').replace(/(data\-v\-[\w]+\=[\"]{2})+/g, '').replace(/(\n)+/g, '')
                                 .replace(/(\<\![\-]{4}\>)+/g, '');
+      html = '<link rel="stylesheet" type="text/css" href="http://localhost:8080/static/component.css" />'  + html;                        
+      this.html = html;
     },
     selectAll () {
       let $area = this.$refs.htmlText.$el.querySelector('textarea');
@@ -350,10 +352,13 @@ export default {
 .right-bar .bar-cntrl{
   left: -1px;
 }
+.outer-html{
+  outline: 1px dashed #ddd;
+  outline-offset: -1px;
+  z-index: 1;
+}
 .outer-html.active{
   outline: 2px dashed #f26a18;
-  outline-offset: -2px;
-  z-index: 1;
 }
 .fa-2x{
   font-size: 1.5em;
