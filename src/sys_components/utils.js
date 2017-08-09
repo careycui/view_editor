@@ -113,7 +113,7 @@ let getH = function (lines, cRect) {
 	    o: void 0,
 	    top: 0,
 	    left: 0,
-	    height: '600px',
+	    height: '1px',
 	    width: '1px',
 	    display: 'none'
 	  };
@@ -175,29 +175,31 @@ const COM_MIXIN = {
 				this.form.style['position'].forEach((attr, j) => {
 					style[attr.name] = attr.val + (attr.formEle.unit?attr.formEle.unit:'');
 				});
-				switch (align) {
-					case 'L':
-						style['left'] = 0;
-						if(style['right'] != undefined){
+				if(align){
+					switch (align) {
+						case 'L':
+							style['left'] = 0;
+							if(style['right'] != undefined){
+								delete style['right'];
+							}
+							break;
+						case 'C':
+							style['left'] = '50%';
+							style['marginLeft'] = -(style['width'].replace(/px/g, '')*1)/2 + 'px';
 							delete style['right'];
-						}
-						break;
-					case 'C':
-						style['left'] = '50%';
-						style['marginLeft'] = -(style['width'].replace(/px/g, '')*1)/2 + 'px';
-						delete style['right'];
-						delete style['marginRight'];
-						break;
-					case 'R':
-						style['right'] = 0;
-						style['marginLeft'] = 'auto';
-						style['left'] = 'auto';
-						break;
-					default:
-						style['left'] = '50%';
-						style['marginLeft'] = -(style['width'].replace(/px/g, '')*1)/2 + 'px';
-						delete style['right'];
-						delete style['marginRight'];
+							delete style['marginRight'];
+							break;
+						case 'R':
+							style['right'] = 0;
+							style['marginLeft'] = 'auto';
+							style['left'] = 'auto';
+							break;
+						default:
+							style['left'] = '50%';
+							style['marginLeft'] = -(style['width'].replace(/px/g, '')*1)/2 + 'px';
+							delete style['right'];
+							delete style['marginRight'];
+					}
 				}
 			}
 			return style;
@@ -209,7 +211,7 @@ const COM_MIXIN = {
 					style[attr.name] = attr.val + (attr.formEle.unit?attr.formEle.unit:'');
 				});
 				if(style.type && style.type == 'BG'){
-					style.backgroundImage = 'url('+ style.backgroundImage + ')';	
+					style.backgroundImage = 'url(\'' + style.backgroundImage + '\')';	
 				}else if(style.type != undefined && style.type != 'BG'){
 					style = {};
 				}
@@ -298,6 +300,11 @@ const COM_MIXIN = {
 	methods : {
 		setPos (val) {
 			this.$store.dispatch('setPostion', {formkey: this.formkey, pos: val});
+		},
+		setActive () {
+			if(!this.isActive){
+				this.$emit('setActive', this.formkey);
+			}
 		}
 	}
 };

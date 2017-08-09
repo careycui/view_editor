@@ -1,7 +1,7 @@
 <template>
-	<div class="banner outer-html" :style="[pos, bg, ff]" :class="{active: isActive}">
+	<div class="banner outer-html" :style="[pos, bg, ff]" :class="{active: isActive}" @dblclick.stop="setActive">
 		<slot></slot>
-		<div class="container-bg" v-if="data.style.type.val == 'IL'">
+		<div class="pcontainer-bg" v-if="data.style.type.val == 'IL'">
 			<img :src="data.style.backgroundImage.val" class="bg-img">
 		</div>
 	</div>

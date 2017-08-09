@@ -34,104 +34,53 @@
 		</div>
 		<div class="bar-cnt--line"></div>
 	    <el-collapse accordion value="style">
-			<el-collapse-item title="样式" v-if="form && form.style" name="style">
-			    <div class="bar-cnt--panel ys-grid">
-			    	<div class="ys-grid-row">
-			    		<div v-if="form.style.custom">
-			    			<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="data in form.style.custom">
-			    				<label class="ys-cell-2 no-padding t-align--l" style="padding-top:6px;">{{ data.label }}</label>
-			    				<div class="ys-cell-10 no-padding">
-			    					<component :is="data.formEle.type" :data="data.formEle.data" v-model="data.val" @handleCallback="change">
-			    					</component>
-			    				</div>
-			    			</div>
-			    		</div>
-			    		<div v-if="form.style.position">
-				    		<div class="ys-cell-12 title-line">
-				    			<div class="title-line-t">位移</div>
-				    		</div>
-			    			<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="dataP in form.style.position">
-			    				<label class="ys-cell-2 no-padding t-align--l">{{dataP.label}}</label>
-			    				<div class="ys-cell-10 no-padding">
-			    					<component :is="dataP.formEle.type" size="mini" v-model="dataP.val" :disabled="dataP.formEle.disabled">
-			    						<el-option v-if="dataP.formEle.type == 'el-select'" v-for="item in dataP.formEle.data" :key="item.value" :label="item.label" :value="item.value"></el-option>
-			    					</component>
-			    				</div>
-			    			</div>
-			    		</div>
-			    		<div v-if="form.style.background">
-				    		<div class="ys-cell-12 title-line">
-				    			<div class="title-line-t">背景</div>
-				    		</div>
-				    		<div class="ys-form-group ys-form-group-sm ys-cell-12" v-for="dataB in form.style.background">
-				    			<label class="ys-cell-2 no-padding t-align--l">{{dataB.label}}</label>
-				    			<div class="ys-cell-10 no-padding">
-				    				<component :is="dataB.formEle.type" size="mini" v-model="dataB.val">
-				    					<el-option v-if="dataB.formEle.type == 'el-select'" v-for="item in dataB.formEle.data" :key="item.value" :label="item.label" :value="item.value"></el-option>
-				    				</component>
-				    			</div>
-				    		</div>
-			    		</div>
-			    		<div v-if="form.style.font">
-				    		<div class="ys-cell-12 title-line">
-				    			<div class="title-line-t">字体</div>
-				    		</div>
-				    		<div class="ys-form-group ys-form-group-sm ys-cell-12" v-for="dataF in form.style.font">
-				    			<label class="ys-cell-2 no-padding t-align--l">{{dataF.label}}</label>
-				    			<div class="ys-cell-10 no-padding">
-				    				<component :is="dataF.formEle.type" size="mini" v-model="dataF.val">
-				    					<el-option v-if="dataF.formEle.type == 'el-select'" v-for="item in dataF.formEle.data" :key="item.value" :label="item.label" :value="item.value"></el-option>
-				    				</component>
-				    			</div>
-				    		</div>
-			    		</div>
-			    		<div v-if="form.style.border">
-				    		<div class="ys-cell-12 title-line">
-				    			<div class="title-line-t">边框</div>
-				    		</div>
-				    		<div class="ys-form-group ys-form-group-sm ys-cell-12" v-for="dataBd in form.style.border">
-				    			<label class="ys-cell-2 no-padding t-align--l">{{dataBd.label}}</label>
-				    			<div class="ys-cell-10 no-padding">
-				    				<component :is="dataBd.formEle.type" size="mini" v-model="dataBd.val">
-				    					<el-option v-if="dataBd.formEle.type == 'el-select'" v-for="item in dataBd.formEle.data" :key="item.value" :label="item.label" :value="item.value"></el-option>
-				    				</component>
-				    			</div>
-				    		</div>
-			    		</div>
-			    	</div>
-			    </div>
-			</el-collapse-item>
-			<el-collapse-item title="交互" v-if="form && form.action" name="action">
+	    	<el-collapse-item title="样式" name="style" v-if="form && form.style">
+	    		<div class="bar-cnt--panel ys-grid">
+	    			<div class="ys-grid-row" v-for="(item, key) in form.style">
+	    				<div class="ys-cell-12 title-line" v-if="TABS[key]">
+	    					<div class="title-line-t">{{ TABS[key] }}</div>
+	    				</div>
+	    				<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="data in item" v-if="key != 'custom'">
+	    					<label class="ys-cell-2 no-padding t-align--l">{{ data.label }}</label>
+	    					<div class="ys-cell-10 no-padding">
+	    						<component :is="data.formEle.type" size="mini" v-model="data.val" :disabled="data.formEle.disabled">
+		    						<el-option v-if="data.formEle.type == 'el-select'" v-for="op in data.formEle.data" :key="op.value" :label="op.label" :value="op.value"></el-option>
+		    					</component>
+	    					</div>
+	    				</div>
+	    				<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="data in form.style.custom" v-if="key == 'custom'">
+		    				<label class="ys-cell-2 no-padding t-align--l" style="padding-top:6px;">{{ data.label }}</label>
+		    				<div class="ys-cell-10 no-padding">
+		    					<component :is="data.formEle.type" :data="data.formEle.data" v-model="data.val" @handleCallback="change">
+		    					</component>
+		    				</div>
+		    			</div>
+	    			</div>
+	    		</div>
+	    	</el-collapse-item>
+			<el-collapse-item title="交互" name="action" v-if="form && form.action">
 				<div class="bar-cnt--panel ys-grid">
-			    	<div class="ys-grid-row">
-			    		<div v-if="form.action.jump">
-				    		<div class="ys-cell-12 title-line">
-				    			<div class="title-line-t">跳转</div>
-				    		</div>
-				    		<div class="ys-form-group ys-form-group-sm ys-cell-12" v-for="action1 in form.action.jump">
-				    			<label class="ys-cell-2 no-padding t-align--l">{{action1.label}}</label>
-				    			<div class="ys-cell-10 no-padding">
-				    				<component :is="action1.formEle.type" size="mini" v-model="action1.val">
-				    					<el-option v-if="action1.formEle.type == 'el-select'" v-for="item in action1.formEle.data" :key="item.value" :label="item.label" :value="item.value"></el-option>
-				    				</component>
-				    			</div>
-				    		</div>
-			    		</div>
-			    		<div v-if="form.action.hover">
-				    		<div class="ys-cell-12 title-line">
-				    			<div class="title-line-t">悬停</div>
-				    		</div>
-				    		<div class="ys-form-group ys-form-group-sm ys-cell-12" v-for="action2 in form.action.hover">
-				    			<label class="ys-cell-2 no-padding t-align--l">{{action2.label}}</label>
-				    			<div class="ys-cell-10 no-padding">
-				    				<component :is="action2.formEle.type" size="mini" v-model="action2.val">
-				    					<el-option v-if="action2.formEle.type == 'el-select'" v-for="item in action2.formEle.data" :key="item.value" :label="item.label" :value="item.value"></el-option>
-				    				</component>
-				    			</div>
-				    		</div>
-			    		</div>
-			    	</div>
-			    </div>
+	    			<div class="ys-grid-row" v-for="(item, key) in form.action">
+	    				<div class="ys-cell-12 title-line" v-if="TABS[key]">
+	    					<div class="title-line-t">{{ TABS[key] }}</div>
+	    				</div>
+	    				<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="data in item" v-if="key != 'custom'">
+	    					<label class="ys-cell-2 no-padding t-align--l">{{ data.label }}</label>
+	    					<div class="ys-cell-10 no-padding">
+	    						<component :is="data.formEle.type" size="mini" v-model="data.val" :disabled="data.formEle.disabled">
+		    						<el-option v-if="data.formEle.type == 'el-select'" v-for="op in data.formEle.data" :key="op.value" :label="op.label" :value="op.value"></el-option>
+		    					</component>
+	    					</div>
+	    				</div>
+	    				<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="data in form.style.custom" v-if="key == 'custom'">
+		    				<label class="ys-cell-2 no-padding t-align--l" style="padding-top:6px;">{{ data.label }}</label>
+		    				<div class="ys-cell-10 no-padding">
+		    					<component :is="data.formEle.type" :data="data.formEle.data" v-model="data.val" @handleCallback="change">
+		    					</component>
+		    				</div>
+		    			</div>
+	    			</div>
+	    		</div>
 			</el-collapse-item>
 		</el-collapse>
 	</div>
@@ -139,10 +88,24 @@
 <script>
 import { mapState } from 'vuex'
 import YsAlign from './align'
+import ColorPicker from './color_picker'
+import { tabs } from './../sys_components/config.js'
+
 
 export default {
   name: 'editor-panel',
-  components: {YsAlign},
+  components: {
+  	'ys-align': YsAlign,
+  	'color-picker': ColorPicker
+  },
+  data () {
+  	return {
+  		TABS : tabs,
+  		colors : '',
+  		colors1 : '',
+  		colors2 : ''
+  	}
+  },
   computed: {
   	form : {
   		get () {
@@ -154,6 +117,38 @@ export default {
   	},
   	com () {
   		return this.$store.getters.getCurrentCom;
+  	},
+  	cus () {
+  		let pos = this.form.style.custom;
+  		let obj = {};
+  		if(pos){
+  			pos.forEach((item, i) => {
+  				obj[item.name] = item.val;
+  			});
+  		}
+  		return obj;
+  	},
+  	pos () {
+  		let pos = this.form.style.position;
+  		let obj = {};
+  		if(pos){
+  			pos.forEach((item, i) => {
+  				obj[item.name] = item.val;
+  			});
+  		}
+  		return obj;
+  	}
+  },
+  watch : {
+  	pos (val) {
+  		if(this.cus.align && this.cus.align === 'C'){
+  			for(let i=0;i<this.form.style.position.length;i++){
+  				let item = this.form.style.position[i];
+  				if(item.name === 'marginLeft'){
+  					item.val = -val.width/2;
+  				}
+  			}
+  		}
   	}
   },
   methods: {
@@ -172,6 +167,8 @@ export default {
 					if(align === 'C'){
 						item.formEle.disabled = true;
 						item.val = -w/2;
+					}else if(align === 'R'){
+						item.formEle.disabled = true;
 					}else{
 						item.formEle.disabled = false;
 					}

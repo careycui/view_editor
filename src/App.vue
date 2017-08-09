@@ -40,7 +40,7 @@
     </div>
 
     <div class="left-bar" :class="{'close': leftBarClose}">
-      <com-panel :addcom="add" :addmain="addMain"></com-panel>
+      <com-panel :addcom="add" :addmain="addMain" ref="com-panel"></com-panel>
       <div class="bar-cntrl" @click="barChange('leftBarClose')">
         <i class="el-icon-arrow-left"></i>
       </div>
@@ -52,9 +52,9 @@
       </div>
     </div>
     <div class="app-content">
-      <component v-if="page.name" :is="page.name" :formkey = "page.key" :ref="page.key" @setLine="setLine">
-        <component :is="section.name" :formkey = "section.key" v-for="section in page.children" :key="section.key" :ref="section.key" @setLine="setLine">
-          <component :is="ele.name" :formkey = "ele.key" v-for="ele in section.children" :key="ele.key" :ref="ele.key" @setLine="setLine"></component>
+      <component v-if="page.name" :is="page.name" :formkey = "page.key" :ref="page.key" @setLine="setLine" @setActive="setActive">
+        <component :is="section.name" :formkey = "section.key" v-for="section in page.children" :key="section.key" :ref="section.key" @setLine="setLine" @setActive="setActive">
+          <component :is="ele.name" :formkey = "ele.key" v-for="ele in section.children" :key="ele.key" :ref="ele.key" @setLine="setLine" @setActive="setActive"></component>
         </component>
       </component>
     </div>
@@ -217,6 +217,10 @@ export default {
       $area.focus();
       $area.select();
       document.execCommand('copy');
+    },
+    setActive (formKey) {
+      this.$store.dispatch('setCurrentDom', formKey);
+      this.$refs['com-panel'].$refs.tree.setCheckedKeys([formKey]);
     }
   }
 }

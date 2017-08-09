@@ -4,6 +4,16 @@ const com = {
 	children:[],
     level: 0
 }
+//组件编辑Tab信息
+const edit_tabs = {
+	position: '位置/区域',
+	background: '背景',
+	font: '字体',
+	border: '边框',
+	jump: '链接跳转',
+	hover: '悬浮'
+};
+//组件描述信息
 const coms = {
 	container () {
 		return {
@@ -65,7 +75,7 @@ const coms = {
 		}
 	}
 }
-//组件属性数据结构
+//组件属性数据结构信息
 const coms_data = {
 	container () {
 		return {
@@ -93,7 +103,7 @@ const coms_data = {
 						name: 'backgroundColor',
 						val: '',
 						formEle: {
-							type: 'el-input'
+							type: 'color-picker'
 						}
 					},{
 						label: '图片',
@@ -129,7 +139,7 @@ const coms_data = {
 						name: 'color',
 						val: '#000',
 						formEle: {
-							type: 'el-input'
+							type: 'color-picker'
 						}
 					},{
 						label: '行高',
@@ -193,8 +203,7 @@ const coms_data = {
 						name: 'backgroundColor',
 						val: '',
 						formEle: {
-							type: 'el-input',
-							unit: ''
+							type: 'color-picker'
 						}
 					},{
 						label: '图片',
@@ -240,7 +249,7 @@ const coms_data = {
 						name: 'color',
 						val: '#000',
 						formEle: {
-							type: 'el-input'
+							type: 'color-picker'
 						}
 					},{
 						label: '行高',
@@ -294,7 +303,7 @@ const coms_data = {
 						name: 'backgroundColor',
 						val: '',
 						formEle: {
-							type: 'el-input'
+							type: 'color-picker'
 						}
 					},{
 						label: '图片',
@@ -330,7 +339,7 @@ const coms_data = {
 						name: 'color',
 						val: '#000',
 						formEle: {
-							type: 'el-input'
+							type: 'color-picker'
 						}
 					},{
 						label: '行高',
@@ -473,7 +482,7 @@ const coms_data = {
 					name: 'borderColor',
 					val: '',
 					formEle: {
-						type: 'el-input'
+						type: 'color-picker'
 					}
 				},{
 					label: '样式',
@@ -562,7 +571,7 @@ const coms_data = {
 						name: 'color',
 						val: '#000',
 						formEle: {
-							type: 'el-input'
+							type: 'color-picker'
 						}
 					},{
 						label: '行高',
@@ -658,7 +667,7 @@ const coms_data = {
 						name: 'backgroundColor',
 						val: '',
 						formEle: {
-							type: 'el-input'
+							type: 'color-picker'
 						}
 					},{
 						label: '背景图',
@@ -688,7 +697,7 @@ const coms_data = {
 						name: 'color',
 						val: '#000',
 						formEle: {
-							type: 'el-input'
+							type: 'color-picker'
 						}
 					},{
 						label: '行高',
@@ -711,7 +720,7 @@ const coms_data = {
 						name: 'borderColor',
 						val: '',
 						formEle: {
-							type: 'el-input'
+							type: 'color-picker'
 						}
 					},{
 						label: '样式',
@@ -763,3 +772,4 @@ const coms_data = {
 export const components = coms
 export const component = com
 export const comData = coms_data
+export const tabs = edit_tabs

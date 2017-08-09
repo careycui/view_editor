@@ -146,6 +146,9 @@ const actions = {
 	setPostion ({commit}, obj) {
 		commit('SET_POSITION', obj);
 	},
+	setCurrentDom ({commit}, key) {
+		commit('SET_CDOM', key);
+	},
 	deleteCom ({commit}, obj) {
 		commit('DEL_COM', obj);
 	}

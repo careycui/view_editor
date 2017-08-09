@@ -1,5 +1,5 @@
 <template>
-	<div class="btn-ele outer-html" :style="[pos]" :class="{active: isActive}" v-drag="setPos">
+	<div class="btn-ele outer-html" :style="[pos]" :class="{active: isActive}" v-drag="setPos" @dblclick.stop="setActive">
 		<button type="button" class="ys-btn" :style="[ff,border,bg]">
 			{{ data.data.txt.val }}
 		</button>

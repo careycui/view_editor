@@ -1,9 +1,9 @@
 <template>
 	<div class="line-container">
-	    <div class="v-l" :style="[line.left,{height:wrect.height}]"></div>
+	    <div class="v-l" :style="[line.left,{height:wrect.height}]" style="display:none;"></div>
 	    <div class="v-m" :style="line.vertical"></div>
 	    <div class="v-r"></div>
-	    <div class="h-t" :style="[line.top,{width:wrect.width}]"></div>
+	    <div class="h-t" :style="[line.top,{width:wrect.width}]" style="display:none;"></div>
 	    <div class="h-m" :style="line.horizon"></div>
 	    <div class="h-b"></div>
     </div>
@@ -28,6 +28,7 @@
 
 	  height: 100px;
 	  top: 0;
+	  z-index: 1;
 	}
 	.v-m{
 	  border-left-style: dashed;
@@ -38,6 +39,7 @@
 
 	  width: 100px;
 	  left: 0;
+	  z-index: 1;
 	}
 	.h-m{
 	  border-top-style: dashed;

@@ -1,5 +1,5 @@
 <template>
-	<div class="image-ele outer-html" :style="[pos, border]" :class="{active: isActive}" v-drag="setPos">
+	<div class="image-ele outer-html" :style="[pos, border]" :class="{active: isActive}" v-drag="setPos" @dblclick.stop="setActive">
 		<img :src="data.data.img.val" class="img">
 	</div>
 </template>

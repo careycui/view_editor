@@ -1,5 +1,5 @@
 <template>
-	<div class="img-link outer-html" :style="[pos, bg, ff]" :class="{active: isActive}" v-drag="setPos">
+	<div class="img-link outer-html" :style="[pos, bg, ff]" :class="{active: isActive}" v-drag="setPos" @dblclick.stop="setActive">
 		<a :href="data.action.href.val" :target="data.action.target.val">
 			<img :src="data.data.img.val" class="bg-img">
 		</a>
