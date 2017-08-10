@@ -14,10 +14,10 @@ let getLeft = function (lines, cRect) {
     let o;
     if(co < ro){
     	key = 'left';
-    	o = co - 100;
+    	o = co - 40;
     }else{
     	key = 'right';
-    	o = ro - 100;
+    	o = ro - 40;
     }
     if(o <= 0){
     	offset.display = 'block';
@@ -49,7 +49,7 @@ let getV = function (lines, cRect) {
 
 	lines.forEach((item, i) => {
 		let io = (item.left+item.right)/2;
-		let o = Math.abs(vl - io) - 50;
+		let o = Math.abs(vl - io) - 10;
 		if(o <= 0){
 			offset.display = 'block';
 			if(!offset.o){
@@ -85,10 +85,10 @@ let getTop = function (lines, cRect){
   	let key;
   	if(to < bo){
     	key = 'top';
-    	o = to - 100;
+    	o = to - 40;
     }else{
     	key = 'bottom';
-    	o = bo - 100;
+    	o = bo - 40;
     }
     if(o <= 0){
     	offset.display = 'block';
@@ -120,7 +120,7 @@ let getH = function (lines, cRect) {
 
 	lines.forEach((item, i) => {
 		let io = (item.top+item.bottom)/2;
-		let o = Math.abs(ht - io) - 50;
+		let o = Math.abs(ht - io) - 10;
 		if(o <= 0){
 			offset.display = 'block';
 			if(!offset.o){

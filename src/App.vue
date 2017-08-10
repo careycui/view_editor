@@ -1,42 +1,7 @@
 <template>
   <div id="app" v-window="getWindow">
     <div class="top-bar">
-      <div class="ys-grid-row">
-        <div class="ys-cell-3 top-bar--title">
-          <h3>页面编辑器 <small>V 0.0.1</small></h3>
-        </div>
-        <div class="ys-cell-3 top-bar--btn">
-          <el-tooltip :open-delay="500" content="上传PSD文件">
-            <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-upload fa-2x"></i></button>
-          </el-tooltip>
-          <el-tooltip :open-delay="500" content="控制侧边栏">
-            <button class="ys-btn ys-btn-sm ys-btn--c" @click="barChange('all')"><i class="fa fa-columns fa-2x"></i></button>
-          </el-tooltip>
-          <el-tooltip :open-delay="500" content="导出HTML">
-            <button class="ys-btn ys-btn-sm ys-btn--c" @click="dialogVisible = true"><i class="fa fa-code fa-2x"></i></button>
-          </el-tooltip>
-          <el-tooltip :open-delay="500" content="保存">
-            <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-floppy-o fa-2x"></i></button>
-          </el-tooltip>
-          <el-tooltip :open-delay="500" content="预览">
-            <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-eye fa-2x"></i></button>
-          </el-tooltip>
-        </div>
-        <div class="ys-cell-6 top-bar--btn" style="text-align:center;">
-          <el-tooltip :open-delay="500" content="撤销">
-            <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-reply fa-2x"></i></button>
-          </el-tooltip>
-          <el-tooltip :open-delay="500" content="恢复">
-            <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-share fa-2x"></i></button>
-          </el-tooltip>
-          <el-tooltip :open-delay="500" content="放大">
-            <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-search-plus fa-2x"></i></button>
-          </el-tooltip>
-          <el-tooltip :open-delay="500" content="放小">
-            <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-search-minus fa-2x"></i></button>
-          </el-tooltip>
-        </div>
-      </div>
+      <top-bar @barChange="barChange" @openCode="openCode" :innerHtml='html' @setHtml="setHtml" @openPreview="openPreview"></top-bar>
     </div>
 
     <div class="left-bar" :class="{'close': leftBarClose}">
@@ -59,7 +24,7 @@
       </component>
     </div>
     <lines :line="line" :wrect="wrect"></lines>
-    <el-dialog title="HTML CODES" custom-class="cudialog" :visible.sync="dialogVisible" size="small" :close-on-click-modal="false" @open="openCodes">
+    <el-dialog title="HTML CODES" custom-class="cudialog" :visible.sync="dialogVisible" size="small" :close-on-click-modal="false" @open="setHtml">
       <div class="pre-code ys-grid">
         <div class="ys-grid-row">
           <div class="ys-cell-10">
@@ -73,6 +38,7 @@
         </div>
       </div>
     </el-dialog>
+    <preview :visible="isPreview" :srcdoc="html" @updateVisible="updateVisible"></preview>
   </div>
 </template>
 
@@ -83,14 +49,17 @@ import ComPanel from './components/com_panel'
 import EditorPanel from './components/editor_panel'
 import Lines from './components/lines'
 import store from './store/store.js'
+import TopBar from './components/top_bar'
 import { component, components, comData } from './sys_components/config.js'
 import { Message } from 'element-ui'
+
+import Preview from './components/preview_dialog'
 
 export default {
   name: 'app',
   store,
   components: {
-    ComPanel,EditorPanel,Lines
+    ComPanel,EditorPanel,Lines,TopBar,Preview
   },
   data () {
     return {
@@ -104,7 +73,8 @@ export default {
         height: '1080px'
       },
       dialogVisible: false,
-      html: ''
+      html: '',
+      isPreview: false
     }
   },
   beforeMount () {
@@ -122,6 +92,11 @@ export default {
     }
   },
   methods:{
+    /**
+     * 获取即将添加组件的父容器元素
+     * @param  {Object} com 组件描述
+     * @return {Object}     父容器组件
+     */
     getCurrent (com) {
       let currCom = this.page;
       let _this = this;
@@ -157,6 +132,11 @@ export default {
       _judget();
       return currCom;
     },
+    /**
+     * 添加组件到页面数据结构
+     * @param {string}   type    添加的组件的类别
+     * @param {fn} callback 添加成功后的回调函数
+     */
     add (type, callback) {
       let com = components[type]();
       let currDom = this.getCurrent(com);
@@ -171,6 +151,10 @@ export default {
         });
       }
     },
+    /**
+     * 添加页面主容器组件到页面数据结构
+     * @param {fn} callback 成功后的回调函数
+     */
     addMain (callback) {
         this.$store.dispatch('addMain', {page: components.container(), formData: comData.container()}).then(() => {
           let $com = this.$refs[this.currentDom];
@@ -198,6 +182,9 @@ export default {
         }
       }
     },
+    openCode () {
+      this.dialogVisible = true;
+    },
     setLine (obj) {
       this.line = obj;
     },
@@ -205,9 +192,9 @@ export default {
       this.wrect.width = obj.w + 'px';
       this.wrect.height = obj.h + 'px';
     },
-    openCodes () {
+    setHtml () {
       let $cnt = this.$el.querySelector('.app-content');
-      let html = $cnt.innerHTML.replace(/(&quot;)+/g, '\"').replace(/(data\-v\-[\w]+\=[\"]{2})+/g, '').replace(/(\n)+/g, '')
+      let html = $cnt.innerHTML.replace(/(&quot;)+/g, '\'').replace(/(data\-v\-[\w]+\=[\"]{2})+/g, '').replace(/(\n)+/g, '')
                                 .replace(/(\<\![\-]{4}\>)+/g, '');
       html = '<link rel="stylesheet" type="text/css" href="http://localhost:8080/static/component.css" />'  + html;                        
       this.html = html;
@@ -221,6 +208,13 @@ export default {
     setActive (formKey) {
       this.$store.dispatch('setCurrentDom', formKey);
       this.$refs['com-panel'].$refs.tree.setCheckedKeys([formKey]);
+    },
+    openPreview () {
+      this.setHtml();
+      this.isPreview = true;
+    },
+    updateVisible (val) {
+      this.isPreview = val;
     }
   }
 }
@@ -241,38 +235,6 @@ export default {
   height: 40px;
   background-color: #333;
   z-index: 100;
-}
-.top-bar--title, .top-bar--btn{
-  height: 40px;
-  vertical-align: middle;
-  line-height: 40px;
-  color: #f1f1f1;
-
-  & h3{
-    font-weight: normal;
-
-    & small{
-      color: #F1F1F1;
-    }
-  }
-}
-.top-bar--btn{
-  padding-right: 20px;
-  float: right;
-  text-align: right;
-}
-.ys-btn--c{
-  padding: 0;
-  text-align: center;
-  width: 40px;
-  color: #f1f1f1;
-
-  & i{
-    vertical-align: middle;
-  }
-}
-.ys-btn--c:hover{
-  background-color: #000;
 }
 %pos{
   position: fixed;

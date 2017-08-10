@@ -100,20 +100,12 @@ export default {
   },
   data () {
   	return {
-  		TABS : tabs,
-  		colors : '',
-  		colors1 : '',
-  		colors2 : ''
+  		TABS : tabs
   	}
   },
   computed: {
-  	form : {
-  		get () {
-			return this.$store.getters.getCurrentForm;
-  		},
-  		set (val) {
-  			this.$store.dispatch('changeForm', {form:this.form,key:this.$store.state.currentDom});
-  		}
+  	form () {
+		return this.$store.getters.getCurrentForm;
   	},
   	com () {
   		return this.$store.getters.getCurrentCom;

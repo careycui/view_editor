@@ -13,11 +13,20 @@ import { Sketch,Chrome} from 'vue-color'
 	export default {
 		name: 'ColorPicker',
 		components: { Sketch },
-		props: ['defaults', 'disabled'],
+		props:{
+			disabled:{
+				type: Boolean,
+				default: false
+			},
+			value:{
+				type: String,
+				default: '#FFFFFF'
+			}
+		},
 		data () {
 			return {
 				colors:{
-					hex: this.defaults || '#FFFFFF'
+					hex: this.value || '#FFFFFF'
 				},
 				isActive: false,
 				pos: {
@@ -42,6 +51,10 @@ import { Sketch,Chrome} from 'vue-color'
 		watch : {
 			colors (val) {
 				this.$emit('input', val.hex);
+			},
+			value (val) {
+				this.colors.hex = val || '#FFFFFF';
+				this.$emit('input', this.colors.hex);
 			}
 		},
 		methods : {
