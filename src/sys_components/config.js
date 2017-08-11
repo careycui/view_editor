@@ -430,6 +430,22 @@ const coms_data = {
 							type: 'el-input'
 						}
 					}]
+				},
+				transition:{
+					style:[{
+						label: '时长(s)',
+						name: 'animationDuration',
+						val: 0.4
+					},{
+						label: '延迟(s)',
+						name: 'animationDelay',
+						val: 0
+					}],
+					clazz:[{
+						label: '动效类',
+						name: 'aniName',
+						val: ''
+					}]
 				}
 		}
 	},
@@ -512,260 +528,308 @@ const coms_data = {
 						type: 'el-input'
 					}
 				}]
+			},
+			transition:{
+				style:[{
+					label: '时长(s)',
+					name: 'animationDuration',
+					val: 0.4
+				},{
+					label: '延迟(s)',
+					name: 'animationDelay',
+					val: 0
+				}],
+				clazz:[{
+					label: '动效类',
+					name: 'aniName',
+					val: ''
+				}]
 			}
 		}
 	},
 	linkEle () {
 		return {
-				style:{
-					position: [{
-						label: 'W',
-						name: 'width',
-						val: '300',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: 'H',
-						name: 'height',
-						val: '60',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: 'X',
-						name: 'left',
-						val: '0',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: 'Y',
-						name: 'top',
-						val: '0',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					}],
-					font:[{
-						label: '字体',
-						name: 'fontFamily',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					},{
-						label: '字号',
-						name: 'fontSize',
-						val: '14',
-						formEle:{
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: '颜色',
-						name: 'color',
-						val: '#000',
-						formEle: {
-							type: 'color-picker'
-						}
-					},{
-						label: '行高',
-						name: 'lineHeight',
-						val: '1.5',
-						formEle: {
-							type: 'el-input'
-						}
-					}]
-				},
-				action:{
-					jump:[{
-						label: '链接',
-						name: 'href',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					},{
-						label: '方式',
-						name: 'target',
-						val: '_blank',
-						formEle: {
-							type: 'el-select',
-							data:[{
-								label: '当前页',
-								value: '_self'
-							},{
-								label: '新页面',
-								value: '_blank'
-							}]
-						}
-					}],
-					hover:[{
-						label: '样式',
-						name: '',
-						val: '',
-						formEle:{
-							type: 'el-input'
-						}
-					}]
-				},
-				data:{
-					base:[{
-						label: '文本',
-						name: 'txt',
-						val: '',
-						formEle:{
-							type: 'el-input'
-						}
-					}]
-				}
+			style:{
+				position: [{
+					label: 'W',
+					name: 'width',
+					val: '300',
+					formEle: {
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				},{
+					label: 'H',
+					name: 'height',
+					val: '60',
+					formEle: {
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				},{
+					label: 'X',
+					name: 'left',
+					val: '0',
+					formEle: {
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				},{
+					label: 'Y',
+					name: 'top',
+					val: '0',
+					formEle: {
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				}],
+				font:[{
+					label: '字体',
+					name: 'fontFamily',
+					val: '',
+					formEle: {
+						type: 'el-input'
+					}
+				},{
+					label: '字号',
+					name: 'fontSize',
+					val: '14',
+					formEle:{
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				},{
+					label: '颜色',
+					name: 'color',
+					val: '#000',
+					formEle: {
+						type: 'color-picker'
+					}
+				},{
+					label: '行高',
+					name: 'lineHeight',
+					val: '1.5',
+					formEle: {
+						type: 'el-input'
+					}
+				}]
+			},
+			action:{
+				jump:[{
+					label: '链接',
+					name: 'href',
+					val: '',
+					formEle: {
+						type: 'el-input'
+					}
+				},{
+					label: '方式',
+					name: 'target',
+					val: '_blank',
+					formEle: {
+						type: 'el-select',
+						data:[{
+							label: '当前页',
+							value: '_self'
+						},{
+							label: '新页面',
+							value: '_blank'
+						}]
+					}
+				}],
+				hover:[{
+					label: '样式',
+					name: '',
+					val: '',
+					formEle:{
+						type: 'el-input'
+					}
+				}]
+			},
+			data:{
+				base:[{
+					label: '文本',
+					name: 'txt',
+					val: '',
+					formEle:{
+						type: 'el-input'
+					}
+				}]
+			},
+			transition:{
+				style:[{
+					label: '时长(s)',
+					name: 'animationDuration',
+					val: 0.4
+				},{
+					label: '延迟(s)',
+					name: 'animationDelay',
+					val: 0
+				}],
+				clazz:[{
+					label: '动效类',
+					name: 'aniName',
+					val: ''
+				}]
+			}
 		}
 	},
 	btnEle () {
 		return {
-				style:{
-					position: [{
-						label: 'W',
-						name: 'width',
-						val: '300',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: 'H',
-						name: 'height',
-						val: '200',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: 'X',
-						name: 'left',
-						val: '0',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: 'Y',
-						name: 'top',
-						val: '0',
-						formEle:{
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					}],
-					background:[{
-						label: '背景色',
-						name: 'backgroundColor',
-						val: '',
-						formEle: {
-							type: 'color-picker'
-						}
-					},{
-						label: '背景图',
-						name: 'backgroundImage',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					}],
-					font:[{
-						label: '字体',
-						name: 'fontFamily',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					},{
-						label: '字号',
-						name: 'fontSize',
-						val: '14',
-						formEle:{
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: '颜色',
-						name: 'color',
-						val: '#000',
-						formEle: {
-							type: 'color-picker'
-						}
-					},{
-						label: '行高',
-						name: 'lineHeight',
-						val: '1.5',
-						formEle: {
-							type: 'el-input'
-						}
-					}],
-					border:[{
-						label: '宽度',
-						name: 'borderWidth',
-						val: '',
-						formEle: {
-							type: 'el-input-number',
-							unit: 'px'
-						}
-					},{
-						label: '颜色',
-						name: 'borderColor',
-						val: '',
-						formEle: {
-							type: 'color-picker'
-						}
-					},{
-						label: '样式',
-						name: 'borderStyle',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					}]
-				},
-				action:{
-					jump:[{
-						label: '链接',
-						name: 'href',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					},{
-						label: '方式',
-						name: 'target',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					}],
-					hover:[{
-						label: '样式',
-						name: '',
-						val: '',
-						formEle: {
-							type: 'el-input'
-						}
-					}]
-				},
-				data:{
-					base:[{
-						label: '文本',
-						name: 'txt',
-						val: '',
-						formEle:{
-							type: 'el-input'
-						}
-					}]
-				}
+			style:{
+				position: [{
+					label: 'W',
+					name: 'width',
+					val: '300',
+					formEle: {
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				},{
+					label: 'H',
+					name: 'height',
+					val: '200',
+					formEle: {
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				},{
+					label: 'X',
+					name: 'left',
+					val: '0',
+					formEle: {
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				},{
+					label: 'Y',
+					name: 'top',
+					val: '0',
+					formEle:{
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				}],
+				background:[{
+					label: '背景色',
+					name: 'backgroundColor',
+					val: '',
+					formEle: {
+						type: 'color-picker'
+					}
+				},{
+					label: '背景图',
+					name: 'backgroundImage',
+					val: '',
+					formEle: {
+						type: 'el-input'
+					}
+				}],
+				font:[{
+					label: '字体',
+					name: 'fontFamily',
+					val: '',
+					formEle: {
+						type: 'el-input'
+					}
+				},{
+					label: '字号',
+					name: 'fontSize',
+					val: '14',
+					formEle:{
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				},{
+					label: '颜色',
+					name: 'color',
+					val: '#000',
+					formEle: {
+						type: 'color-picker'
+					}
+				},{
+					label: '行高',
+					name: 'lineHeight',
+					val: '1.5',
+					formEle: {
+						type: 'el-input'
+					}
+				}],
+				border:[{
+					label: '宽度',
+					name: 'borderWidth',
+					val: '',
+					formEle: {
+						type: 'el-input-number',
+						unit: 'px'
+					}
+				},{
+					label: '颜色',
+					name: 'borderColor',
+					val: '',
+					formEle: {
+						type: 'color-picker'
+					}
+				},{
+					label: '样式',
+					name: 'borderStyle',
+					val: '',
+					formEle: {
+						type: 'el-input'
+					}
+				}]
+			},
+			action:{
+				jump:[{
+					label: '链接',
+					name: 'href',
+					val: '',
+					formEle: {
+						type: 'el-input'
+					}
+				},{
+					label: '方式',
+					name: 'target',
+					val: '',
+					formEle: {
+						type: 'el-input'
+					}
+				}],
+				hover:[{
+					label: '样式',
+					name: '',
+					val: '',
+					formEle: {
+						type: 'el-input'
+					}
+				}]
+			},
+			data:{
+				base:[{
+					label: '文本',
+					name: 'txt',
+					val: '',
+					formEle:{
+						type: 'el-input'
+					}
+				}]
+			},
+			transition:{
+				style:[{
+					label: '时长(s)',
+					name: 'animationDuration',
+					val: 0.4
+				},{
+					label: '延迟(s)',
+					name: 'animationDelay',
+					val: 0
+				}],
+				clazz:[{
+					label: '动效类',
+					name: 'aniName',
+					val: ''
+				}]
+			}
 		}
 	}
 }

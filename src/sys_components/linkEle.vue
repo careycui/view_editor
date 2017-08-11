@@ -1,8 +1,10 @@
 <template>
 	<div class="link-ele outer-html" :style="[pos]" :class="{active: isActive}" v-drag="setPos" @dblclick.stop="setActive">
-		<a :href="data.action.href.val" :target="data.action.target.val" :style="[bg, ff, border]">
-			{{data.data.txt.val}}
-		</a>
+		<div class="ani-outer">
+			<a :href="data.action.href.val" :target="data.action.target.val" :style="[bg, ff, border]">
+				{{data.data.txt.val}}
+			</a>
+		</div>
 	</div>
 </template>
 <script>

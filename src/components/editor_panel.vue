@@ -33,56 +33,82 @@
 			</div>
 		</div>
 		<div class="bar-cnt--line"></div>
-	    <el-collapse accordion value="style">
-	    	<el-collapse-item title="样式" name="style" v-if="form && form.style">
-	    		<div class="bar-cnt--panel ys-grid">
-	    			<div class="ys-grid-row" v-for="(item, key) in form.style">
-	    				<div class="ys-cell-12 title-line" v-if="TABS[key]">
-	    					<div class="title-line-t">{{ TABS[key] }}</div>
-	    				</div>
-	    				<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="data in item" v-if="key != 'custom'">
-	    					<label class="ys-cell-2 no-padding t-align--l">{{ data.label }}</label>
-	    					<div class="ys-cell-10 no-padding">
-	    						<component :is="data.formEle.type" size="mini" v-model="data.val" :disabled="data.formEle.disabled">
-		    						<el-option v-if="data.formEle.type == 'el-select'" v-for="op in data.formEle.data" :key="op.value" :label="op.label" :value="op.value"></el-option>
-		    					</component>
-	    					</div>
-	    				</div>
-	    				<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="data in form.style.custom" v-if="key == 'custom'">
-		    				<label class="ys-cell-2 no-padding t-align--l" style="padding-top:6px;">{{ data.label }}</label>
-		    				<div class="ys-cell-10 no-padding">
-		    					<component :is="data.formEle.type" :data="data.formEle.data" v-model="data.val" @handleCallback="change">
-		    					</component>
-		    				</div>
-		    			</div>
-	    			</div>
-	    		</div>
-	    	</el-collapse-item>
-			<el-collapse-item title="交互" name="action" v-if="form && form.action">
+		<el-tabs value="attribute">
+			<el-tab-pane label="属性" name="attribute">
+			    <el-collapse accordion value="style">
+			    	<el-collapse-item title="样式" name="style" v-if="form && form.style">
+			    		<div class="bar-cnt--panel ys-grid">
+			    			<div class="ys-grid-row" v-for="(item, key) in form.style">
+			    				<div class="ys-cell-12 title-line" v-if="TABS[key]">
+			    					<div class="title-line-t">{{ TABS[key] }}</div>
+			    				</div>
+			    				<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="data in item" v-if="key != 'custom'">
+			    					<label class="ys-cell-2 no-padding t-align--l">{{ data.label }}</label>
+			    					<div class="ys-cell-10 no-padding">
+			    						<component :is="data.formEle.type" size="mini" v-model="data.val" :disabled="data.formEle.disabled">
+				    						<el-option v-if="data.formEle.type == 'el-select'" v-for="op in data.formEle.data" :key="op.value" :label="op.label" :value="op.value"></el-option>
+				    					</component>
+			    					</div>
+			    				</div>
+			    				<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="data in form.style.custom" v-if="key == 'custom'">
+				    				<label class="ys-cell-2 no-padding t-align--l" style="padding-top:6px;">{{ data.label }}</label>
+				    				<div class="ys-cell-10 no-padding">
+				    					<component :is="data.formEle.type" :data="data.formEle.data" v-model="data.val" @handleCallback="change">
+				    					</component>
+				    				</div>
+				    			</div>
+			    			</div>
+			    		</div>
+			    	</el-collapse-item>
+					<el-collapse-item title="交互" name="action" v-if="form && form.action">
+						<div class="bar-cnt--panel ys-grid">
+			    			<div class="ys-grid-row" v-for="(item, key) in form.action">
+			    				<div class="ys-cell-12 title-line" v-if="TABS[key]">
+			    					<div class="title-line-t">{{ TABS[key] }}</div>
+			    				</div>
+			    				<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="data in item" v-if="key != 'custom'">
+			    					<label class="ys-cell-2 no-padding t-align--l">{{ data.label }}</label>
+			    					<div class="ys-cell-10 no-padding">
+			    						<component :is="data.formEle.type" size="mini" v-model="data.val" :disabled="data.formEle.disabled">
+				    						<el-option v-if="data.formEle.type == 'el-select'" v-for="op in data.formEle.data" :key="op.value" :label="op.label" :value="op.value"></el-option>
+				    					</component>
+			    					</div>
+			    				</div>
+			    				<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="data in form.style.custom" v-if="key == 'custom'">
+				    				<label class="ys-cell-2 no-padding t-align--l" style="padding-top:6px;">{{ data.label }}</label>
+				    				<div class="ys-cell-10 no-padding">
+				    					<component :is="data.formEle.type" :data="data.formEle.data" v-model="data.val" @handleCallback="change">
+				    					</component>
+				    				</div>
+				    			</div>
+			    			</div>
+			    		</div>
+					</el-collapse-item>
+				</el-collapse>
+			</el-tab-pane>
+			<el-tab-pane label="动作" name="action" v-if="form.transition">
 				<div class="bar-cnt--panel ys-grid">
-	    			<div class="ys-grid-row" v-for="(item, key) in form.action">
-	    				<div class="ys-cell-12 title-line" v-if="TABS[key]">
-	    					<div class="title-line-t">{{ TABS[key] }}</div>
-	    				</div>
-	    				<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="data in item" v-if="key != 'custom'">
-	    					<label class="ys-cell-2 no-padding t-align--l">{{ data.label }}</label>
-	    					<div class="ys-cell-10 no-padding">
-	    						<component :is="data.formEle.type" size="mini" v-model="data.val" :disabled="data.formEle.disabled">
-		    						<el-option v-if="data.formEle.type == 'el-select'" v-for="op in data.formEle.data" :key="op.value" :label="op.label" :value="op.value"></el-option>
-		    					</component>
-	    					</div>
-	    				</div>
-	    				<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="data in form.style.custom" v-if="key == 'custom'">
-		    				<label class="ys-cell-2 no-padding t-align--l" style="padding-top:6px;">{{ data.label }}</label>
-		    				<div class="ys-cell-10 no-padding">
-		    					<component :is="data.formEle.type" :data="data.formEle.data" v-model="data.val" @handleCallback="change">
-		    					</component>
-		    				</div>
-		    			</div>
-	    			</div>
-	    		</div>
-			</el-collapse-item>
-		</el-collapse>
+					<div class="ys-grid-row">
+						<div class="ys-cell-12 ys-form-group ys-form-group-sm">
+							<div class="block" v-for="item in form.transition.style">
+							    <span class="demonstration">时长(s)</span>
+							    <el-slider v-model="item.val" :max="10" :step="0.1" :format-tooltip="format" show-input :show-input-controls="false"></el-slider>
+							</div>
+						</div>
+					</div>
+					<div class="ys-grid-row">
+						<div class="ys-cell-12 ys-form-group ys-form-group-sm">
+							<div class="icon-list">
+								<div class="icon-item" :class="{active: ani.selected}" v-for="ani in animations" @click="handleClick(ani)">
+									<span class="icon">{{ ani.icon }}</span>
+									<p>{{ani.label}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</el-tab-pane>
+		</el-tabs>
 	</div>
 </template>
 <script>
@@ -100,7 +126,50 @@ export default {
   },
   data () {
   	return {
-  		TABS : tabs
+  		TABS : tabs,
+  		value1: 1,
+  		value2: 0,
+  		animations:[{
+  			label: 'None',
+  			icon: 'X',
+  			aniName: '',
+  			selected: true
+  		},{
+  			label: 'Flash',
+  			icon: 'F',
+  			aniName: 'flash',
+  			selected: false
+  		},{
+  			label: 'Bounce',
+  			icon: 'B',
+  			aniName: 'bounce',
+  			selected: false
+  		},{
+  			label: 'Wobble',
+  			icon: 'W',
+  			aniName: 'wobble',
+  			selected: false
+  		},{
+  			label: 'Shake',
+  			icon: 'S',
+  			aniName: 'shake',
+  			selected: false
+  		},{
+  			label: 'Rubberband',
+  			icon: 'RB',
+  			aniName: 'rubberband',
+  			selected: false
+  		},{
+  			label: 'Pulse',
+  			icon: 'P',
+  			aniName: 'pulse',
+  			selected: false
+  		},{
+  			label: 'Swing',
+  			icon: 'S',
+  			aniName: 'swing',
+  			selected: false
+  		}]
   	}
   },
   computed: {
@@ -128,6 +197,16 @@ export default {
   				obj[item.name] = item.val;
   			});
   		}
+  		return obj;
+  	},
+  	trans () {
+  		let trans = this.form.transition;
+  		let obj = {};
+  		if(trans){
+  			trans.forEach((item, i) => {
+  				obj[item.name] = item.val;
+  			});
+  		}	
   		return obj;
   	}
   },
@@ -167,6 +246,18 @@ export default {
 				}
 			});
   		}
+  	},
+  	format (value) {
+  		return (value + 's');
+  	},
+  	handleClick (item) {
+  		item.selected = true;
+  		this.animations.forEach((ani, i) => {
+  			if(ani != item){
+  				ani.selected = false;
+  			}
+  		});
+  		this.form.transition.clazz[0].val = item.aniName;
   	}
   }
 }
@@ -240,5 +331,82 @@ export default {
 	.el-collapse-item__content{
 		padding:0;
 		font-size: 12px;
+	}
+	.el-tabs__nav{
+		width: 100%;
+
+		& .el-tabs__item{
+			width: 50%;
+			text-align: center;
+		}
+	}
+	.el-slider__input{
+		width: 40px;
+	}
+	.el-slider__runway.show-input{
+		margin-right: 60px;
+	}
+	.icon-list{
+
+		&:after{
+			content:' ';
+			display: block;
+			height: 0;
+			clear: both;
+			visibility: hidden;
+		}
+
+		& .icon-item{
+			width: 60px;
+			height: 70px;
+			float: left;
+			text-align: center;
+			cursor: pointer;
+
+			& p{
+				margin: 0;
+				height: 30px;
+				line-height: 30px;
+				vertical-align: middle;
+
+				-webkit-transition: all .25s;
+				-moz-transition: all .25s;
+				transition: all .25s;
+			}
+			& .icon{
+				display: inline-block;
+				height: 40px;
+				width: 40px;
+				border-radius: 50%;
+				background-color: #D3DCE6;
+				line-height: 40px;
+				vertical-align: middle;
+				font-size: 24px;
+
+				-webkit-transition: all .25s;
+				-moz-transition: all .25s;
+				transition: all .25s;
+			}
+
+			&:hover {
+				& .icon{
+					background-color: #58B7FF;
+					color: #fff;
+				}
+
+				& p{
+					color: #20a0ff;
+				}
+			}
+			&.active{
+				& .icon{
+					background-color: #20a0ff;
+					color: #fff;
+				}
+				& p{
+					color: #20a0ff;
+				}
+			}
+		}
 	}
 </style>

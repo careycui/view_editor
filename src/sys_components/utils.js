@@ -1,4 +1,4 @@
-let getLeft = function (lines, cRect) {
+let getLeft = function (lines, cRect, scroll) {
   let cl = cRect.left;
   let offset = {
     o: void 0,
@@ -23,12 +23,12 @@ let getLeft = function (lines, cRect) {
     	offset.display = 'block';
 	    if(!offset.o){
 	      offset.o = Math.abs(o);
-	      offset.left = item[key] + 'px';
+	      offset.left = (item[key] + scroll.sl)+ 'px';
 	      offset.height = item.height + 'px';
 	    }else{
 	      if(offset.o < Math.abs(o)){
 	        offset.o = Math.abs(o);
-	        offset.left = item[key]+ 'px';
+	        offset.left = ( item[key] + scroll.sl)+ 'px';
 	        offset.height = item.height + 'px';
 	      }
     	}
@@ -36,7 +36,7 @@ let getLeft = function (lines, cRect) {
   });
   return offset;
 };
-let getV = function (lines, cRect) {
+let getV = function (lines, cRect, scroll) {
 	let vl = (cRect.left + cRect.right)/2;
 	let offset = {
 	    o: void 0,
@@ -54,14 +54,14 @@ let getV = function (lines, cRect) {
 			offset.display = 'block';
 			if(!offset.o){
 		      offset.o = Math.abs(o);
-		      offset.top = item.top + 'px';
-		      offset.left = io + 'px';
+		      offset.top = (item.top+scroll.st) + 'px';
+		      offset.left = (io+scroll.sl) + 'px';
 		      offset.height = item.height + 'px';
 		    }else{
 		      if(offset.o < Math.abs(o)){
 		        offset.o = Math.abs(o);
-		        offset.top = item.top + 'px';
-		        offset.left = io+ 'px';
+		        offset.top = (item.top+scroll.st) + 'px';
+		        offset.left = (io+scroll.sl) + 'px';
 		        offset.height = item.height + 'px';
 		      }
 	    	}
@@ -69,7 +69,7 @@ let getV = function (lines, cRect) {
 	});
 	return offset;
 };
-let getTop = function (lines, cRect){
+let getTop = function (lines, cRect, scroll){
   let ct = cRect.top;
   let offset = {
     o: void 0,
@@ -94,12 +94,12 @@ let getTop = function (lines, cRect){
     	offset.display = 'block';
 	    if(!offset.o){
 	      offset.o = Math.abs(o);
-	      offset.top = item[key] + 'px';
+	      offset.top = (item[key]+scroll.st) + 'px';
 	      offset.width = item.width + 'px';
 	    }else{
 	      if(offset.o < Math.abs(o)){
 	        offset.o = Math.abs(o);
-	        offset.top = item[key] + 'px';
+	        offset.top = (item[key]+scroll.st)+ 'px';
 	        offset.width = item.width + 'px';
 	      }
     	}
@@ -107,7 +107,7 @@ let getTop = function (lines, cRect){
   });
   return offset;
 };
-let getH = function (lines, cRect) {
+let getH = function (lines, cRect, scroll) {
 	let ht = (cRect.top + cRect.bottom)/2;
 	let offset = {
 	    o: void 0,
@@ -125,14 +125,14 @@ let getH = function (lines, cRect) {
 			offset.display = 'block';
 			if(!offset.o){
 		      offset.o = Math.abs(o);
-		      offset.top = io + 'px';
-		      offset.left = item.left + 'px';
+		      offset.top = (io+scroll.st) + 'px';
+		      offset.left = (item.left+scroll.sl) + 'px';
 		      offset.width = item.width + 'px';
 		    }else{
 		      if(offset.o < Math.abs(o)){
 		        offset.o = Math.abs(o);
-		        offset.top = io + 'px';
-		        offset.left = item.left+ 'px';
+		        offset.top = (io+scroll.st) + 'px';
+		        offset.left = (item.left+scroll.sl)+ 'px';
 		        offset.width = item.width + 'px';
 		      }
 	    	}
@@ -236,6 +236,30 @@ const COM_MIXIN = {
 			}
 			return style;
 		},
+		anis () {
+			let style = {};
+			if(this.form.transition){
+				let aniName = this.anicn;
+				if(aniName){
+					this.form.transition['style'].forEach((attr, j) => {
+						style[attr.name] = attr.val + 's';
+					});
+				}
+			}
+			return style;
+		},
+		anicn () {
+			let clazz = '';
+			if(this.form.transition){
+				this.form.transition['clazz'].forEach((attr, j) => {
+					clazz = attr.val;
+				});
+			}
+			if(clazz){
+				clazz = 'ani ' + clazz;
+			}
+			return clazz;
+		},
 		data () {
 			let data = {};
 			let form = this.form;
@@ -272,7 +296,10 @@ const COM_MIXIN = {
 		      let topLine;
 		      let vLine;
 		      let hLine;
-
+		      let scroll = {
+		      	st: document.body.scrollTop,
+		      	sl: document.body.scrollLeft
+		      }
 		      if(currCom.$dom){
 		        if(parCom.key !== currDom){
 		          lines.push(parCom.$dom.getBoundingClientRect());
@@ -288,10 +315,10 @@ const COM_MIXIN = {
 		          }
 		        }
 		        let cRect = currCom.$dom.getBoundingClientRect();
-		        leftLine = getLeft(lines, cRect);
-		        topLine = getTop(lines, cRect);
-		        vLine = getV(lines, cRect);
-		        hLine = getH(lines, cRect);
+		        leftLine = getLeft(lines, cRect, scroll);
+		        topLine = getTop(lines, cRect, scroll);
+		        vLine = getV(lines, cRect, scroll);
+		        hLine = getH(lines, cRect, scroll);
 		      }
 		      _this.$emit('setLine',{ left: leftLine, top: topLine, vertical: vLine, horizon: hLine});
 			},0);

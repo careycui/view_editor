@@ -1,6 +1,8 @@
 <template>
 	<div class="image-ele outer-html" :style="[pos, border]" :class="{active: isActive}" v-drag="setPos" @dblclick.stop="setActive">
-		<img :src="data.data.img.val" class="img">
+		<div class="ani-outer">
+			<img :src="data.data.img.val" class="img">
+		</div>
 	</div>
 </template>
 <script>

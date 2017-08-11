@@ -27,7 +27,10 @@ import  {Input,
 		Collapse,
 		CollapseItem,
 		Dialog,
-		Tooltip} from 'element-ui'
+		Tooltip,
+		Tabs,
+		TabPane,
+		Slider} from 'element-ui'
 
 Vue.use(Input);
 Vue.use(InputNumber);
@@ -48,6 +51,9 @@ Vue.use(Collapse);
 Vue.use(CollapseItem);
 Vue.use(Dialog);
 Vue.use(Tooltip);
+Vue.use(Tabs);
+Vue.use(TabPane);
+Vue.use(Slider);
 
 Vue.config.productionTip = false
 Vue.component('container', Container);
