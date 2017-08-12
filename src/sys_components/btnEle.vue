@@ -1,6 +1,6 @@
 <template>
 	<div class="btn-ele outer-html" :style="[pos]" :class="{active: isActive}" v-drag="setPos" @dblclick.stop="setActive">
-		<div class="ani-outer">
+		<div class="ani-outer" :class="[anicn, (anicn?'ani':'')]" :style="anis" :data-view-animation="anicn">
 			<button type="button" class="ys-btn" :style="[ff,border,bg]">
 				{{ data.data.txt.val }}
 			</button>

@@ -435,7 +435,7 @@ const coms_data = {
 					style:[{
 						label: '时长(s)',
 						name: 'animationDuration',
-						val: 0.4
+						val: 0.7
 					},{
 						label: '延迟(s)',
 						name: 'animationDelay',
@@ -533,7 +533,7 @@ const coms_data = {
 				style:[{
 					label: '时长(s)',
 					name: 'animationDuration',
-					val: 0.4
+					val: 0.7
 				},{
 					label: '延迟(s)',
 					name: 'animationDelay',
@@ -660,7 +660,7 @@ const coms_data = {
 				style:[{
 					label: '时长(s)',
 					name: 'animationDuration',
-					val: 0.4
+					val: 0.7
 				},{
 					label: '延迟(s)',
 					name: 'animationDelay',
@@ -818,7 +818,7 @@ const coms_data = {
 				style:[{
 					label: '时长(s)',
 					name: 'animationDuration',
-					val: 0.4
+					val: 0.7
 				},{
 					label: '延迟(s)',
 					name: 'animationDelay',

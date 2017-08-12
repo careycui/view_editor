@@ -96,7 +96,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="ys-grid-row">
+					<div class="ys-grid-row" style="overflow: auto;height: 280px;">
 						<div class="ys-cell-12 ys-form-group ys-form-group-sm">
 							<div class="icon-list">
 								<div class="icon-item" :class="{active: ani.selected}" v-for="ani in animations" @click="handleClick(ani)">
@@ -116,6 +116,7 @@ import { mapState } from 'vuex'
 import YsAlign from './align'
 import ColorPicker from './color_picker'
 import { tabs } from './../sys_components/config.js'
+import { animations } from './animations.js'
 
 
 export default {
@@ -127,49 +128,7 @@ export default {
   data () {
   	return {
   		TABS : tabs,
-  		value1: 1,
-  		value2: 0,
-  		animations:[{
-  			label: 'None',
-  			icon: 'X',
-  			aniName: '',
-  			selected: true
-  		},{
-  			label: 'Flash',
-  			icon: 'F',
-  			aniName: 'flash',
-  			selected: false
-  		},{
-  			label: 'Bounce',
-  			icon: 'B',
-  			aniName: 'bounce',
-  			selected: false
-  		},{
-  			label: 'Wobble',
-  			icon: 'W',
-  			aniName: 'wobble',
-  			selected: false
-  		},{
-  			label: 'Shake',
-  			icon: 'S',
-  			aniName: 'shake',
-  			selected: false
-  		},{
-  			label: 'Rubberband',
-  			icon: 'RB',
-  			aniName: 'rubberband',
-  			selected: false
-  		},{
-  			label: 'Pulse',
-  			icon: 'P',
-  			aniName: 'pulse',
-  			selected: false
-  		},{
-  			label: 'Swing',
-  			icon: 'S',
-  			aniName: 'swing',
-  			selected: false
-  		}]
+  		animations: animations
   	}
   },
   computed: {
@@ -381,7 +340,7 @@ export default {
 				background-color: #D3DCE6;
 				line-height: 40px;
 				vertical-align: middle;
-				font-size: 24px;
+				font-size: 18px;
 
 				-webkit-transition: all .25s;
 				-moz-transition: all .25s;

@@ -256,7 +256,7 @@ const COM_MIXIN = {
 				});
 			}
 			if(clazz){
-				clazz = 'ani ' + clazz;
+				clazz = clazz;
 			}
 			return clazz;
 		},

@@ -1,6 +1,6 @@
 <template>
 	<div class="link-ele outer-html" :style="[pos]" :class="{active: isActive}" v-drag="setPos" @dblclick.stop="setActive">
-		<div class="ani-outer">
+		<div class="ani-outer" :class="[anicn, (anicn?'ani':'')]" :style="anis" :data-view-animation="anicn">
 			<a :href="data.action.href.val" :target="data.action.target.val" :style="[bg, ff, border]">
 				{{data.data.txt.val}}
 			</a>

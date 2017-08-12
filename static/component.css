@@ -70,3 +70,16 @@
 	background-image: url(about:blank);
 	vertical-align: middle;
 }
+.outer-html{
+	-webkit-perspective: 500px;
+    -moz-perspective: 500px;
+    perspective: 500px;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: peserve-3d;
+    transform-style: preserve-3d;
+}
+.active.ani-outer, .active .ani-outer{
+	-webkit-animation-play-state:running;
+	-moz-animation-play-state:running;
+	animation-play-state:running;
+}

@@ -193,10 +193,17 @@ export default {
       this.wrect.height = obj.h + 'px';
     },
     setHtml () {
+      let css = '<link rel="stylesheet" type="text/css" href="http://localhost:8080/static/component.css" />' ;
+      let css1 = '<link rel="stylesheet" type="text/css" href="http://localhost:8080/static/animate-min.css" />' ;
+      let lib = '\<script type="text/javascript" src="http://localhost:8080/static/jquery.min.js"\>\<\/script\>';
+      let lib1 = '\<script type="text/javascript" src="http://localhost:8080/static/img-slide-min.js"\>\<\/script\>';
+      let lib2 = '\<script type="text/javascript" src="http://localhost:8080/static/aniview-min.js"\>\<\/script\>';
+      let page = '\<script type="text/javascript" src="http://localhost:8080/static/page.js"\>\<\/script\>';
+
       let $cnt = this.$el.querySelector('.app-content');
       let html = $cnt.innerHTML.replace(/(&quot;)+/g, '\'').replace(/(data\-v\-[\w]+\=[\"]{2})+/g, '').replace(/(\n)+/g, '')
-                                .replace(/(\<\![\-]{4}\>)+/g, '');
-      html = '<link rel="stylesheet" type="text/css" href="http://localhost:8080/static/component.css" />'  + html;                        
+                                .replace(/(\<\![\-]{4}\>)+/g, '').replace(/active/g, '');
+      html = css + css1 + lib + lib2  + html + page;                         
       this.html = html;
     },
     selectAll () {
@@ -343,5 +350,13 @@ export default {
 }
 .cudialog{
   min-width: 800px;
+}
+.outer-html{
+    -webkit-perspective: 500px;
+    -moz-perspective: 500px;
+    perspective: 500px;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: peserve-3d;
+    transform-style: preserve-3d;
 }
 </style>
