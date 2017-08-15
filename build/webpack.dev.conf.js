@@ -40,7 +40,6 @@ var plugins = [
   ];
 var pages = getEntry('./src/module/**/*.html');
 
-console.log('pages', pages);
 for (var pathname in pages) {
 
   var conf = {
@@ -50,7 +49,7 @@ for (var pathname in pages) {
     inject: true,              // js插入位置
     hash: true
   };
- 
+
   plugins.push(new HtmlWebpackPlugin(conf));
 }
 module.exports = merge(baseWebpackConfig, {

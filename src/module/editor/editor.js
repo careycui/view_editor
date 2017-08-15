@@ -1,7 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './editor.js'
+import App from './App'
 import Container from './../../sys_components/container'
 import SectionPanel from './../../sys_components/section'
 import Banner from './../../sys_components/banner'

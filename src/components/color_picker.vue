@@ -40,7 +40,7 @@ import { Sketch,Chrome} from 'vue-color'
 			let rect = this.$el.getBoundingClientRect();
 			this.pos.left = (rect.left - 101) + 'px';
 			this.pos.top = (rect.top + 20) + 'px';
-			
+
 			let that = this;
 			document.addEventListener('click', (e)=>{
 				if(!that.$el.contains(e.target)){
