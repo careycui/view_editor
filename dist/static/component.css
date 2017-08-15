@@ -1,0 +1,85 @@
+.ani-outer{
+	width: 100%;
+	height: 100%;
+}
+.pcontainer{
+	position: relative;
+	width: 1920px;
+	min-height: 600px;
+	background-color: #fff;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-align: center;
+	border: 1px solid transparent;
+}
+.pcontainer .pcontainer-bg{
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+}
+.bg-img, .img{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.section{
+	position: relative;
+	width: 1920px;
+}
+.banner{
+	position: relative;
+	width: 1920px;
+	left: 50%;
+	margin-left: -960px;
+}
+.img-link, .image-ele, .btn-ele, .link-ele{
+	position: absolute;
+	display: inline-block;
+}
+.btn-ele button {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+  	border: none;
+  	background-color: transparent;
+  	outline: none;
+  	text-align: center;
+  	cursor: pointer;
+  	min-width: 32px;
+  	vertical-align: middle;
+  	color: #333;
+    -moz-transition: all 0.25s;
+    -o-transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+  	transition: all 0.25s;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+  	border-radius: 2px;
+}
+.img-link a{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.link-ele a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	background-image: url(about:blank);
+	vertical-align: middle;
+}
+.outer-html{
+	-webkit-perspective: 500px;
+    -moz-perspective: 500px;
+    perspective: 500px;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: peserve-3d;
+    transform-style: preserve-3d;
+}
+.active.ani-outer, .active .ani-outer{
+	-webkit-animation-play-state:running;
+	-moz-animation-play-state:running;
+	animation-play-state:running;
+}
