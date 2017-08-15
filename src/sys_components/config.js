@@ -374,7 +374,7 @@ const coms_data = {
 					},{
 						label: 'X',
 						name: 'left',
-						val: '0',
+						val: '300',
 						formEle: {
 							type: 'el-input-number',
 							unit: 'px'
@@ -439,7 +439,7 @@ const coms_data = {
 					},{
 						label: '延迟(s)',
 						name: 'animationDelay',
-						val: 0
+						val: 0.4
 					}],
 					clazz:[{
 						label: '动效类',
@@ -471,7 +471,7 @@ const coms_data = {
 				},{
 					label: 'X',
 					name: 'left',
-					val: '0',
+					val: '300',
 					formEle: {
 						type: 'el-input-number',
 						unit: 'px'
@@ -537,7 +537,7 @@ const coms_data = {
 				},{
 					label: '延迟(s)',
 					name: 'animationDelay',
-					val: 0
+					val: 0.4
 				}],
 				clazz:[{
 					label: '动效类',
@@ -569,7 +569,7 @@ const coms_data = {
 				},{
 					label: 'X',
 					name: 'left',
-					val: '0',
+					val: '300',
 					formEle: {
 						type: 'el-input-number',
 						unit: 'px'
@@ -664,7 +664,7 @@ const coms_data = {
 				},{
 					label: '延迟(s)',
 					name: 'animationDelay',
-					val: 0
+					val: 0.4
 				}],
 				clazz:[{
 					label: '动效类',
@@ -696,7 +696,7 @@ const coms_data = {
 				},{
 					label: 'X',
 					name: 'left',
-					val: '0',
+					val: '300',
 					formEle: {
 						type: 'el-input-number',
 						unit: 'px'
@@ -822,7 +822,7 @@ const coms_data = {
 				},{
 					label: '延迟(s)',
 					name: 'animationDelay',
-					val: 0
+					val: 0.4
 				}],
 				clazz:[{
 					label: '动效类',

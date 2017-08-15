@@ -33,7 +33,7 @@
 			</div>
 		</div>
 		<div class="bar-cnt--line"></div>
-		<el-tabs value="attribute">
+		<el-tabs v-model="activeName">
 			<el-tab-pane label="属性" name="attribute">
 			    <el-collapse accordion value="style">
 			    	<el-collapse-item title="样式" name="style" v-if="form && form.style">
@@ -128,10 +128,21 @@ export default {
   data () {
   	return {
   		TABS : tabs,
-  		animations: animations
+  		activeName: 'attribute'
   	}
   },
   computed: {
+  	animations () {
+  		let aniName = this.trans.aniName;
+  		animations.forEach((item, i) => {
+  			if(item.aniName === aniName){
+  				item.selected = true;
+  			}else{
+  				item.selected = false;
+  			}
+  		});
+  		return animations;
+  	},
   	form () {
 		return this.$store.getters.getCurrentForm;
   	},
@@ -162,7 +173,7 @@ export default {
   		let trans = this.form.transition;
   		let obj = {};
   		if(trans){
-  			trans.forEach((item, i) => {
+  			trans.clazz.forEach((item, i) => {
   				obj[item.name] = item.val;
   			});
   		}	
@@ -179,6 +190,9 @@ export default {
   				}
   			}
   		}
+  	},
+  	com () {
+  		this.activeName = 'attribute';
   	}
   },
   methods: {

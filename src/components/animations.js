@@ -159,24 +159,24 @@ const anis = [{
 	  			aniName: 'rotateIn',
 	  			selected: false
 	  		},{
-	  			label: 'Rotate ↑',
+	  			label: 'Rotate ↗',
 	  			icon: 'RID',
-	  			aniName: 'rotateInDown',
+	  			aniName: 'rotateInDownLeft',
 	  			selected: false
 	  		},{
-	  			label: 'Rotate ↓',
+	  			label: 'Rotate ↘',
 	  			icon: 'RIU',
-	  			aniName: 'rotateInUp',
+	  			aniName: 'rotateInUpLeft',
 	  			selected: false
 	  		},{
-	  			label: 'Rotate →',
+	  			label: 'Rotate ↖',
 	  			icon: 'RIL',
-	  			aniName: 'rotateInLeft',
+	  			aniName: 'rotateInDownRight',
 	  			selected: false
 	  		},{
-	  			label: 'Rotate ←',
+	  			label: 'Rotate ↙',
 	  			icon: 'RIR',
-	  			aniName: 'rotateInRight',
+	  			aniName: 'rotateInUpRight',
 	  			selected: false
 	  		},{
 	  			label: 'Flip X In',
