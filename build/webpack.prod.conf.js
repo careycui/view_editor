@@ -1,4 +1,3 @@
-console.log('11111111111111');
 var path = require('path')
 var utils = require('./utils')
 var webpack = require('webpack')
@@ -140,7 +139,7 @@ function getEntry(globPath) {
 }
 
 var pages = getEntry('./src/module/**/*.html');
-
+console.log(pages);
 for (var pathname in pages) {
   // 配置生成的html文件，定义路径等
   var conf = {
