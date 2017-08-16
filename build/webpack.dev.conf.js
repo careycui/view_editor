@@ -45,7 +45,7 @@ for (var pathname in pages) {
   var conf = {
     filename: pathname + '.html',
     template: pages[pathname], // 模板路径
-    chunks: ['vendor',pathname], // 每个html引用的js模块
+    chunks: [pathname, 'vendor', 'manifest'], // 每个html引用的js模块
     inject: true,              // js插入位置
     hash: true
   };

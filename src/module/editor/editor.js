@@ -1,7 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './App'
+import editor from './editor.vue'
 import Container from './../../sys_components/container'
 import SectionPanel from './../../sys_components/section'
 import Banner from './../../sys_components/banner'
@@ -102,7 +102,10 @@ Vue.directive('window', function(el, binding){
 );
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  template: '<App/>',
-  components: { App }
+  el: '#editor',
+  template: '<editor />',
+  components: { editor },
+  mounted: function(){
+  	console.log(this);
+  }
 })

@@ -1,5 +1,5 @@
 <template>
-  <div id="app" v-window="getWindow">
+  <div id="editor" v-window="getWindow">
     <div class="top-bar">
       <top-bar @barChange="barChange" @openCode="openCode" :innerHtml='html' @setHtml="setHtml" @openPreview="openPreview"></top-bar>
     </div>
@@ -56,7 +56,7 @@ import { Message } from 'element-ui'
 import Preview from './../../components/preview_dialog'
 
 export default {
-  name: 'app',
+  name: 'editor',
   store,
   components: {
     ComPanel,EditorPanel,Lines,TopBar,Preview
