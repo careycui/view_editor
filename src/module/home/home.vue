@@ -14,14 +14,14 @@
 						</el-button>
 					</div>
 					<hr style="border-top:1px solid #475669;">
-					<el-menu default-active="1" class="el-menu-vertical-demo" theme="dark" @select="hangdleSelect">
-						<el-menu-item index="1">
+					<el-menu default-active="/info" class="el-menu-vertical-demo" theme="dark" @select="hangdleSelect" :router="true">
+						<el-menu-item index="/info" router="/info">
 							<i class="el-icon-document"></i>详情页
 						</el-menu-item>
-					    <el-menu-item index="2">
+					    <el-menu-item index="/topic" router="/topic">
 					    	<i class="el-icon-document"></i>专题活动页
 					    </el-menu-item>
-					    <el-menu-item index="3"><i class="el-icon-picture"></i>素材库</el-menu-item>
+					    <el-menu-item index="/asset" router="/asset"><i class="el-icon-picture"></i>素材库</el-menu-item>
 				    </el-menu>
 				</div>
 			</el-col>
@@ -212,6 +212,7 @@
 					  	</el-tabs>
 					</div>
 				</div>
+				<router-view></router-view>
 			</el-col>
 		</el-row>
 	</div>
@@ -330,7 +331,7 @@
 	    }
 	}
 	.list{
-		margin: 40px 0;
+		margin: 20px 0 40px 0;
 	}
 	.project-card{
 		position: relative;
@@ -370,6 +371,7 @@
 		    text-overflow: ellipsis;
 		    overflow: hidden;
 		    white-space: nowrap;
+		    color: #324057;
 		}
 		& .project-card--desc{
 			padding: 0px 10px;
@@ -378,6 +380,7 @@
 		    text-overflow: ellipsis;
 		    overflow: hidden;
 		    white-space: nowrap;
+		    color: #99A9BF;
 		}
 		& .project-card--btns{
 			position: absolute;
@@ -386,6 +389,8 @@
 			padding-top: 20px;
 			width: 200px;
 			height: 180px;
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
 			text-align: center;
 
 			background-color: rgba(0,0,0, .4);
