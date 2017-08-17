@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from './home.vue'
+import Info from './components/info'
+import Topic from './components/topic'
+import Asset from './components/asset'
 import {Row,
 		Col,
 		Menu,
@@ -29,18 +32,14 @@ Vue.use(DropdownItem);
 
 Vue.config.productionTip = false
 
-const info = {
-	template : '<div>Info</div>'
-}
-const topic = {
-	template : '<div>Topic</div>'
-}
 const routes = [
-  { path: '/info', component: info },
-  { path: '/topic', component: topic }
+	{ path: '/', component: Info },
+  	{ path: '/info', component: Info },
+  	{ path: '/topic', component: Topic },
+  	{ path: '/asset', component: Asset }
 ]
 const router = new VueRouter({
-  routes // （缩写）相当于 routes: routes
+  	routes // （缩写）相当于 routes: routes
 })
 new Vue({
   el: '#home',
