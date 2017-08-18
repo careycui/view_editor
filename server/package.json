@@ -1,0 +1,20 @@
+{
+  "name": "view_editor",
+  "version": "1.0.0",
+  "description": "页面可视化编辑项目",
+  "author": "careycui <haiyucui@gmail.com>",
+  "private": true,
+  "scripts": {},
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "dependencies": {
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.0.1",
+    "koa-router": "^7.2.1",
+    "sequelize": "^4.5.0"
+  }
+}
