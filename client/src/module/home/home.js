@@ -4,6 +4,7 @@ import Home from './home.vue'
 import Info from './components/info'
 import Topic from './components/topic'
 import Asset from './components/asset'
+import Create from './components/create.vue'
 import {Row,
 		Col,
 		Menu,
@@ -34,8 +35,9 @@ Vue.config.productionTip = false
 
 const routes = [
 	{ path: '/', component: Info },
-  	{ path: '/info', component: Info },
-  	{ path: '/topic', component: Topic },
+  	{ path: '/info/:type', component: Info },
+  	{ path: '/topic/:type', component: Topic },
+  	{ path: '/create', component: Create },
   	{ path: '/asset', component: Asset }
 ]
 const router = new VueRouter({

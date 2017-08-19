@@ -9,18 +9,30 @@
 			<el-col :xs="24" :sm="5" :md="4" :lg="4" class="project-bar">
 				<div class="project-bar--box">
 					<div class="project-bar--btns">
-						<el-button type="primary" size="large" icon="plus">
+						<el-button type="primary" size="large" icon="plus" @click="openPage">
 							创建页面
 						</el-button>
 					</div>
 					<hr style="border-top:1px solid #475669;">
-					<el-menu :default-active="activeName" class="el-menu-vertical-demo" theme="dark" @select="hangdleSelect" :router="true">
-						<el-menu-item index="/info" router="/info">
-							<i class="el-icon-document"></i>详情页
-						</el-menu-item>
-					    <el-menu-item index="/topic" router="/topic">
-					    	<i class="el-icon-document"></i>专题活动页
-					    </el-menu-item>
+					<el-menu :default-active="activeName" class="el-menu-vertical-demo" theme="dark" @select="handleSelect" :router="true">
+						<el-submenu index="1">
+							<template slot="title"><i class="el-icon-menu"></i>详情页</template>
+							<el-menu-item index="/info/pc" router="/info">
+								<i class="el-icon-document"></i>PC
+							</el-menu-item>
+							<el-menu-item index="/info/mobile" router="/info">
+								<i class="el-icon-document"></i>Mobile
+							</el-menu-item>
+						</el-submenu>
+						<el-submenu index="2">
+							<template slot="title"><i class="el-icon-menu"></i>专题活动页</template>
+							<el-menu-item index="/topic/pc" router="/topic">
+								<i class="el-icon-document"></i>PC
+							</el-menu-item>
+							<el-menu-item index="/topic/mobile" router="/topic">
+								<i class="el-icon-document"></i>Mobile
+							</el-menu-item>
+						</el-submenu>
 					    <el-menu-item index="/asset" router="/asset"><i class="el-icon-picture"></i>素材库</el-menu-item>
 				    </el-menu>
 				</div>
@@ -43,12 +55,17 @@
 			this.activeName = this.$route.path;
 		},
 		methods : {
-			hangdleSelect (index, indexPath) {
+			handleSelect (index, indexPath) {
 				console.log(index, indexPath);
 			},
 			handleTabClick (tab) {
 				let clazz = tab.$el.className;
 				tab.$el.className = clazz + ' active';
+			},
+			openPage () {
+				console.log(this.$router);
+				this.activeName = '';
+				this.$router.push('/create');
 			}
 		}
 	}

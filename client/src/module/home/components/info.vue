@@ -2,7 +2,7 @@
 	<transition>
 		<div class="project-body--box">
 			<div class="project-body--title">
-				<h3>详情页</h3>
+				<h3>详情页-<small>{{ type }}</small></h3>
 			</div>
 			<div class="project-body--body">
 				<el-tabs v-model="activeName" @tab-click="handleTabClick">
@@ -165,6 +165,11 @@ export default{
 	beforeRouteEnter (to, from, next) {
 		console.log(to, from, next);
 		next();
+	},
+	computed : {
+		type () {
+			return this.$route.params.type.toUpperCase();
+		}
 	},
 	methods : {
 		hangdleSelect (index, indexPath) {
