@@ -1,9 +1,11 @@
 const Router = require('koa-router');
-
+const Page = require('./../apis/pageRelated.js');
 const router = new Router();
 
 router.get('/', async (ctx, next) => {
 	ctx.body = 'Hello Koa';
 });
 
-module.exports = router
+router.get('/pro/index', Page.index);
+
+module.exports = router;
