@@ -32,5 +32,5 @@ const TopicPage = seq.define('topic_page', {
 	freezeTableName: true,
 	timestamps: false
 });
-
+TopicPage.hasOne(TopicPage, {foreignKey: 'concat_id', as: 'otherPlatform'});
 module.exports = TopicPage;

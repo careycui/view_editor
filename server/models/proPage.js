@@ -32,5 +32,15 @@ const ProPage = seq.define('pro_page', {
 	freezeTableName: true,
 	timestamps: false
 });
+ProPage.hasOne(ProPage, {foreignKey: 'concat_id', as: 'otherPlatform'});
 
+// ProPage.create({
+// 	title: 'Mobile',
+// 	desc: 'Mobile',
+// 	platform_type: 1,
+// 	page_type: 0,
+// 	form_data: 'sdfsewrewbfksdjisfduweriowreoo9joi',
+// 	page_data: 'weorepwo[cjmvclmclkmvlsmfds',
+// 	html_data: 'sfwerowejffiwefowejfoiwejfow'
+// });
 module.exports = ProPage;
