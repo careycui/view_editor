@@ -47,7 +47,7 @@
 		    			</div>
 		    		</el-tab-pane>
 			    	<el-tab-pane label="普通" name="second" class="ani slideInDownSm delay">
-			    		
+
 			    	</el-tab-pane>
 			    	<el-tab-pane label="全屏滚动" name="third" class="ani slideInDownSm delay">
 			    		<div class="list">
@@ -146,6 +146,11 @@ export default{
 			}else{
 				return 'PC';
 			}
+		}
+	},
+	watch : {
+		type () {
+			this.setPageList();
 		}
 	},
 	methods : {

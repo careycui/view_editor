@@ -174,6 +174,7 @@
 		width: 200px;
 		height: 240px;
 		margin-right: 30px;
+		margin-bottom: 20px;
 		background-color: #fff;
 		border-radius: 5px;
 		box-shadow: 0 2px 4px rgba(0,0,0,0.05);
