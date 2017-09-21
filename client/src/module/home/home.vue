@@ -176,10 +176,11 @@
 		margin-right: 30px;
 		background-color: #fff;
 		border-radius: 5px;
-		box-shadow: 0 6px 8px rgba(0, 0, 0, .2),
-					0 -1px 4px rgba(0, 0, 0, .1),
-					2px 0 6px rgba(0, 0, 0, .2),
-					-2px 0 6px rgba(0, 0, 0, .2);
+		box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+		-webkit-transform: translate3d(0, 0, 0);
+		-moz-transform: translate3d(0, 0, 0);
+		-ms-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
 
 		-webkit-transition: all .45s;
 		-moz-transition: all .45s;
@@ -236,7 +237,11 @@
 			transition: all .3s;
 		}
 		&:hover{
-			box-shadow: -10px 20px 15px rgba(0, 0, 0, .3);
+			box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+			-webkit-transform: translate3d(0, -5px, 0);
+			-moz-transform: translate3d(0, -5px, 0);
+			-ms-transform: translate3d(0, -5px, 0);
+			transform: translate3d(0, -5px, 0);
 
 			& .project-card--btns{
 				visibility:	visible;

@@ -3,12 +3,13 @@ const logger = require('koa-logger');
 const router = require('./router/router');
 const kb = require('koa-bodyparser');
 const json = require('koa-json');
+const cors = require('koa2-cors');
 
 const APP = new Koa();
 
 
 APP.use(logger());
-
+APP.use(cors());
 APP.use(kb({
 	onerror: (err, ctx) => {
 		ctx.throw('Error parsing the body information', 422);

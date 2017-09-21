@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import axios from 'axios'
 import Home from './home.vue'
 import Info from './components/info'
 import Topic from './components/topic'
@@ -32,7 +33,7 @@ Vue.use(DropdownMenu);
 Vue.use(DropdownItem);
 
 Vue.config.productionTip = false
-
+Vue.prototype.$http = axios;
 const routes = [
 	{ path: '/', component: Info },
   	{ path: '/info/:type', component: Info },

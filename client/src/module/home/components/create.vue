@@ -15,16 +15,16 @@
 								<h3 class="add-sign"><i class="fa fa-desktop"></i></h3>
 								<p class="add-desc">新建PC详情页</p>
 								<div class="add-btns">
-									<el-button type="primary" size="small">普通页</el-button>
-									<el-button type="primary" size="small">海报页</el-button>
+									<el-button type="primary" size="small" @click="handleSavePro('PC_BASE')">普通页</el-button>
+									<el-button type="primary" size="small" @click="handleSavePro('PC_H5')">海报页</el-button>
 								</div>
 							</div>
 							<div class="project-card">
 								<h3 class="add-sign"><i class="fa fa-mobile"></i></h3>
 								<p class="add-desc">新建mobile详情页</p>
 								<div class="add-btns">
-									<el-button type="primary" size="small">普通页</el-button>
-									<el-button type="primary" size="small">海报页</el-button>
+									<el-button type="primary" size="small" @click="handleSavePro('M_BASE')">普通页</el-button>
+									<el-button type="primary" size="small" @click="handleSavePro('M_H5')">海报页</el-button>
 								</div>
 							</div>
 						</div>
@@ -40,16 +40,16 @@
 								<h3 class="add-sign"><i class="fa fa-desktop"></i></h3>
 								<p class="add-desc">新建PC专题页</p>
 								<div class="add-btns">
-									<el-button type="primary" size="small">普通页</el-button>
-									<el-button type="primary" size="small">海报页</el-button>
+									<el-button type="primary" size="small" @click="handleSaveTopic('PC_BASE')">普通页</el-button>
+									<el-button type="primary" size="small" @click="handleSaveTopic('PC_H5')">海报页</el-button>
 								</div>
 							</div>
 							<div class="project-card">
 								<h3 class="add-sign"><i class="fa fa-mobile"></i></h3>
 								<p class="add-desc">新建Mobile专题页</p>
 								<div class="add-btns">
-									<el-button type="primary" size="small">普通页</el-button>
-									<el-button type="primary" size="small">海报页</el-button>
+									<el-button type="primary" size="small" @click="handleSaveTopic('M_BASE')">普通页</el-button>
+									<el-button type="primary" size="small" @click="handleSaveTopic('M_H5')">海报页</el-button>
 								</div>
 							</div>
 						</div>
@@ -60,6 +60,34 @@
 	</transition>
 </template>
 <script>
+const D_TITLE = '未命名页面';
+const D_DESC = '未添加描述';
+const PAGE_CONF={
+	PC_BASE:{
+		title: D_TITLE,
+		desc: D_DESC,
+		platform_type: 0,
+		page_type: 0
+	},
+	PC_H5:{
+		title: D_TITLE,
+		desc: D_DESC,
+		platform_type: 0,
+		page_type: 1
+	},
+	M_BASE:{
+		title: D_TITLE,
+		desc: D_DESC,
+		platform_type: 1,
+		page_type: 0
+	},
+	M_H5:{
+		title: D_TITLE,
+		desc: D_DESC,
+		platform_type: 1,
+		page_type: 1
+	}
+}
 export default{
 	name: 'info',
 	data () {
@@ -83,6 +111,36 @@ export default{
 		handleTabClick (tab) {
 			let clazz = tab.$el.className;
 			tab.$el.className = clazz + ' active';
+		},
+		handleSavePro (type) {
+			let baseData = PAGE_CONF[type];
+			this.$http({
+				url: 'http://localhost:3030/pro/save',
+				method: 'POST',
+				data: baseData,
+				responseType: 'json'
+			}).then(function(res){
+				if(res.data){
+					window.location.href="/module/editor.html?key="+res.data.id;
+				}
+			}, function(err){
+
+			});
+		},
+		handleSaveTopic (type) {
+			let baseData = PAGE_CONF[type];
+			this.$http({
+				url: 'http://localhost:3030/topic/save',
+				method: 'POST',
+				data: baseData,
+				responseType: 'json'
+			}).then(function(res){
+				console.log(res.result);
+			}, function(err){
+				if(res.data){
+					window.location.href="/module/editor.html?key="+res.data.id;
+				}
+			});
 		}
 	}
 }
