@@ -1,7 +1,7 @@
 const ProPage = require('./../models/proPage');
 const TopicPage = require('./../models/topicPage');
 
-module.exports.proindex = async (ctx, next) => {
+module.exports.proIndex = async (ctx, next) => {
 	let type = ctx.accepts('json');
 	let platform = ctx.params.type;
 	platform = (platform==='PC'?0:1);
@@ -16,7 +16,7 @@ module.exports.proindex = async (ctx, next) => {
 		});
 	ctx.body = JSON.stringify(pages);
 }
-module.exports.topicindex = async (ctx, next) => {
+module.exports.topicIndex = async (ctx, next) => {
 	let type = ctx.accepts('json');
 	let platform = ctx.params.type;
 	platform = (platform==='PC'?0:1);
@@ -31,23 +31,33 @@ module.exports.topicindex = async (ctx, next) => {
 		});
 	ctx.body = JSON.stringify(pages);
 }
-module.exports.savepro = async (ctx, next) => {
+module.exports.savePro = async (ctx, next) => {
 	let data = ctx.request.body;
 	let result = await ProPage.create(data);
 	ctx.body = JSON.stringify(result);
 }
-module.exports.savetopic = async (ctx, next) => {
+module.exports.saveTopic = async (ctx, next) => {
 	let data = ctx.request.body;
 	let result = await TopicPage.create(data);
 	ctx.body = JSON.stringify(result);
 }
-module.exports.updatepro = async (ctx, next) => {
+module.exports.updatePro = async (ctx, next) => {
 	let data = ctx.request.body;
 	let result = await ProPage.update(data,{ where : { id: { $eq : data.id } }}, {fieds:['title','img_cover','desc']});
 	ctx.body = JSON.stringify(result);
 }
-module.exports.updatetopic = async (ctx, next) => {
+module.exports.updateTopic = async (ctx, next) => {
 	let data = ctx.request.body;
 	let result = await TopicPage.update(data,{ where : { id: { $eq : data.id } }}, {fieds:['title','img_cover','desc']});
+	ctx.body = JSON.stringify(result);
+}
+module.exports.savePageTopic = async (ctx, next) => {
+	let data = ctx.request.body;
+	let result = await TopicPage.update(data,{ where : { id: { $eq : data.id } }}, {fieds:['html_data','page_data','form_data']});
+	ctx.body = JSON.stringify(result);
+}
+module.exports.savePagePro = async (ctx, next) => {
+	let data = ctx.request.body;
+	let result = await ProPage.update(data,{ where : { id: { $eq : data.id } }}, {fieds:['html_data','page_data','form_data']});
 	ctx.body = JSON.stringify(result);
 }

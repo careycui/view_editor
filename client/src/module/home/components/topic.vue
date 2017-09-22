@@ -19,7 +19,7 @@
 		    						{{ page.desc || '未添加描述' }}
 		    					</div>
 		    					<div class="project-card--btns">
-		    						<el-dropdown split-button type="primary" size="mini" @click="goEditor(page.id)" @command="handleCommand(page)">
+		    						<el-dropdown split-button type="primary" size="mini" @click="goEditor(page.id,page.t_type)" @command="handleCommand(page)">
 										<i class="el-icon-edit" style="margin-right:5px;"></i>编辑
 			    						<el-dropdown-menu slot="dropdown">
 										    <el-dropdown-item type="set">
@@ -71,7 +71,7 @@
 		    						{{ page.desc || '未添加描述' }}
 		    					</div>
 		    					<div class="project-card--btns">
-		    						<el-dropdown split-button type="primary" size="mini" @click="goEditor(page.id)" @command="handleCommand(page)">
+		    						<el-dropdown split-button type="primary" size="mini" @click="goEditor(page.id,page.t_type)" @command="handleCommand(page)">
 										<i class="el-icon-edit" style="margin-right:5px;"></i>编辑
 			    						<el-dropdown-menu slot="dropdown">
 										    <el-dropdown-item type="set">
@@ -122,7 +122,7 @@
 		    						{{ page.desc || '未添加描述' }}
 		    					</div>
 		    					<div class="project-card--btns">
-		    						<el-dropdown split-button type="primary" size="mini" @click="goEditor(page.id)" @command="handleCommand(page)">
+		    						<el-dropdown split-button type="primary" size="mini" @click="goEditor(page.id,page.t_type)" @command="handleCommand(page)">
 										<i class="el-icon-edit" style="margin-right:5px;"></i>编辑
 			    						<el-dropdown-menu slot="dropdown">
 										    <el-dropdown-item type="set">

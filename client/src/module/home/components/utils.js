@@ -48,8 +48,8 @@ var PAGE_MIXIN = {
 			}
 			return list;
 		},
-		goEditor (id) {
-			window.location.href="/module/editor.html?key="+id;
+		goEditor (id,type) {
+			window.location.href="/module/editor.html?key="+id+'&t_type='+type;
 		},
 		handleCommand (page) {
 			var type = event.target.type;

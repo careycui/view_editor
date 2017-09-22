@@ -6,16 +6,20 @@ router.get('/', async (ctx, next) => {
 	ctx.body = 'Hello Koa';
 });
 
-router.get('/pro/index/:type', Page.proindex);
+router.get('/pro/index/:type', Page.proIndex);
 
-router.get('/topic/index/:type', Page.topicindex);
+router.get('/topic/index/:type', Page.topicIndex);
 
-router.post('/pro/save', Page.savepro);
+router.post('/pro/save', Page.savePro);
 
-router.post('/topic/save', Page.savetopic);
+router.post('/topic/save', Page.saveTopic);
 
-router.post('/pro/update', Page.updatepro);
+router.post('/pro/update', Page.updatePro);
 
-router.post('/topic/update', Page.updatetopic);
+router.post('/topic/update', Page.updateTopic);
+
+router.post('/pro/savepage', Page.savePagePro);
+
+router.post('/topic/savepage', Page.savePageTopic);
 
 module.exports = router;

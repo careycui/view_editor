@@ -70,7 +70,7 @@
 	background-image: url(about:blank);
 	vertical-align: middle;
 }
-.outer-html{
+.outer-html.ani-stage{
 	-webkit-perspective: 500px;
     -moz-perspective: 500px;
     perspective: 500px;

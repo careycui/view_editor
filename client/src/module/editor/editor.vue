@@ -1,7 +1,7 @@
 <template>
   <div id="editor" v-window="getWindow">
     <div class="top-bar">
-      <top-bar @barChange="barChange" @openCode="openCode" :innerHtml='html' @setHtml="setHtml" @openPreview="openPreview"></top-bar>
+      <top-bar @barChange="barChange" @openCode="openCode" :innerHtml='html' @savePage="savePage" @openPreview="openPreview"></top-bar>
     </div>
 
     <div class="left-bar" :class="{'close': leftBarClose}">
@@ -54,6 +54,17 @@ import { component, components, comData } from './../../sys_components/config.js
 import { Message } from 'element-ui'
 
 import Preview from './../../components/preview_dialog'
+
+var getQueryString = function (name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);  //获取url中"?"符后的字符串并正则匹配
+    var context = "";
+    if (r != null)
+         context = r[2];
+    reg = null;
+    r = null;
+    return context == null || context == "" || context == "undefined" ? "" : context;
+}
 
 export default {
   name: 'editor',
@@ -205,8 +216,40 @@ export default {
       let $cnt = this.$el.querySelector('.app-content');
       let html = $cnt.innerHTML.replace(/(&quot;)+/g, '\'').replace(/(data\-v\-[\w]+\=[\"]{2})+/g, '').replace(/(\n)+/g, '')
                                 .replace(/(\<\![\-]{4}\>)+/g, '').replace(/active/g, '');
-      html = css + css1 + lib + lib2  + html + page;                         
+      html = css + css1 + lib + lib2  + html + page;
       this.html = html;
+    },
+    savePage () {
+      this.setHtml();
+      var formData = JSON.stringify(this.$store.getters.getForms);
+      var htmlData = JSON.stringify(this.html);
+      var pageData = JSON.stringify(this.$store.getters.getPage);
+      console.log(formData, htmlData, pageData);
+      var type = getQueryString('t_type');
+      var id = getQueryString('key');
+      this.$http({
+        url: 'http://localhost:3030/'+ type +'/savepage',
+        method: 'post',
+        data: {
+          id: id,
+          form_data: formData,
+          html_data: htmlData,
+          page_data: pageData
+        },
+        responseType: 'json'
+      }).then(function(res){
+        Message({
+          message: '保存成功',
+          showClose: true,
+          type: 'info'
+        });
+      },function(err){
+        Message({
+          message: '保存失败，请稍后再试',
+          showClose: true,
+          type: 'error'
+        });
+      });
     },
     selectAll () {
       let $area = this.$refs.htmlText.$el.querySelector('textarea');
@@ -353,7 +396,7 @@ export default {
 .cudialog{
   min-width: 800px;
 }
-.outer-html{
+.outer-html.ani-stage{
     -webkit-perspective: 500px;
     -moz-perspective: 500px;
     perspective: 500px;

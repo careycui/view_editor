@@ -1,5 +1,5 @@
 <template>
-	<div class="img-link outer-html" :style="[pos, bg, ff]" :class="{active: isActive}" v-drag="setPos" @dblclick.stop="setActive">
+	<div class="img-link outer-html ani-stage" :style="[pos, bg, ff]" :class="{active: isActive}" v-drag="setPos" @dblclick.stop="setActive">
 		<div class="ani-outer" :class="[anicn, (anicn?'ani':'')]" :style="anis" :data-view-animation="anicn">
 			<a :href="data.action.href.val" :target="data.action.target.val">
 				<img :src="data.data.img.val" class="bg-img">

@@ -49,12 +49,7 @@ export default {
 			this.$emit('openPreview');
 		},
 		handleSave () {
-      this.$emit('setHtml');
-      var formData = JSON.stringify(this.$store.getters.getForms);
-      var htmlData = JSON.stringify(this.innerHtml);
-      var pageData = JSON.stringify(this.$store.getters.getPage);
-
-			console.log(pageData,htmlData);
+      this.$emit('savePage');
 		}
 	}
 }
