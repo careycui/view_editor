@@ -300,21 +300,24 @@ const COM_MIXIN = {
 		      	st: document.body.scrollTop,
 		      	sl: document.body.scrollLeft
 		      }
-		      if(currCom.$dom){
+		      var $dom = document.getElementById(currCom.key);
+		      if($dom){
 		        if(parCom.key !== currDom){
-		          lines.push(parCom.$dom.getBoundingClientRect());
+		        	var $parDom = document.getElementById(parCom.key);
+		          lines.push($parDom.getBoundingClientRect());
 		          if(parCom.children){
 		              parCom.children.forEach(function(item, i){
 		                if(item.key != currDom){
+		              		var $itemDom = document.getElementById(item.key);
 
-		                  let rect = item.$dom.getBoundingClientRect();
+		                  let rect = $itemDom.getBoundingClientRect();
 		                  
 		                  lines.push(rect);
 		                }
 		              });
 		          }
 		        }
-		        let cRect = currCom.$dom.getBoundingClientRect();
+		        let cRect = $dom.getBoundingClientRect();
 		        leftLine = getLeft(lines, cRect, scroll);
 		        topLine = getTop(lines, cRect, scroll);
 		        vLine = getV(lines, cRect, scroll);

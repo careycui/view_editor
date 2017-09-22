@@ -4,9 +4,6 @@
           <h3>页面编辑器 <small>V 0.0.1</small></h3>
         </div>
         <div class="ys-cell-3 top-bar--btn">
-          <el-tooltip :open-delay="500" content="上传PSD文件">
-            <button class="ys-btn ys-btn-sm ys-btn--c"><i class="fa fa-upload fa-2x"></i></button>
-          </el-tooltip>
           <el-tooltip :open-delay="500" content="控制侧边栏">
             <button class="ys-btn ys-btn-sm ys-btn--c" @click="barChange('all')"><i class="fa fa-columns fa-2x"></i></button>
           </el-tooltip>
@@ -52,7 +49,12 @@ export default {
 			this.$emit('openPreview');
 		},
 		handleSave () {
-			console.log(this.$store.getters.getForms);
+      this.$emit('setHtml');
+      var formData = JSON.stringify(this.$store.getters.getForms);
+      var htmlData = JSON.stringify(this.innerHtml);
+      var pageData = JSON.stringify(this.$store.getters.getPage);
+
+			console.log(pageData,htmlData);
 		}
 	}
 }

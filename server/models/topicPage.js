@@ -7,8 +7,10 @@ const TopicPage = seq.define('topic_page', {
 		primaryKey: true,
 		defaultValue: Sequelize.UUIDV4
 	},
+	t_type : Sequelize.STRING,
 	title : Sequelize.STRING,
 	desc: Sequelize.STRING,
+	img_cover: Sequelize.STRING,
 	platform_type: {
 		type: Sequelize.ENUM,
 		values: [0,1], //0 pc ; 1 mobile

@@ -17,7 +17,13 @@ import {Row,
 	    TabPane,
 	    Dropdown,
 	    DropdownMenu,
-	    DropdownItem} from 'element-ui'
+	    DropdownItem,
+		Dialog,
+		Input,
+		Form,
+		FormItem,
+		Loading} from 'element-ui';
+
 Vue.use(VueRouter);
 Vue.use(Row);
 Vue.use(Col);
@@ -31,6 +37,11 @@ Vue.use(TabPane);
 Vue.use(Dropdown);
 Vue.use(DropdownMenu);
 Vue.use(DropdownItem);
+Vue.use(Dialog);
+Vue.use(Input);
+Vue.use(Form);
+Vue.use(FormItem);
+Vue.use(Loading);
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios;

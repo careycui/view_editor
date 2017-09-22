@@ -146,7 +146,8 @@ export default {
           if(Object.prototype.toString.call($com) === '[object Array]'){
             $com = $com[0];
           }
-          this.$store.dispatch('addDomNode', {dom: $com.$el});
+          $com.$el.id = this.currentDom;
+          // this.$store.dispatch('addDomNode', {dom: $com.$el});
           callback && callback();
         });
       }
@@ -161,7 +162,8 @@ export default {
           if(Object.prototype.toString.call($com) === '[object Array]'){
             $com = $com[0];
           }
-          this.$store.dispatch('addDomNode', {dom: $com.$el});
+          $com.$el.id = this.currentDom;
+          // this.$store.dispatch('addDomNode', {dom: $com.$el});
           callback && callback();
         });
     },

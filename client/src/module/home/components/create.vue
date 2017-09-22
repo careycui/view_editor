@@ -62,30 +62,35 @@
 <script>
 const D_TITLE = '未命名页面';
 const D_DESC = '未添加描述';
+const D_COVER = '//mfs.ys7.com/mall/f262e8517ee1172b3a4de68f82bb36c9.jpg';
 const PAGE_CONF={
 	PC_BASE:{
 		title: D_TITLE,
 		desc: D_DESC,
 		platform_type: 0,
-		page_type: 0
+		page_type: 0,
+		img_cover: D_COVER
 	},
 	PC_H5:{
 		title: D_TITLE,
 		desc: D_DESC,
 		platform_type: 0,
-		page_type: 1
+		page_type: 1,
+		img_cover: D_COVER
 	},
 	M_BASE:{
 		title: D_TITLE,
 		desc: D_DESC,
 		platform_type: 1,
-		page_type: 0
+		page_type: 0,
+		img_cover: D_COVER
 	},
 	M_H5:{
 		title: D_TITLE,
 		desc: D_DESC,
 		platform_type: 1,
-		page_type: 1
+		page_type: 1,
+		img_cover: D_COVER
 	}
 }
 export default{
@@ -96,7 +101,6 @@ export default{
 		}
 	},
 	beforeRouteEnter (to, from, next) {
-		console.log(to, from, next);
 		next();
 	},
 	computed : {
@@ -135,11 +139,11 @@ export default{
 				data: baseData,
 				responseType: 'json'
 			}).then(function(res){
-				console.log(res.result);
-			}, function(err){
 				if(res.data){
 					window.location.href="/module/editor.html?key="+res.data.id;
 				}
+			}, function(err){
+				
 			});
 		}
 	}

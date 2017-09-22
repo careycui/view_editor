@@ -6,11 +6,11 @@
 			</div>
 			<div class="project-body--body">
 				<el-tabs v-model="activeName" @tab-click="handleTabClick">
-		    		<el-tab-pane label="全部" name="first" class="ani slideInDownSm delay active">
-		    			<div class="list">
+		    		<el-tab-pane label="全部" name="all" class="ani slideInDownSm delay active">
+		    			<div class="list" v-if="pageList.length > 0">
 		    				<div class="project-card" v-for="page in pageList">
 		    					<div class="project-card--img">
-		    						<img src="https://mfs.ys7.com/mall/5b877cbead2934d123cc714187eeb63e.jpg">
+		    						<img :src="page.img_cover">
 		    					</div>
 		    					<div class="project-card--title">
 		    						{{ page.title || '未命名页面' }}
@@ -43,78 +43,119 @@
 									  	</el-dropdown-menu>
 		    						</el-dropdown>
 		    					</div>
+		    					<div class="project-card--sign">
+		    						<img src="//mfs.ys7.com/mall/1749a21b9221474c593e251dc32c739d.png" v-if="page.page_type === 0">
+		    						<img src="//mfs.ys7.com/mall/91b7d8245f8a0006f45e35fbb21734cb.png" v-if="page.page_type === 1">
+		    					</div>
+		    				</div>
+		    			</div>
+		    			<div class="list" v-if="pageList.length < 1">
+		    				<div class="project-card">
+		    					<div class="project-card--empty" @click="jumpToCreat">
+		    						<h3><i class="el-icon-plus"></i></h3>
+		    						<p>新建页面</p>
+		    					</div>
 		    				</div>
 		    			</div>
 		    		</el-tab-pane>
-			    	<el-tab-pane label="普通" name="second" class="ani slideInDownSm delay">
-
-			    	</el-tab-pane>
-			    	<el-tab-pane label="全屏滚动" name="third" class="ani slideInDownSm delay">
-			    		<div class="list">
-		    				<div class="project-card">
+			    	<el-tab-pane label="普通" name="base" class="ani slideInDownSm delay">
+			    		<div class="list" v-if="getBaseList().length > 0">
+		    				<div class="project-card" v-for="page in getBaseList()">
 		    					<div class="project-card--img">
-		    						<img src="https://mfs.ys7.com/mall/5b877cbead2934d123cc714187eeb63e.jpg">
+		    						<img :src="page.img_cover">
 		    					</div>
 		    					<div class="project-card--title">
-		    						测试一页面名字
+		    						{{ page.title || '未命名页面' }}
 		    					</div>
 		    					<div class="project-card--desc">
-		    						xxxxf是的发生的范德萨发
+		    						{{ page.desc || '未添加描述' }}
 		    					</div>
 		    					<div class="project-card--btns">
-		    						<el-dropdown split-button type="primary" size="mini">
+		    						<el-dropdown split-button type="primary" size="mini" @click="goEditor(page.id)" @command="handleCommand(page)">
 										<i class="el-icon-edit" style="margin-right:5px;"></i>编辑
 			    						<el-dropdown-menu slot="dropdown">
-										    <el-dropdown-item>
+										    <el-dropdown-item type="set">
+										    	<i class="el-icon-setting" style="margin-right:5px;"></i>设置页面
+										    </el-dropdown-item>
+										    <el-dropdown-item divided type="previewp">
 										    	<i class="el-icon-view" style="margin-right:5px;"></i>预览PC
 										    </el-dropdown-item>
-										    <el-dropdown-item>
+										    <el-dropdown-item type="previewm">
 										    	<i class="el-icon-view" style="margin-right:5px;"></i>预览Mobile
 											</el-dropdown-item>
-											<el-dropdown-item divided>
+											<el-dropdown-item divided type="import">
 										    	<i class="el-icon-upload2" style="margin-right:5px;"></i>引入
 											</el-dropdown-item>
-											<el-dropdown-item>
+											<el-dropdown-item type="copy">
 										    	<i class="el-icon-plus" style="margin-right:5px;"></i>复制
 											</el-dropdown-item>
-										    <el-dropdown-item divided>
+										    <el-dropdown-item divided type="del">
 										    	<i class="el-icon-delete" style="margin-right:5px;"></i>删除
 											</el-dropdown-item>
 									  	</el-dropdown-menu>
 		    						</el-dropdown>
+		    					</div>
+		    					<div class="project-card--sign">
+		    						<img src="//mfs.ys7.com/mall/1749a21b9221474c593e251dc32c739d.png">
 		    					</div>
 		    				</div>
+		    			</div>
+		    			<div class="list" v-if="getBaseList().length < 1">
 		    				<div class="project-card">
+		    					<div class="project-card--empty" @click="jumpToCreat">
+		    						<h3><i class="el-icon-plus"></i></h3>
+		    						<p>新建页面</p>
+		    					</div>
+		    				</div>
+		    			</div>
+			    	</el-tab-pane>
+			    	<el-tab-pane label="H5" name="h5" class="ani slideInDownSm delay">
+			    		<div class="list" v-if="getH5List().length > 0">
+		    				<div class="project-card" v-for="page in getH5List()">
 		    					<div class="project-card--img">
-		    						<img src="https://mfs.ys7.com/mall/5b877cbead2934d123cc714187eeb63e.jpg">
+		    						<img :src="page.img_cover">
 		    					</div>
 		    					<div class="project-card--title">
-		    						测试一页面名字
+		    						{{ page.title || '未命名页面' }}
 		    					</div>
 		    					<div class="project-card--desc">
-		    						xxxxf是的发生的范德萨发
+		    						{{ page.desc || '未添加描述' }}
 		    					</div>
 		    					<div class="project-card--btns">
-		    						<el-dropdown split-button type="primary" size="mini">
+		    						<el-dropdown split-button type="primary" size="mini" @click="goEditor(page.id)" @command="handleCommand(page)">
 										<i class="el-icon-edit" style="margin-right:5px;"></i>编辑
 			    						<el-dropdown-menu slot="dropdown">
-										    <el-dropdown-item>
+										    <el-dropdown-item type="set">
+										    	<i class="el-icon-setting" style="margin-right:5px;"></i>设置页面
+										    </el-dropdown-item>
+										    <el-dropdown-item divided type="previewp">
 										    	<i class="el-icon-view" style="margin-right:5px;"></i>预览PC
 										    </el-dropdown-item>
-										    <el-dropdown-item>
+										    <el-dropdown-item type="previewm">
 										    	<i class="el-icon-view" style="margin-right:5px;"></i>预览Mobile
 											</el-dropdown-item>
-											<el-dropdown-item divided>
+											<el-dropdown-item divided type="import">
 										    	<i class="el-icon-upload2" style="margin-right:5px;"></i>引入
 											</el-dropdown-item>
-											<el-dropdown-item>
+											<el-dropdown-item type="copy">
 										    	<i class="el-icon-plus" style="margin-right:5px;"></i>复制
 											</el-dropdown-item>
-										    <el-dropdown-item divided>
+										    <el-dropdown-item divided type="del">
 										    	<i class="el-icon-delete" style="margin-right:5px;"></i>删除
 											</el-dropdown-item>
 									  	</el-dropdown-menu>
 		    						</el-dropdown>
+		    					</div>
+		    					<div class="project-card--sign">
+		    						<img src="//mfs.ys7.com/mall/91b7d8245f8a0006f45e35fbb21734cb.png">
+		    					</div>
+		    				</div>
+		    			</div>
+		    			<div class="list" v-if="getH5List().length < 1">
+		    				<div class="project-card">
+		    					<div class="project-card--empty" @click="jumpToCreat">
+		    						<h3><i class="el-icon-plus"></i></h3>
+		    						<p>新建页面</p>
 		    					</div>
 		    				</div>
 		    			</div>
@@ -125,34 +166,10 @@
 	</transition>
 </template>
 <script>
+import { page_common } from './utils.js'
 export default{
 	name: 'info',
-	data () {
-		return {
-			activeName: 'first',
-			pageList: ''
-		}
-	},
-	beforeRouteEnter (to, from, next) {
-		next();
-	},
-	mounted (){
-		this.setPageList();
-	},
-	computed : {
-		type () {
-			if(this.$route.params.type){
-				return this.$route.params.type.toUpperCase();
-			}else{
-				return 'PC';
-			}
-		}
-	},
-	watch : {
-		type () {
-			this.setPageList();
-		}
-	},
+	mixins: [page_common],
 	methods : {
 		setPageList () {
 			var _this = this;
@@ -165,23 +182,35 @@ export default{
 			}, function(err){
 
 			});
-		},
-		goEditor (id) {
-			window.location.href="/module/editor.html?key="+id;
-		},
-		handleCommand (page) {
-			var type = event.target.type;
-			console.log(page,type);
-		},
-		hangdleSelect (index, indexPath) {
-			console.log(index, indexPath);
-		},
-		handleTabClick (tab) {
-			let clazz = tab.$el.className;
-			tab.$el.className = clazz + ' active';
 		}
 	}
 }
 </script>
-<style>
+<style lang="scss">
+.project-card--empty{
+	width: 100%;
+	height: 100px;
+	margin-top: 70px;
+	text-align: center;
+	cursor: pointer;
+
+	& h3{
+		color: #d6d6d6;
+		font-size: 36px;
+		transition: all .3s;
+	}
+	& p{
+		color: #d6d6d6;
+		font-size: 18px;
+		transition: all .3s;
+	}
+}
+.project-card--empty:hover{
+	& h3{
+		color: #20A0FF;
+	}
+	& p{
+		color: #20A0FF;
+	}
+}
 </style>

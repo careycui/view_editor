@@ -14,7 +14,7 @@
 						</el-button>
 					</div>
 					<hr style="border-top:1px solid #475669;">
-					<el-menu :default-active="activeName" class="el-menu-vertical-demo" theme="dark" @select="handleSelect" :router="true">
+					<el-menu :default-active="activeName" class="el-menu-vertical-demo" theme="dark" :router="true" @select="hangdleSelect">
 						<el-submenu index="1">
 							<template slot="title"><i class="el-icon-menu"></i>详情页</template>
 							<el-menu-item index="/info/pc" router="/info">
@@ -38,34 +38,110 @@
 				</div>
 			</el-col>
 			<el-col :xs="24" :sm="19" :md="20" :lg="20" class="project-body">
-				<router-view></router-view>
+				<router-view @openBase="openBase"></router-view>
 			</el-col>
 		</el-row>
+		<el-dialog title="页面信息" size="small" :visible.sync="baseDialogVisible" :close-on-click-modal="false" custom-class="dialog-size" v-loading.body="loading">
+			<el-row v-if="editPage">
+				<el-col :md="10" :xs="24" :sm="24" style="text-align:center;">
+					<div class="project-card" style="margin:0;">
+    					<div class="project-card--img">
+    						<img :src="editPage.img_cover">
+    					</div>
+    					<div class="project-card--title">
+    						{{ editPage.title || '未命名页面' }}
+    					</div>
+    					<div class="project-card--desc">
+    						{{ editPage.desc || '未添加描述' }}
+    					</div>
+    					<div class="project-card--sign">
+    						<img src="//mfs.ys7.com/mall/1749a21b9221474c593e251dc32c739d.png" v-if="editPage.page_type === 0">
+    						<img src="//mfs.ys7.com/mall/91b7d8245f8a0006f45e35fbb21734cb.png" v-if="editPage.page_type === 1">
+    					</div>
+    				</div>
+				</el-col>
+				<el-col :md="14" :xs="24" :sm="24">
+					<el-form label-position="top" label-width="80px">
+						<el-form-item label="封面图" :form="editPage">
+							<el-input size="small" v-model="editPage.img_cover">
+								<template slot="prepend">URL</template>
+							</el-input>
+						</el-form-item>
+						<el-form-item label="页面名称">
+							<el-input size="small" v-model="editPage.title"></el-input>
+						</el-form-item>
+						<el-form-item label="页面描述">
+							<el-input type="textarea" :rows="3" size="small" v-model="editPage.desc"></el-input>
+						</el-form-item>
+						<el-form-item label="页面类型">
+							<el-input :disabled="true" :value="editPage.page_type === 0?'BASE':'H5'"></el-input>
+						</el-form-item>
+					</el-form>
+				</el-col>
+			</el-row>
+			<div slot="footer" class="dialog-footer">
+			    <el-button @click="baseDialogVisible = false">取 消</el-button>
+			    <el-button type="primary" @click="submitBase">确 定</el-button>
+			  </div>
+		</el-dialog>
 	</div>
 </template>
 <script>
+	import { Message } from 'element-ui'
+
 	export default {
 		name: 'home',
 		data () {
 			return {
-				activeName: ''
+				activeName: '',
+				baseDialogVisible: false,
+				editPage: '',
+				loading: false
 			}
 		},
 		beforeMount () {
 			this.activeName = this.$route.path;
 		},
 		methods : {
-			handleSelect (index, indexPath) {
-				console.log(index, indexPath);
-			},
-			handleTabClick (tab) {
-				let clazz = tab.$el.className;
-				tab.$el.className = clazz + ' active';
+			hangdleSelect (index, indexPath) {
+				console.log(index, this.$route.path);
+				// this.activeName = index;
 			},
 			openPage () {
-				console.log(this.$router);
 				this.activeName = '';
 				this.$router.push('/create');
+			},
+			submitBase () {
+				var _this = this;
+				this.loading = true;
+				this.$http({
+					url: 'http://localhost:3030/'+ _this.editPage.t_type +'/update',
+						method: 'POST',
+						data:_this.editPage,
+						responseType: 'json'
+					}).then(function(res){
+						_this.baseDialogVisible = false;
+						_this.loading = false;
+					}, function(err,xhr){
+						Message({
+							message: '保存失败,请稍后再试',
+							showClose: true,
+							type: 'error'
+						});
+						_this.loading = false;
+					});
+			},
+			openBase (page) {
+				if(page){
+					this.baseDialogVisible = true;
+					this.editPage = page;
+				}else{
+					Message({
+						message: '获取页面数据失败',
+						showClose: true,
+						type: 'error'
+					});
+				}
 			}
 		}
 	}
@@ -103,6 +179,7 @@
 			    height: calc(100vh - 40px);
 				margin-top: 40px;
 				background-color: #D3DCE6;
+				overflow: hidden;
 			}
 		}
 	}
@@ -110,6 +187,11 @@
 		width: 100%;
 		padding-bottom: 20px;
 		text-align: center;
+	}
+	.project-card--sign{
+		position: absolute;
+		left: 0;
+		top: 0;
 	}
 	.project-body--box{
 
@@ -249,5 +331,9 @@
 				opacity: 1;
 			}
 		}
+	}
+	.dialog-size{
+		max-width: 800px;
+		background-color: #D3DCE6;
 	}
 </style>
