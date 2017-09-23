@@ -17,12 +17,13 @@
       </div>
     </div>
     <div class="app-content">
-      <component v-if="page.name" :is="page.name" :formkey = "page.key" :ref="page.key" @setLine="setLine" @setActive="setActive">
-        <component :is="section.name" :formkey = "section.key" v-for="section in page.children" :key="section.key" :ref="section.key" @setLine="setLine" @setActive="setActive">
-          <component :is="ele.name" :formkey = "ele.key" v-for="ele in section.children" :key="ele.key" :ref="ele.key" @setLine="setLine" @setActive="setActive"></component>
+      <component v-if="page.name" :id="page.key" :is="page.name" :formkey = "page.key" :ref="page.key" @setLine="setLine" @setActive="setActive">
+        <component :is="section.name" :id="section.key" :formkey = "section.key" v-for="section in page.children" :key="section.key" :ref="section.key" @setLine="setLine" @setActive="setActive">
+          <component :is="ele.name" :id="ele.key" :formkey = "ele.key" v-for="ele in section.children" :key="ele.key" :ref="ele.key" @setLine="setLine" @setActive="setActive"></component>
         </component>
       </component>
     </div>
+    
     <lines :line="line" :wrect="wrect"></lines>
     <el-dialog title="HTML CODES" custom-class="cudialog" :visible.sync="dialogVisible" size="small" :close-on-click-modal="false" @open="setHtml">
       <div class="pre-code ys-grid">
@@ -88,8 +89,28 @@ export default {
       isPreview: false
     }
   },
+  created () {
+    var id = getQueryString('key');
+    var type = getQueryString('t_type');
+    var _this = this;
+    this.$http({
+      url: 'http://localhost:3030/'+ type +'/getPage/'+id,
+      method: 'get',
+      responseType: 'json'
+    }).then(function(res){
+      _this.$store.dispatch('initState', res.data);
+    },function(err){
+      Message({
+        message: '页面数据初始化失败',
+        showClose: true,
+        type: 'error'
+      });
+    });
+  },
   beforeMount () {
-    this.addMain(function(){}); // 页面初始化
+    if(!this.currentDom){
+      this.addMain(function(){}); // 页面初始化
+    }
   },
   computed : {
     page () {
@@ -224,7 +245,6 @@ export default {
       var formData = JSON.stringify(this.$store.getters.getForms);
       var htmlData = JSON.stringify(this.html);
       var pageData = JSON.stringify(this.$store.getters.getPage);
-      console.log(formData, htmlData, pageData);
       var type = getQueryString('t_type');
       var id = getQueryString('key');
       this.$http({

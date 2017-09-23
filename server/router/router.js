@@ -22,4 +22,8 @@ router.post('/pro/savepage', Page.savePagePro);
 
 router.post('/topic/savepage', Page.savePageTopic);
 
+router.get('/pro/getPage/:id', Page.getProPage);
+
+router.get('/topic/getPage/:id', Page.getTopicPage);
+
 module.exports = router;

@@ -12,11 +12,22 @@ const state = {
 	  children: []
 	 },
 	 forms:{},
+	 html:'',
 	 currentDom: ''
 };
 
 //数据更改驱动方法
 const mutations = {
+	INIT_DATA (state, data) {
+		let formData = data.form_data;
+		let pageData = data.page_data;
+		let htmlData = data.html_data;
+		if(formData && pageData && htmlData){
+			state.forms = JSON.parse(formData);
+			state.page = JSON.parse(pageData);
+			state.html = htmlData;
+		}
+	},
 	ADD_MAIN (state, page) {
 		state.page.name = page.name;
         state.page.level = page.level;
@@ -117,6 +128,9 @@ const getters = {
 	}
 }
 const actions = {
+	initState ({commit}, obj) {
+		commit('INIT_DATA', obj);
+	},
 	add ({dispatch, commit, getters}, obj) {
 		return new Promise((resolve, reject) => {
 			commit('SET_CDOM', new Date().getTime()+'com');

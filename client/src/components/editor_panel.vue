@@ -20,7 +20,7 @@
     					<el-tag type="primary">{{ com.name }}</el-tag>
     				</div>
     			</div>
-    			<div v-if="form.data && form.data.base">
+    			<div v-if="form && form.data && form.data.base">
     				<div class="ys-cell-12 ys-form-group ys-form-group-sm" v-for="base in form.data.base">
     					<label class="ys-cell-2 no-padding t-align--l">{{base.label}}</label>
     					<div class="ys-cell-10 no-padding">
@@ -86,12 +86,12 @@
 					</el-collapse-item>
 				</el-collapse>
 			</el-tab-pane>
-			<el-tab-pane label="动作" name="action" v-if="form.transition">
+			<el-tab-pane label="动作" name="action" v-if="form && form.transition">
 				<div class="bar-cnt--panel ys-grid">
 					<div class="ys-grid-row">
 						<div class="ys-cell-12 ys-form-group ys-form-group-sm">
 							<div class="block" v-for="item in form.transition.style">
-							    <span class="demonstration">时长(s)</span>
+							    <span class="demonstration">{{item.label}}</span>
 							    <el-slider v-model="item.val" :max="10" :step="0.1" :format-tooltip="format" show-input :show-input-controls="false"></el-slider>
 							</div>
 						</div>
@@ -160,35 +160,41 @@ export default {
   		return obj;
   	},
   	pos () {
-  		let pos = this.form.style.position;
   		let obj = {};
-  		if(pos){
-  			pos.forEach((item, i) => {
-  				obj[item.name] = item.val;
-  			});
+  		if(this.form){
+	  		let pos = this.form.style.position;
+	  		if(pos){
+	  			pos.forEach((item, i) => {
+	  				obj[item.name] = item.val;
+	  			});
+	  		}
   		}
   		return obj;
   	},
   	trans () {
-  		let trans = this.form.transition;
   		let obj = {};
-  		if(trans){
-  			trans.clazz.forEach((item, i) => {
-  				obj[item.name] = item.val;
-  			});
-  		}	
+  		if(this.form){
+	  		let trans = this.form.transition;
+	  		if(trans){
+	  			trans.clazz.forEach((item, i) => {
+	  				obj[item.name] = item.val;
+	  			});
+	  		}	
+  		}
   		return obj;
   	}
   },
   watch : {
   	pos (val) {
-  		if(this.cus.align && this.cus.align === 'C'){
-  			for(let i=0;i<this.form.style.position.length;i++){
-  				let item = this.form.style.position[i];
-  				if(item.name === 'marginLeft'){
-  					item.val = -val.width/2;
-  				}
-  			}
+  		if(this.form && this.form.style){
+	  		if(this.cus.align && this.cus.align === 'C'){
+	  			for(let i=0;i<this.form.style.position.length;i++){
+	  				let item = this.form.style.position[i];
+	  				if(item.name === 'marginLeft'){
+	  					item.val = -val.width/2;
+	  				}
+	  			}
+	  		}
   		}
   	},
   	com () {

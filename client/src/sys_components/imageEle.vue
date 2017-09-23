@@ -1,6 +1,6 @@
 <template>
 	<div class="image-ele outer-html ani-stage" :style="[pos, border]" :class="{active: isActive}" v-drag="setPos" @dblclick.stop="setActive">
-		<div class="ani-outer" :class="[anicn, (anicn?'ani':'')]" :style="anis" :data-view-animation="anicn">
+		<div class="ani-outer active" :class="[anicn, (anicn?'ani':'')]" :style="anis" :data-view-animation="anicn">
 			<img :src="data.data.img.val" class="img">
 		</div>
 	</div>

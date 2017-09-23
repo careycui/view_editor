@@ -18,6 +18,12 @@
 		    					<div class="project-card--desc">
 		    						{{ page.desc || '未添加描述' }}
 		    					</div>
+		    					<div class="bottom-bar">
+		    						<el-button type="primary" icon="setting" size="mini" class="bottom-bar--btn">设置</el-button>
+		    						<el-button type="primary" icon="upload2" size="mini" class="bottom-bar--btn">引入</el-button>
+		    						<el-button type="primary" icon="plus" size="mini" class="bottom-bar--btn">复制</el-button>
+		    						<el-button type="primary" icon="delete" size="mini" class="bottom-bar--btn">删除</el-button>
+		    					</div>
 		    					<div class="project-card--btns">
 		    						<el-dropdown split-button type="primary" size="mini" @click="goEditor(page.id,page.t_type)" @command="handleCommand(page)">
 										<i class="el-icon-edit" style="margin-right:5px;"></i>编辑
@@ -70,6 +76,12 @@
 		    					<div class="project-card--desc">
 		    						{{ page.desc || '未添加描述' }}
 		    					</div>
+		    					<div class="bottom-bar">
+		    						<el-button type="primary" icon="setting" size="mini" class="bottom-bar--btn">设置</el-button>
+		    						<el-button type="primary" icon="upload2" size="mini" class="bottom-bar--btn">引入</el-button>
+		    						<el-button type="primary" icon="plus" size="mini" class="bottom-bar--btn">复制</el-button>
+		    						<el-button type="primary" icon="delete" size="mini" class="bottom-bar--btn">删除</el-button>
+		    					</div>
 		    					<div class="project-card--btns">
 		    						<el-dropdown split-button type="primary" size="mini" @click="goEditor(page.id,page.t_type)" @command="handleCommand(page)">
 										<i class="el-icon-edit" style="margin-right:5px;"></i>编辑
@@ -120,6 +132,12 @@
 		    					</div>
 		    					<div class="project-card--desc">
 		    						{{ page.desc || '未添加描述' }}
+		    					</div>
+		    					<div class="bottom-bar">
+		    						<el-button type="primary" icon="setting" size="mini" class="bottom-bar--btn">设置</el-button>
+		    						<el-button type="primary" icon="upload2" size="mini" class="bottom-bar--btn">引入</el-button>
+		    						<el-button type="primary" icon="plus" size="mini" class="bottom-bar--btn">复制</el-button>
+		    						<el-button type="primary" icon="delete" size="mini" class="bottom-bar--btn">删除</el-button>
 		    					</div>
 		    					<div class="project-card--btns">
 		    						<el-dropdown split-button type="primary" size="mini" @click="goEditor(page.id,page.t_type)" @command="handleCommand(page)">

@@ -1,6 +1,16 @@
 const ProPage = require('./../models/proPage');
 const TopicPage = require('./../models/topicPage');
 
+module.exports.getProPage = async (ctx, next) => {
+	let id = ctx.params.id;
+	let page = await ProPage.findById(id);
+	ctx.body = JSON.stringify(page);
+}
+module.exports.getTopicPage = async (ctx, next) => {
+	let id = ctx.params.id;
+	let page = await TopicPage.findById(id);
+	ctx.body = JSON.stringify(page);
+}
 module.exports.proIndex = async (ctx, next) => {
 	let type = ctx.accepts('json');
 	let platform = ctx.params.type;

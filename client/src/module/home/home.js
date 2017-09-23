@@ -13,6 +13,7 @@ import {Row,
 	    MenuItem,
 	    MenuItemGroup,
 	    Button,
+	    ButtonGroup,
 	    Tabs,
 	    TabPane,
 	    Dropdown,
@@ -32,6 +33,7 @@ Vue.use(Submenu);
 Vue.use(MenuItem);
 Vue.use(MenuItemGroup);
 Vue.use(Button);
+Vue.use(ButtonGroup);
 Vue.use(Tabs);
 Vue.use(TabPane);
 Vue.use(Dropdown);
