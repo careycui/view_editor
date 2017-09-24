@@ -19,35 +19,25 @@
 		    						{{ page.desc || '未添加描述' }}
 		    					</div>
 		    					<div class="bottom-bar">
-		    						<el-button type="primary" icon="setting" size="mini" class="bottom-bar--btn">设置</el-button>
-		    						<el-button type="primary" icon="upload2" size="mini" class="bottom-bar--btn">引入</el-button>
-		    						<el-button type="primary" icon="plus" size="mini" class="bottom-bar--btn">复制</el-button>
-		    						<el-button type="primary" icon="delete" size="mini" class="bottom-bar--btn">删除</el-button>
+		    						<el-button icon="setting" size="mini" class="bottom-bar--btn" @click="openEditDialog(page)">设置</el-button>
+		    						<el-button size="mini" class="bottom-bar--btn">
+		    							<i class="fa fa-sign-in bottom-bar--icon"></i>引入
+	    							</el-button>
+		    						<el-button size="mini" class="bottom-bar--btn">
+		    							<i class="fa fa-copy bottom-bar--icon"></i>复制
+		    						</el-button>
+		    						<el-button size="mini" class="bottom-bar--btn">
+		    							<i class="fa fa-bar-chart bottom-bar--icon"></i>数据
+		    						</el-button>
+		    						<el-button icon="delete" size="mini" class="bottom-bar--btn">删除</el-button>
 		    					</div>
 		    					<div class="project-card--btns">
-		    						<el-dropdown split-button type="primary" size="mini" @click="goEditor(page.id,page.t_type)" @command="handleCommand(page)">
-										<i class="el-icon-edit" style="margin-right:5px;"></i>编辑
-			    						<el-dropdown-menu slot="dropdown">
-										    <el-dropdown-item type="set">
-										    	<i class="el-icon-setting" style="margin-right:5px;"></i>设置页面
-										    </el-dropdown-item>
-										    <el-dropdown-item divided type="previewp">
-										    	<i class="el-icon-view" style="margin-right:5px;"></i>预览PC
-										    </el-dropdown-item>
-										    <el-dropdown-item type="previewm">
-										    	<i class="el-icon-view" style="margin-right:5px;"></i>预览Mobile
-											</el-dropdown-item>
-											<el-dropdown-item divided type="import">
-										    	<i class="el-icon-upload2" style="margin-right:5px;"></i>引入
-											</el-dropdown-item>
-											<el-dropdown-item type="copy">
-										    	<i class="el-icon-plus" style="margin-right:5px;"></i>复制
-											</el-dropdown-item>
-										    <el-dropdown-item divided type="del">
-										    	<i class="el-icon-delete" style="margin-right:5px;"></i>删除
-											</el-dropdown-item>
-									  	</el-dropdown-menu>
-		    						</el-dropdown>
+		    						<el-button size="small" class="plain-btn">
+		    							<i class="fa fa-eye bottom-bar--icon"></i> 预览
+		    						</el-button>
+		    						<el-button size="small" class="plain-btn" @click="goEditor(page.id,page.t_type)">
+		    							<i class="fa fa-pencil bottom-bar--icon"></i> 编辑内容
+		    						</el-button>
 		    					</div>
 		    					<div class="project-card--sign">
 		    						<img src="//mfs.ys7.com/mall/1749a21b9221474c593e251dc32c739d.png" v-if="page.page_type === 0">
@@ -77,35 +67,25 @@
 		    						{{ page.desc || '未添加描述' }}
 		    					</div>
 		    					<div class="bottom-bar">
-		    						<el-button type="primary" icon="setting" size="mini" class="bottom-bar--btn">设置</el-button>
-		    						<el-button type="primary" icon="upload2" size="mini" class="bottom-bar--btn">引入</el-button>
-		    						<el-button type="primary" icon="plus" size="mini" class="bottom-bar--btn">复制</el-button>
-		    						<el-button type="primary" icon="delete" size="mini" class="bottom-bar--btn">删除</el-button>
+		    						<el-button icon="setting" size="mini" class="bottom-bar--btn" @click="openEditDialog(page)">设置</el-button>
+		    						<el-button size="mini" class="bottom-bar--btn">
+		    							<i class="fa fa-sign-in bottom-bar--icon"></i>引入
+	    							</el-button>
+		    						<el-button size="mini" class="bottom-bar--btn">
+		    							<i class="fa fa-copy bottom-bar--icon"></i>复制
+		    						</el-button>
+		    						<el-button size="mini" class="bottom-bar--btn">
+		    							<i class="fa fa-bar-chart bottom-bar--icon"></i>数据
+		    						</el-button>
+		    						<el-button icon="delete" size="mini" class="bottom-bar--btn">删除</el-button>
 		    					</div>
 		    					<div class="project-card--btns">
-		    						<el-dropdown split-button type="primary" size="mini" @click="goEditor(page.id,page.t_type)" @command="handleCommand(page)">
-										<i class="el-icon-edit" style="margin-right:5px;"></i>编辑
-			    						<el-dropdown-menu slot="dropdown">
-										    <el-dropdown-item type="set">
-										    	<i class="el-icon-setting" style="margin-right:5px;"></i>设置页面
-										    </el-dropdown-item>
-										    <el-dropdown-item divided type="previewp">
-										    	<i class="el-icon-view" style="margin-right:5px;"></i>预览PC
-										    </el-dropdown-item>
-										    <el-dropdown-item type="previewm">
-										    	<i class="el-icon-view" style="margin-right:5px;"></i>预览Mobile
-											</el-dropdown-item>
-											<el-dropdown-item divided type="import">
-										    	<i class="el-icon-upload2" style="margin-right:5px;"></i>引入
-											</el-dropdown-item>
-											<el-dropdown-item type="copy">
-										    	<i class="el-icon-plus" style="margin-right:5px;"></i>复制
-											</el-dropdown-item>
-										    <el-dropdown-item divided type="del">
-										    	<i class="el-icon-delete" style="margin-right:5px;"></i>删除
-											</el-dropdown-item>
-									  	</el-dropdown-menu>
-		    						</el-dropdown>
+		    						<el-button size="small" class="plain-btn">
+		    							<i class="fa fa-eye bottom-bar--icon"></i> 预览
+		    						</el-button>
+		    						<el-button size="small" class="plain-btn" @click="goEditor(page.id,page.t_type)">
+		    							<i class="fa fa-pencil bottom-bar--icon"></i> 编辑内容
+		    						</el-button>
 		    					</div>
 		    					<div class="project-card--sign">
 		    						<img src="//mfs.ys7.com/mall/1749a21b9221474c593e251dc32c739d.png">
@@ -134,35 +114,25 @@
 		    						{{ page.desc || '未添加描述' }}
 		    					</div>
 		    					<div class="bottom-bar">
-		    						<el-button type="primary" icon="setting" size="mini" class="bottom-bar--btn">设置</el-button>
-		    						<el-button type="primary" icon="upload2" size="mini" class="bottom-bar--btn">引入</el-button>
-		    						<el-button type="primary" icon="plus" size="mini" class="bottom-bar--btn">复制</el-button>
-		    						<el-button type="primary" icon="delete" size="mini" class="bottom-bar--btn">删除</el-button>
+		    						<el-button icon="setting" size="mini" class="bottom-bar--btn" @click="openEditDialog(page)">设置</el-button>
+		    						<el-button size="mini" class="bottom-bar--btn">
+		    							<i class="fa fa-sign-in bottom-bar--icon"></i>引入
+	    							</el-button>
+		    						<el-button size="mini" class="bottom-bar--btn">
+		    							<i class="fa fa-copy bottom-bar--icon"></i>复制
+		    						</el-button>
+		    						<el-button size="mini" class="bottom-bar--btn">
+		    							<i class="fa fa-bar-chart bottom-bar--icon"></i>数据
+		    						</el-button>
+		    						<el-button icon="delete" size="mini" class="bottom-bar--btn">删除</el-button>
 		    					</div>
 		    					<div class="project-card--btns">
-		    						<el-dropdown split-button type="primary" size="mini" @click="goEditor(page.id,page.t_type)" @command="handleCommand(page)">
-										<i class="el-icon-edit" style="margin-right:5px;"></i>编辑
-			    						<el-dropdown-menu slot="dropdown">
-										    <el-dropdown-item type="set">
-										    	<i class="el-icon-setting" style="margin-right:5px;"></i>设置页面
-										    </el-dropdown-item>
-										    <el-dropdown-item divided type="previewp">
-										    	<i class="el-icon-view" style="margin-right:5px;"></i>预览PC
-										    </el-dropdown-item>
-										    <el-dropdown-item type="previewm">
-										    	<i class="el-icon-view" style="margin-right:5px;"></i>预览Mobile
-											</el-dropdown-item>
-											<el-dropdown-item divided type="import">
-										    	<i class="el-icon-upload2" style="margin-right:5px;"></i>引入
-											</el-dropdown-item>
-											<el-dropdown-item type="copy">
-										    	<i class="el-icon-plus" style="margin-right:5px;"></i>复制
-											</el-dropdown-item>
-										    <el-dropdown-item divided type="del">
-										    	<i class="el-icon-delete" style="margin-right:5px;"></i>删除
-											</el-dropdown-item>
-									  	</el-dropdown-menu>
-		    						</el-dropdown>
+		    						<el-button size="small" class="plain-btn">
+		    							<i class="fa fa-eye bottom-bar--icon"></i> 预览
+		    						</el-button>
+		    						<el-button size="small" class="plain-btn" @click="goEditor(page.id,page.t_type)">
+		    							<i class="fa fa-pencil bottom-bar--icon"></i> 编辑内容
+		    						</el-button>
 		    					</div>
 		    					<div class="project-card--sign">
 		    						<img src="//mfs.ys7.com/mall/91b7d8245f8a0006f45e35fbb21734cb.png">

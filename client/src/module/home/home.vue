@@ -305,13 +305,13 @@
 			position: absolute;
 			left: 0;
 			top: 0;
-			padding-top: 20px;
+			padding-top: 70px;
 			width: 200px;
 			height: 180px;
 			border-top-left-radius: 5px;
 			border-top-right-radius: 5px;
 			text-align: center;
-
+			z-index: 10;
 			background-color: rgba(0,0,0, .6);
 			visibility: hidden;
 			opacity: 0;
@@ -365,11 +365,19 @@
 	}
 	.bottom-bar--btn{
 		width: 22px;
+		overflow:hidden;
 		word-spacing: normal;
 		transition: all .25s;
 
 		&:hover{
 			width: 52px;
 		}
+	}
+	.bottom-bar--icon{
+		margin-right: 5px;
+	}
+	.plain-btn{
+		background-color: transparent;
+		color: #fff;
 	}
 </style>
