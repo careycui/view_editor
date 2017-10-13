@@ -12,6 +12,8 @@ import { mapState } from 'vuex'
 import { common } from './utils'
 	export default {
 		name: 'image-link',
+		label: '图片链接',
+		icon: 'imagel',
 		mixins: [common]
 	}
 </script>

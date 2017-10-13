@@ -10,6 +10,8 @@ import { mapState } from 'vuex'
 import { common } from './utils'
 	export default {
 		name: 'image-ele',
+		label: '图片',
+		icon: 'image',
 		mixins: [common]
 	}
 </script>

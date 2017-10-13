@@ -36,6 +36,7 @@
 
     <div class="bar-cnt--line">
     </div>
+
     <div class="bar-cnt--title ys-grid">
       <div class="ys-grid-row">
         <h4 class="ys-cell-12 mt-10"><i class="fa fa-cube"></i> 页面组件</h4>
@@ -120,9 +121,6 @@ export default {
     },
     defaultChecks () {
       return new Array(this.currentDom);
-    },
-    sysComs () {
-      return this.$syscoms;
     }
   },
   methods:{

@@ -112,6 +112,9 @@ export default {
       this.addMain(function(){}); // 页面初始化
     }
   },
+  mounted () {
+    console.log(this.$options);
+  },
   computed : {
     page () {
       return this.$store.getters.getPage;

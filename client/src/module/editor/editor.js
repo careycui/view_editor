@@ -3,13 +3,10 @@
 import Vue from 'vue'
 import axios from 'axios'
 import editor from './editor.vue'
-import Container from './../../sys_components/container'
-import SectionPanel from './../../sys_components/section'
-import Banner from './../../sys_components/banner'
-import ImageLink from './../../sys_components/imageLink'
-import ImageEle from './../../sys_components/imageEle'
-import LinkEle from './../../sys_components/linkEle'
-import BtnEle from './../../sys_components/btnEle'
+
+import COMS_CONF from './config/coms_conf.js'
+import register from './utils/register.js'
+
 import  {Input,
 		InputNumber,
 		Radio,
@@ -55,15 +52,9 @@ Vue.use(Tooltip);
 Vue.use(Tabs);
 Vue.use(TabPane);
 Vue.use(Slider);
+
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false
-Vue.component('container', Container);
-Vue.component('section-panel', SectionPanel);
-Vue.component('banner', Banner);
-Vue.component('image-link', ImageLink);
-Vue.component('image-ele', ImageEle);
-Vue.component('link-ele', LinkEle);
-Vue.component('btn-ele', BtnEle);
 
 Vue.directive('drag', { bind : function (el, binding) {
             let oDiv = el;   //当前元素
@@ -101,6 +92,9 @@ Vue.directive('window', function(el, binding){
 		binding.value({w: width, h: height});
 	}
 );
+//注册全部可视化组件
+Vue.use(register);
+
 /* eslint-disable no-new */
 new Vue({
   el: '#editor',
