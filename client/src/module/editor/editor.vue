@@ -45,16 +45,16 @@
 
 <script>
 import { mapState } from 'vuex'
-import Hello from './../../components/main'
-import ComPanel from './../../components/com_panel'
-import EditorPanel from './../../components/editor_panel'
-import Lines from './../../components/lines'
+import Hello from './components/main'
+import ComPanel from './components/com_panel'
+import EditorPanel from './components/editor_panel'
+import Lines from './components/lines'
 import store from './../../store/store.js'
-import TopBar from './../../components/top_bar'
+import TopBar from './components/top_bar'
 import { component, components, comData } from './../../sys_components/config.js'
 import { Message } from 'element-ui'
 
-import Preview from './../../components/preview_dialog'
+import Preview from './components/preview_dialog'
 
 var getQueryString = function (name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");

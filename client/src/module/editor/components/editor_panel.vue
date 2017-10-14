@@ -115,7 +115,7 @@
 import { mapState } from 'vuex'
 import YsAlign from './align'
 import ColorPicker from './color_picker'
-import { tabs } from './../sys_components/config.js'
+import { tabs } from './../../../sys_components/config.js'
 import { animations } from './animations.js'
 
 

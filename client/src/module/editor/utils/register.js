@@ -12,6 +12,7 @@ export default {
 				icon: comObj.icon
 			});
 		});
+		//将获取的注册信息保存到Vue实例，以便调用
 		Vue.prototype.$syscoms = coms;
 	}
 }
