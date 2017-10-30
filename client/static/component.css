@@ -5,12 +5,10 @@
 .pcontainer{
 	position: relative;
 	width: 1920px;
-	min-height: 600px;
 	background-color: #fff;
 	background-repeat: no-repeat;
 	background-position: center center;
 	text-align: center;
-	border: 1px solid transparent;
 }
 .pcontainer .pcontainer-bg{
 	position: absolute;
@@ -70,7 +68,9 @@
 	background-image: url(about:blank);
 	vertical-align: middle;
 }
-.outer-html.ani-stage{
+.ani-stage{
+	height: 100%;
+	width: 100%;
 	-webkit-perspective: 500px;
     -moz-perspective: 500px;
     perspective: 500px;
@@ -78,8 +78,9 @@
     -moz-transform-style: peserve-3d;
     transform-style: preserve-3d;
 }
-.active.ani-outer, .active .ani-outer{
-	-webkit-animation-play-state:running;
-	-moz-animation-play-state:running;
-	animation-play-state:running;
+.ani-ele{
+	opacity: 0;
+}
+.ani-ele.active{
+	opacity: 1;
 }

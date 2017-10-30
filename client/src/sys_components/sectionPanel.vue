@@ -11,8 +11,6 @@ import { mapState } from 'vuex'
 import { common } from './utils'
 	export default {
 		name: 'setion-panel',
-		label: '面板',
-		icon: 'section',
 		mixins: [common],
 		computed: {
 			isActive () {

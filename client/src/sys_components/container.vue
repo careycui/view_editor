@@ -12,8 +12,6 @@ import { common } from './utils'
 
 	export default {
 		name: 'container',
-		label: '页面',
-		icon: 'container',
 		mixins: [common]
 	}
 </script>

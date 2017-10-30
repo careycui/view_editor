@@ -1,0 +1,176 @@
+<template>
+	<div class="control-panel" :style="[pos]" v-if="currentCom">
+		<div class="control-panel--header active" v-drag="setPos" data-drag-parent="true">
+			<h4>
+				组件设置
+				<span class="control-panel_close" @click="close">
+					<i class="el-icon-close"></i>
+				</span>
+			</h4>
+		</div>
+		<div class="control-panel--cnt">
+			<component :is="currentCom.$$comKey+'Editor'" :data.sync="currentCom"></component>
+		</div>
+	</div>
+</template>
+<script>
+	export default {
+		name: 'controlPanel',
+		data () {
+			return {
+				pos: {
+					left: '100px',
+					top: '60px'
+				}
+			}
+		},
+		computed: {
+			currentCom : {
+				get () {
+					return this.$store.getters.getCurrentCom;
+				},
+				set (newVal) {
+					this.$store.dispatch('updateCom',{currentCom: this.currentCom, data: newVal});
+				}
+			}
+		},
+		methods : {
+			setPos (pos) {
+				this.pos.left = pos.x + 'px';
+				this.pos.top = pos.y + 'px';
+			},
+			close (){
+				this.$store.dispatch('changeComKey', '');
+			}
+		}
+	}
+</script>
+<style lang="scss">
+	.control-panel{
+		position: absolute;
+		left: 400px;
+		top: 60px;
+
+		width: 280px;
+		height: 600px;
+		background-color: #324057;
+		z-index: 1000;
+
+		overflow: hidden;
+		color: #e4e4e4;
+		font-size: 12px;
+		border-radius: 5px;
+
+		& .control-panel--header{
+			width: 100%;
+			height: 30px;
+			background-color: #1F2D3D;
+
+			& h4{
+				margin: 0 10px;
+				font-size: 14px;
+				line-height: 30px;
+				vertical-align: middle;
+				color: #e4e4e4;
+				font-weight: 400;
+				cursor: move;
+			}
+
+			& .control-panel_close{
+				display: inline-block;
+				float: right;
+				margin-right: -10px;
+				width: 30px;
+				height: 30px;
+				font-size: 12px;
+				text-align: center;
+				cursor: pointer;
+			}
+		}
+
+		& .control-panel--cnt{
+			width: 100%;
+			height: 570px;
+
+			overflow: auto;
+		}
+	}
+
+//editor css
+.el-tabs__header{
+	background-color: #324057;
+}
+.el-tabs__nav{
+	width: 100%;
+}
+.control-panel--cnt .el-tabs__item{
+  font-size: 12px;
+  height: 32px;
+  line-height: 32px;
+  color: #e4e4e4;
+  width: 50%;
+  text-align: center;
+
+  &:hover{
+    color: #97a8be;
+  }
+}
+.editor-pane{
+	padding: 5px 10px;
+	color: #475669;
+}
+.tab-line{
+	position: relative;
+	height: 1px;
+	background-color: #bfcbd9;
+	margin: 15px 0;
+
+	& .tab-line--title{
+		position: absolute;
+		height: 24px;
+		padding: 0 10px;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,0);
+		margin-top: -12px;
+		line-height: 24px;
+		vertical-align: middle;
+		background-color: #D3DCE6;
+	}
+}
+.el-form-item{
+	margin-bottom: 10px;
+}
+.el-form-item__label{
+	font-size: 12px;
+	padding: 6px 12px 6px 0;
+	line-height:1.5;
+	text-align: left;
+}
+.el-form-item__content{
+	line-height: 30px;
+	// height: 30px;
+}
+.br2 input{
+	border-radius: 2px;
+}
+.tag-item{
+	display: inline-block;
+	height: 100%;
+	padding: 0 8px;
+	cursor: pointer;
+	background-color: transparent;
+	border-left: 1px solid transparent;
+	border-right: 1px solid transparent;
+
+	-webkit-transition: all .25s;
+	-moz-transition: all .25s;
+	transition: all .25s;
+
+	&.active{
+		background-color: #8492A6;
+		border-left: 1px solid #E5E9F2;
+		border-right: 1px solid #E5E9F2;
+	}
+}
+</style>

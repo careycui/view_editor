@@ -12,8 +12,6 @@ import { mapState } from 'vuex'
 import { common } from './utils'
 	export default {
 		name: 'link-ele',
-		label: '链接',
-		icon: 'link',
 		mixins: [common]
 	}
 </script>

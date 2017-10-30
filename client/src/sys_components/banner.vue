@@ -12,8 +12,6 @@ import { mapState } from 'vuex'
 import { common } from './utils'
 	export default {
 		name: 'banner',
-		label: '通栏图',
-		icon: 'banner',
 		mixins: [common],
 		data () {
 			return {

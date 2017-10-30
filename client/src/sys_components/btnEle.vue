@@ -12,8 +12,6 @@ import { mapState } from 'vuex'
 import { common } from './utils'
 	export default {
 		name: 'btn-ele',
-		label: '按钮',
-		icon: 'btn',
 		mixins: [common]
 	}
 </script>

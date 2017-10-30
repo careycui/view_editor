@@ -2,9 +2,11 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import axios from 'axios'
-import editor from './editor.vue'
+import store from './store/store'
+import editor from './editorre.vue'
+import OperateBox from './../../sys_components/utils/operate_box'
+import CDialog from './../../editor_components/dialog/index'
 
-import COMS_CONF from './config/coms_conf.js'
 import register from './utils/register.js'
 
 import  {Input,
@@ -28,7 +30,10 @@ import  {Input,
 		Tooltip,
 		Tabs,
 		TabPane,
-		Slider} from 'element-ui'
+		Slider,
+		Row,
+		Col,
+		ColorPicker} from 'element-ui'
 
 Vue.use(Input);
 Vue.use(InputNumber);
@@ -52,6 +57,9 @@ Vue.use(Tooltip);
 Vue.use(Tabs);
 Vue.use(TabPane);
 Vue.use(Slider);
+Vue.use(Row);
+Vue.use(Col);
+Vue.use(ColorPicker);
 
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false
@@ -59,13 +67,19 @@ Vue.config.productionTip = false
 Vue.directive('drag', { bind : function (el, binding) {
             let oDiv = el;   //当前元素
             let self = this;  //上下文
+            var type = oDiv.dataset.dragParent;
             oDiv.onmousedown = function (e) {
+            	var targetELe = oDiv;
+            	if(type){
+            		targetELe = oDiv.parentNode;
+            	}
                 if(oDiv.className.indexOf('active')>-1){
 	             //鼠标按下，计算当前元素距离可视区的距离
 	                let disX = e.pageX;
 	                let disY = e.pageY;
-	                let left = oDiv.style.left.replace(/px/g, '') * 1;
-	                let top = oDiv.style.top.replace(/px/g, '') * 1;
+	                let left = targetELe.style.left.replace(/px/g, '') * 1;
+	                let top = targetELe.style.top.replace(/px/g, '') * 1;
+
 	                document.onmousemove = function (e) {
 	                  //通过事件委托，计算移动的距离 
 	                    let l = e.pageX - disX;
@@ -94,13 +108,13 @@ Vue.directive('window', function(el, binding){
 );
 //注册全部可视化组件
 Vue.use(register);
+Vue.use(CDialog);
 
+Vue.component('operateBox', OperateBox);
 /* eslint-disable no-new */
 new Vue({
   el: '#editor',
+  store,
   template: '<editor />',
-  components: { editor },
-  mounted: function(){
-  	console.log(this);
-  }
+  components: { editor }
 })
