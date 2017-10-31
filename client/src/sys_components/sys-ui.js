@@ -10,6 +10,10 @@ import ImageEle from './image/image_ele'
 import ImageEleEditor from './image/image_ele_editor'
 import ImageEleConfig from  './image/image_ele_config'
 
+import TextEle from './text/text_ele'
+import TextEleEditor from './text/text_ele_editor'
+import TextEleConfig from  './text/text_ele_config'
+
 /**
  * 基础组件描述对象
  * 	comObj 组件对象
@@ -59,6 +63,18 @@ const SYS_UI_DESC = [{
 	},
 	data () {
 		return ImageEleConfig.getData();
+	}
+}, {
+	comKey: 'textEle',
+	comObj: TextEle,
+	comEditorObj: TextEleEditor,
+	desc: {
+		label: '文本',
+		icon: 'fa-file-text-o',
+		level: 0
+	},
+	data () {
+		return TextEleConfig.getData();
 	}
 }];
 const COMS_TREE_LABELS = {

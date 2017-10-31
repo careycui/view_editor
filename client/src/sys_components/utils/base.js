@@ -1,3 +1,7 @@
+//判断是否为数字
+const isNum = (val) => {
+	return val === +val;
+};
 //背景相关属性
 const bg = () => {
 	return {
@@ -19,12 +23,14 @@ const br = () => {
 //字体相关属性
 const ft = () => {
 	return {
-		fontFamily: '',
-		fontSize: '14px',
+		fontFamily: 'Microsoft Yahei',
+		fontSize: 14,
 		fontWeight: 400,
-		lineHeight: 1,
+		lineHeight: 12,
 		color: '#333',
-		textAlign: 'center'
+		textAlign: 'center',
+		fontStyle: 'normal',
+		textDecoration: 'none'
 	}
 };
 //位置及尺寸，该项存在时元素是不可拖拽的
@@ -45,7 +51,7 @@ const dragPosrect = () => {
 	return {
 		position: 'absolute',
 		width: 200,
-		height: 200,
+		height: 100,
 		left: 500,
 		top: 0
 	}
@@ -99,7 +105,8 @@ const formatter = {
 	},
 	dragPosrectFormatter (posRect) {
 		posRect.width = posRect.width + 'px';
-		posRect.height = posRect.height + 'px';
+
+		posRect.height = isNum(posRect.height)?posRect.height + 'px':'';
 
 		if(posRect.left === 'none'){
 			posRect.left = null;
@@ -122,7 +129,8 @@ const formatter = {
 	eleAniFormatter (eleAni) {
 		let aniFormatter = {
 			animation: '',
-			isPlayed: false
+			isPlayed: false,
+			animationName: eleAni.animationName
 		};
 		eleAni.animationDuration = eleAni.animationDuration + 's';
 		eleAni.animationDelay = eleAni.animationDelay + 's';
@@ -134,6 +142,12 @@ const formatter = {
 			aniFormatter.isPlayed = eleAni.isPlayed;
 		}
 		return aniFormatter;
+	},
+	ftFormatter (ft) {
+		let ift = ft;
+		ift.fontSize = ift.fontSize + 'px';
+		ift.lineHeight = ift.lineHeight + 'px';
+		return ift;
 	}
 };
 //组件基本属性

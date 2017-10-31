@@ -1,5 +1,5 @@
 <template>
-	<div class="preview-pc" id="preview">
+	<div class="preview" :class="{'preview-pc': platformType === 0, 'preview-mobile': platformType  === 1}" id="preview">
 		<component 
 			v-if="page" 
 			:is="pc.$$comKey" 
@@ -28,6 +28,12 @@
 <script>
 	export default {
 		name: 'previewPanel',
+		props:{
+			platformType: {
+				type: Number,
+				default: 0
+			}
+		},
 		computed: {
 			page () {
 				return this.$store.getters.getPageData;
@@ -46,6 +52,12 @@
 		  			return obj;
 		  		}
 	  		}
+	  	},
+	  	methods:{
+	  		changCurrKey (key) {
+	  			console.log(key);
+	  			this.$store.dispatch('changeComKey', key);
+	  		}
 	  	}
 	}
 </script>
@@ -55,5 +67,11 @@
 		width: 1920px;
 		left: 50%;
 		margin-left: -960px;
+	}
+	.preview-mobile{
+		position: relative;
+		width: 750px;
+		left: 50%;
+		margin-left: -375px;
 	}
 </style>

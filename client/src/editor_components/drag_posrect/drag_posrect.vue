@@ -14,8 +14,11 @@
 				</el-col>
 				<el-col :span="12">
 					<label class="el-form-item__label" style="width:40px;text-align:center;">H</label>
-					<div class="el-form-item__content" style="margin-left:40px;">
+					<div class="el-form-item__content" style="margin-left:40px;" v-if="!heightAuto">
 						<c-input-number size="small" :max="1920" v-model="data.height"></c-input-number>
+					</div>
+					<div class="el-form-item__content" style="margin-left:40px;" v-if="heightAuto">
+						<el-input size="small" value="auto" class="br2" :disabled="true"></el-input>
 					</div>
 				</el-col>
 			</el-row>
@@ -54,6 +57,10 @@ import CInputNumber from './../../editor_components/input_num/input_num'
 		},
 		props:{
 			comId: String,
+			heightAuto: {
+				type: Boolean,
+				default: false
+			},
 			value: {
 				type: Object,
 				default () {

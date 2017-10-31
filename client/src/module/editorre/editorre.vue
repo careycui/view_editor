@@ -8,7 +8,7 @@
     <control-panel></control-panel>
 
     <div class="app-content">
-      <preview-panel></preview-panel>
+      <preview-panel :platformType="platformType"></preview-panel>
     </div>
 
     <lines :line="line" :wrect="wrect"></lines>
@@ -38,7 +38,6 @@ import ComsCtrl from './components/coms_ctrl'
 import ControlPanel from './components/control_panel'
 import Lines from './components/lines'
 import TopBar from './components/top_bar'
-import { component, components, comData } from './../../sys_components/config.js'
 import { Message } from 'element-ui'
 
 import Preview from './components/preview_dialog'
@@ -61,6 +60,7 @@ export default {
   },
   data () {
     return {
+      platformType: 1,
       line: {
         left: {}
       },
@@ -175,14 +175,6 @@ export default {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   z-index: 100;
 }
-.outer-html{
-  outline: 1px dashed #ddd;
-  outline-offset: -1px;
-  z-index: 1;
-}
-.outer-html.active{
-  outline: 2px dashed #f26a18;
-}
 .fa-2x{
   font-size: 1.5em;
 }
@@ -201,7 +193,7 @@ export default {
 .cudialog{
   min-width: 800px;
 }
-.outer-html.ani-stage{
+.ani-stage{
     -webkit-perspective: 500px;
     -moz-perspective: 500px;
     perspective: 500px;
@@ -210,6 +202,7 @@ export default {
     transform-style: preserve-3d;
 }
 .ani-ele{
+  opacity: 1;
   -webkit-animation-fill-mode: both;
   -moz-animation-fill-mode: both;
   animation-fill-mode: both;

@@ -47,7 +47,7 @@
 </script>
 <style lang="scss">
 	.control-panel{
-		position: absolute;
+		position: fixed;
 		left: 400px;
 		top: 60px;
 

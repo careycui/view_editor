@@ -2,7 +2,7 @@
 	<div class="banner" 
 	:style="[formatterStyle.posRect, formatterStyle.bg, formatterStyle.opacity]">
 		<slot></slot>
-		<div class="pcontainer-bg">
+		<div class="pcontainer-bg" v-if="data.bannerImg">
 			<img :src="data.bannerImg" class="bg-img">
 		</div>
 	</div>

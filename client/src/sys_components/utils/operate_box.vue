@@ -46,17 +46,14 @@
 				             	//鼠标按下，计算当前元素距离可视区的距离
 				                let disX = e.pageX;
 				                let disY = e.pageY;
-				                let left = dragEle.style.left.replace(/px/g, '') * 1;
-				                let top = dragEle.style.top.replace(/px/g, '') * 1;
 
 				                document.onmousemove = function (e) {
 				                  //通过事件委托，计算移动的距离 
 				                    let l = e.pageX - disX;
 				                    let t = e.pageY - disY;
-				                  //移动当前元素  
-				                    l = (l + left);
-				                    t = (t + top);
-				                     //将此时的位置传出去
+				                    disX = e.pageX;
+				                    disY = e.pageY;
+				                     //将此时的位置差传出去
 				                    binding.value({x:l,y:t})
 				                };
 				            }
@@ -109,8 +106,10 @@
 		},
 		methods:{
 			proxyChangePos (pointer) {
-				this.currentCom.style.dragPosrect.left = pointer.x;
-				this.currentCom.style.dragPosrect.top = pointer.y;
+				let oldl = this.currentCom.style.dragPosrect.left;
+				let oldt = this.currentCom.style.dragPosrect.top;
+				this.currentCom.style.dragPosrect.left = oldl + pointer.x;
+				this.currentCom.style.dragPosrect.top = oldt + pointer.y;
 			}
 		}
 	}

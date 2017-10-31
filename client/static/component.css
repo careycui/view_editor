@@ -68,6 +68,10 @@
 	background-image: url(about:blank);
 	vertical-align: middle;
 }
+.text-ele p{
+	margin: 0;
+	padding: 0;
+}
 .ani-stage{
 	height: 100%;
 	width: 100%;
@@ -78,9 +82,19 @@
     -moz-transform-style: peserve-3d;
     transform-style: preserve-3d;
 }
+.ani{
+	animation-play-state: paused;
+}
 .ani-ele{
-	opacity: 0;
+	-webkit-animation-fill-mode: both;
+  	-moz-animation-fill-mode: both;
+  	animation-fill-mode: both;
 }
 .ani-ele.active{
-	opacity: 1;
+	/*opacity: 1;*/
+}
+@keyframes resetAni{
+	0%,100%{
+		opacity: 0;
+	}
 }
