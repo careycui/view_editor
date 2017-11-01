@@ -26,7 +26,7 @@ export default {
   },
   data () {
     return {
-      platformType: 1
+      platformType: 0
     }
   },
   computed: {
@@ -47,7 +47,6 @@ export default {
 
 <style lang="scss">
 #editor{
-  overflow: hidden;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
