@@ -9,6 +9,7 @@
 }
 .m-banner{
 	width: 100%;
+	min-height: 100px;
 }
 .m-banner img{
 	display: block;
