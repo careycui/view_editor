@@ -1,4 +1,4 @@
-import BASE from './../utils/base'
+import BASE from './../../utils/base'
 export default {
 	getData () {
 		return {

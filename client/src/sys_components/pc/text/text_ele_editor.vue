@@ -30,11 +30,11 @@
 	</div>
 </template>
 <script>
-	import CInputNumber from './../../editor_components/input_num/input_num'
-	import ColorPicker from './../../editor_components/color_picker/color_picker'
-	import Ft from './../../editor_components/ft/ft'
-	import DragPosrect from './../../editor_components/drag_posrect/drag_posrect'
-	import AniPanel from './../../editor_components/ani_panel/ani_panel'
+	import CInputNumber from './../../../editor_components/input_num/input_num'
+	import ColorPicker from './../../../editor_components/color_picker/color_picker'
+	import Ft from './../../../editor_components/ft/ft'
+	import DragPosrect from './../../../editor_components/drag_posrect/drag_posrect'
+	import AniPanel from './../../../editor_components/ani_panel/ani_panel'
 	export default {
 		name: 'bannerEditor',
 		components:{

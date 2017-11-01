@@ -21,10 +21,10 @@
 	</div>
 </template>
 <script>
-	import CInputNumber from './../../editor_components/input_num/input_num'
-	import ColorPicker from './../../editor_components/color_picker/color_picker'
-	import Bg from './../../editor_components/bg/bg'
-	import Posrect from './../../editor_components/posrect/posrect'
+	import CInputNumber from './../../../editor_components/input_num/input_num'
+	import ColorPicker from './../../../editor_components/color_picker/color_picker'
+	import Bg from './../../../editor_components/bg/bg'
+	import Posrect from './../../../editor_components/posrect/posrect'
 	export default {
 		name: 'containerEditor',
 		components:{

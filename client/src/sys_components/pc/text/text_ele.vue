@@ -10,7 +10,7 @@
 	</div>
 </template>
 <script>
-import BASE from './../utils/base'
+import BASE from './../../utils/base'
 
 const formatter = BASE.formatter;
 

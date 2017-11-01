@@ -125,7 +125,7 @@ export default{
 				responseType: 'json'
 			}).then(function(res){
 				if(res.data){
-					window.location.href="/module/editor.html?key="+res.data.id+'&t_type=pro';
+					window.location.href="/module/editorre.html?key="+res.data.id+'&t_type=pro';
 				}
 			}, function(err){
 
@@ -140,7 +140,7 @@ export default{
 				responseType: 'json'
 			}).then(function(res){
 				if(res.data){
-					window.location.href="/module/editor.html?key="+res.data.id+'&t_type=topic';
+					window.location.href="/module/editorre.html?key="+res.data.id+'&t_type=topic';
 				}
 			}, function(err){
 				

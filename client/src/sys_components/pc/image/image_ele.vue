@@ -2,7 +2,7 @@
 	<div class="image-ele" :style="[formatterStyle.wrect]">
 		<div class="ani-stage">
 			<img class="reset-img" 
-				:class="{'ani-ele': !!formatterStyle.eleAni.animation}"
+				:class="{'ani': !!formatterStyle.eleAni.animation}"
 				:src="data.imgUrl" 
 				:data-animation="formatterStyle.eleAni.animation" 
 				:style="[formatterStyle.br, {animation: (formatterStyle.eleAni.isPlayed?formatterStyle.eleAni.animation: '')}]"/>
@@ -10,7 +10,7 @@
 	</div>
 </template>
 <script>
-import BASE from './../utils/base'
+import BASE from './../../utils/base'
 
 const formatter = BASE.formatter;
 

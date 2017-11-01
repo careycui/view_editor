@@ -1,4 +1,4 @@
-import CONFIG from './../utils/base'
+import CONFIG from './../../utils/base'
 export default {
 	getData () {
 		return {
@@ -7,8 +7,7 @@ export default {
 			label: '页面容器',
 			enableDrag: false,
 			style:{
-				bg: CONFIG.bg(),
-				posRect: CONFIG.posRect()
+				bg: CONFIG.bg()
 			},
 			content:[]
 		}

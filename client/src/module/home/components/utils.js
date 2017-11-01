@@ -49,7 +49,7 @@ var PAGE_MIXIN = {
 			return list;
 		},
 		goEditor (id,type) {
-			window.location.href="/module/editor.html?key="+id+'&t_type='+type;
+			window.location.href="/module/editorre.html?key="+id+'&t_type='+type;
 		},
 		handleCommand (page) {
 			var type = event.target.type;

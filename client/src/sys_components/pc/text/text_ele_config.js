@@ -1,4 +1,4 @@
-import BASE from './../utils/base'
+import BASE from './../../utils/base'
 const changeDp = () => {
 	let db = BASE.dragPosrect();
 	db.height = 'auto';

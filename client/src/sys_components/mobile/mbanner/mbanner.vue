@@ -1,19 +1,15 @@
 <template>
-	<div class="banner" 
-	:style="[formatterStyle.posRect, formatterStyle.bg, formatterStyle.opacity]">
-		<slot></slot>
-		<div class="pcontainer-bg" v-if="data.bannerImg">
-			<img :src="data.bannerImg" class="bg-img">
-		</div>
+	<div class="m-banner" :style="[formatterStyle.bg, formatterStyle.opacity]">
+		<img :src="data.bannerImg">
 	</div>
 </template>
 <script>
-import BASE from './../utils/base'
+import BASE from './../../utils/base'
 
 const formatter = BASE.formatter;
 
-	export default {
-		name: 'banner',
+	export default{
+		name: 'mBanner',
 		props:{
 			data:{
 				type: Object,
@@ -24,8 +20,7 @@ const formatter = BASE.formatter;
 						bannerImg: 'about:blank',
 						style:{
 							opacity: 1,
-							bg: BASE.bg(),
-							posRect: BASE.posRect()
+							bg: BASE.bg()
 						}
 					}
 				}
@@ -35,7 +30,6 @@ const formatter = BASE.formatter;
 			formatterStyle () {
 				let style = this.data.style;
 				style.bg = formatter.bgFormatter(style.bg);
-				style.posRect = formatter.posRectFormatter(style.posRect);
 				style.opacity = {
 					opacity: style.opacity
 				};
@@ -44,6 +38,6 @@ const formatter = BASE.formatter;
 		}
 	}
 </script>
-<style lang="scss" scoped>
-
+<style>
+	
 </style>

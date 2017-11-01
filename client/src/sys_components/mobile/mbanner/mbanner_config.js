@@ -1,4 +1,4 @@
-import CONFIG from './../utils/base'
+import CONFIG from './../../utils/base'
 export default {
 	getData () {
 		return {
@@ -10,7 +10,6 @@ export default {
 			style:{
 				opacity: 1,
 				bg: CONFIG.bg(),
-				posRect: CONFIG.posRect()
 			},
 			content:[]
 		}

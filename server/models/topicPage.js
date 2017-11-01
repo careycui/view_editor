@@ -26,7 +26,6 @@ const TopicPage = seq.define('topic_page', {
 		defaultValue: Sequelize.NOW
 	},
 	update_time: Sequelize.DATE,
-	form_data: Sequelize.TEXT,
 	page_data: Sequelize.TEXT,
 	html_data: Sequelize.TEXT,
 	concat_id: Sequelize.STRING
