@@ -7,8 +7,10 @@
 
     <control-panel></control-panel>
 
-    <div class="app-content">
-      <preview-panel></preview-panel>
+    <div class="app-content mobile">
+      <div class="mobile-inner">
+        <preview-panel></preview-panel>
+      </div>
     </div>
 
     <lines :line="line" :wrect="wrect"></lines>
@@ -60,7 +62,6 @@ export default {
   },
   data () {
     return {
-      platformType: 1,
       line: {
         left: {}
       },
@@ -76,12 +77,10 @@ export default {
   computed:{
     currentComKey () {
       return this.$store.getters.getCurrentComKey;
+    },
+     baseData () {
+      return this.$store.getters.getBaseData;
     }
-  },
-  created () {
-    var id = getQueryString('key');
-    var type = getQueryString('t_type');
-    this.$store.dispatch('setBase', {id:id, type:type});
   },
   methods:{
     openCode () {
@@ -106,17 +105,16 @@ export default {
     },
     savePage () {
       this.setHtml();
-      var formData = JSON.stringify(this.$store.getters.getForms);
-      var htmlData = JSON.stringify(this.html);
-      var pageData = JSON.stringify(this.$store.getters.getPage);
-      var type = getQueryString('t_type');
-      var id = getQueryString('key');
+      let htmlData = JSON.stringify(this.html);
+      let pageData = JSON.stringify(this.$store.getters.getPageData);
+      let type = this.baseData.t_type;
+      let id = this.baseData.id;
+
       this.$http({
         url: 'http://localhost:3030/'+ type +'/savepage',
         method: 'post',
         data: {
           id: id,
-          form_data: formData,
           html_data: htmlData,
           page_data: pageData
         },
@@ -153,18 +151,37 @@ export default {
 </script>
 
 <style lang="scss">
-.app-content{
+.app-content.mobile{
     position: absolute;
-    width: 340px;
-    height: 524px;
-    left: 50%;
+    width: 100%;
+    height: 504px;
     top: 50%;
     margin-top: -247px;
-    margin-left: -187.5px;
-    background-color: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .4);
-    padding: 10px;
-    border-radius: 10px;
+    margin-right: 350px;
+    // overflow-y: auto;
+
+    & .mobile-inner{
+      position: absolute;
+      width: 320px;
+      height: 504px;
+      left: 50%;
+      margin-left: -160px;
+      z-index: 10;
+      overflow-y: auto;
+      outline: 4px solid rgba(51, 51, 51, 0.57)
+    }
+
+    &:after{
+      content: ' ';
+      position: absolute;
+      height: 544px;
+      width: 340px;
+      left: 50%;
+      margin-left: -170px;
+      top: -20px;
+      background-color: #fff;
+      border-radius: 15px;
+    }
 }
 .top-bar{
   position: fixed;

@@ -1,7 +1,12 @@
 <template>
 	<div class="ys-grid-row">
         <div class="ys-cell-3 top-bar--title">
-          <h3>页面编辑器 <small>V 0.0.1</small></h3>
+          <span class="back-home">
+            <a href="/module/home.html">
+              <i class="fa fa-home fa-2x"></i>
+            </a>
+          </span>
+          <h3>页面编辑器 <small>V 0.1.0</small></h3>
         </div>
         <div class="ys-cell-3 top-bar--btn">
           <el-tooltip :open-delay="500" content="导出HTML">
@@ -40,12 +45,25 @@ export default {
 <style scoped lang="scss">
 .top-bar--title, .top-bar--btn{
   height: 40px;
-  vertical-align: middle;
   line-height: 40px;
+  vertical-align: middle;
   color: #f1f1f1;
+
+  & .back-home{
+    display: block;
+    float: left;
+    width: 60px;
+    margin: 10px 0;
+    line-height: 20px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255, 0.3);
+    cursor: pointer;
+  }
 
   & h3{
     font-weight: normal;
+    margin-left: 60px;
+    padding-left: 10px;
 
     & small{
       color: #F1F1F1;

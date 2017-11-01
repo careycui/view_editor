@@ -39,9 +39,11 @@ const state = {
 	base:{
 		id: '',
 		t_type: '',
-		update_time: '',
 		title: '',
-		desc: ''
+		desc: '',
+		platform_type: 0,
+		page_type: 0,
+		update_time: ''
 	},
 	json:[],
 	currentComKey: ''
@@ -49,6 +51,9 @@ const state = {
 const getters = {
 	getBaseData (state) {
 		return state.base;
+	},
+	getComType (state) {
+		return state.base.t_type;
 	},
 	getPageData (state) {
 		return state.json;
@@ -93,7 +98,16 @@ const mutations ={
 	},
 	SET_BASE (state, obj) {
 		state.base.id = obj.id;
-		state.base.t_type = obj.type;
+		state.base.title = obj.title;
+		state.base.desc = obj.desc;
+		state.base.t_type = obj.t_type;
+		state.base.platform_type = obj.platform_type;
+		state.base.page_type = obj.page_type;
+	},
+	SET_PAGE (state, obj) {
+		if(obj && obj.length>0){
+			state.json = obj;
+		}
 	},
 	DEL_COM (state, obj) {
 		let index;
@@ -148,6 +162,14 @@ const actions = {
 	},
 	setBase ({commit}, obj) {
 		commit('SET_BASE', obj);
+	},
+	setPageContent ({commit}, obj) {
+		return new Promise((resolve, reject) => {
+			commit('SET_BASE', obj.base);
+			commit('SET_PAGE', obj.page);
+
+			resolve(obj);
+		});
 	},
 	deleteCom ({commit, getters}, obj) {
 		return new Promise((resolve, reject) => {

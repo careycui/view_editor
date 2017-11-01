@@ -7,7 +7,7 @@
 
     <control-panel></control-panel>
 
-    <div class="app-content">
+    <div class="app-content pc" :style="[wrect]">
       <preview-panel></preview-panel>
     </div>
 
@@ -60,7 +60,6 @@ export default {
   },
   data () {
     return {
-      platformType: 1,
       line: {
         left: {}
       },
@@ -76,12 +75,10 @@ export default {
   computed:{
     currentComKey () {
       return this.$store.getters.getCurrentComKey;
+    },
+    baseData () {
+      return this.$store.getters.getBaseData;
     }
-  },
-  created () {
-    var id = getQueryString('key');
-    var type = getQueryString('t_type');
-    this.$store.dispatch('setBase', {id:id, type:type});
   },
   methods:{
     openCode () {
@@ -110,17 +107,16 @@ export default {
     },
     savePage () {
       this.setHtml();
-      var formData = JSON.stringify(this.$store.getters.getForms);
-      var htmlData = JSON.stringify(this.html);
-      var pageData = JSON.stringify(this.$store.getters.getPage);
-      var type = getQueryString('t_type');
-      var id = getQueryString('key');
+      let htmlData = JSON.stringify(this.html);
+      let pageData = JSON.stringify(this.$store.getters.getPageData);
+      let type = this.baseData.t_type;
+      let id = this.baseData.id;
+
       this.$http({
         url: 'http://localhost:3030/'+ type +'/savepage',
         method: 'post',
         data: {
           id: id,
-          form_data: formData,
           html_data: htmlData,
           page_data: pageData
         },
@@ -157,10 +153,12 @@ export default {
 </script>
 
 <style lang="scss">
-.app-content{
+.app-content.pc{
   position: relative;
   width: 100%;
   margin: 50px auto;
+  padding: 4px 0;
+  overflow: auto;
 }
 .top-bar{
   position: fixed;

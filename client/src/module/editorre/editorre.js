@@ -101,7 +101,7 @@ Vue.directive('drag', { bind : function (el, binding) {
 );
 Vue.directive('window', function(el, binding){
 		let width = window.screen.width;
-		let height = window.screen.height;
+		let height = window.screen.availHeight - 110;
 
 		binding.value({w: width, h: height});
 	}

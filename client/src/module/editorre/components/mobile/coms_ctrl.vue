@@ -74,7 +74,9 @@ import { Message } from 'element-ui'
 		    }
 		},
 		beforeMount () {
-		    this.addPage();
+			if(this.treeData.length<1){
+		    	this.addPage();
+			}
 		},
 		watch:{
 			currentComKey (newVal) {
@@ -96,8 +98,9 @@ import { Message } from 'element-ui'
 		    addPage (){
 		      	let containers = this.$sys_m_coms.LEVEL_2;
 		      	let pageContainer;
+		      	let t_type = this.$store.getters.getComType;
 		      	containers.coms.forEach((c,i) => {
-		        	if(this.baseData.t_type == 'pro' && c.comKey == 'mContainer'){
+		        	if(t_type == 'pro' && c.comKey == 'mContainer'){
 		          		pageContainer = c;
 		        	}
 		      	});

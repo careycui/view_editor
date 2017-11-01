@@ -49,7 +49,6 @@
 	  	},
 	  	methods:{
 	  		changCurrKey (key) {
-	  			console.log(key);
 	  			this.$store.dispatch('changeComKey', key);
 	  		}
 	  	}
@@ -61,11 +60,7 @@
 		width: 320px;
 		height: 504px;
 		left: 50%;
-		top: 50%;
-		margin-top: -252px;
 		margin-left: -160px;
-
-		outline: 1px dotted #333;
-		overflow-y: auto;
+		z-index: 10;
 	}
 </style>
