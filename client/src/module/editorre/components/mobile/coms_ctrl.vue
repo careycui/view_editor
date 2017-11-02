@@ -100,7 +100,7 @@ import { Message } from 'element-ui'
 		      	let pageContainer;
 		      	let t_type = this.$store.getters.getComType;
 		      	containers.coms.forEach((c,i) => {
-		        	if(t_type == 'pro' && c.comKey == 'mContainer'){
+		        	if(c.comKey == 'mContainer'){
 		          		pageContainer = c;
 		        	}
 		      	});
@@ -190,5 +190,8 @@ import { Message } from 'element-ui'
   	}
 	.reset-br{
 		border-radius: 2px;
+	}
+	.el-tree-node__content{
+		overflow: hidden;
 	}
 </style>

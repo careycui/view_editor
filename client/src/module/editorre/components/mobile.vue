@@ -168,6 +168,7 @@ export default {
       margin-left: -160px;
       z-index: 10;
       overflow-y: auto;
+      overflow-x: hidden;
       outline: 4px solid rgba(51, 51, 51, 0.57)
     }
 

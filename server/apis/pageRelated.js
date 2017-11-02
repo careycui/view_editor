@@ -1,3 +1,4 @@
+const timestamp = require('time-stamp');
 const ProPage = require('./../models/proPage');
 const TopicPage = require('./../models/topicPage');
 
@@ -63,11 +64,13 @@ module.exports.updateTopic = async (ctx, next) => {
 }
 module.exports.savePageTopic = async (ctx, next) => {
 	let data = ctx.request.body;
-	let result = await TopicPage.update(data,{ where : { id: { $eq : data.id } }}, {fieds:['html_data','page_data','form_data']});
+	data.update_time = timestamp('YYYY-MM-DD HH:mm:ss');
+	let result = await TopicPage.update(data,{ where : { id: { $eq : data.id } }}, {fieds:['html_data','page_data','form_data','update_time']});
 	ctx.body = JSON.stringify(result);
 }
 module.exports.savePagePro = async (ctx, next) => {
 	let data = ctx.request.body;
-	let result = await ProPage.update(data,{ where : { id: { $eq : data.id } }}, {fieds:['html_data','page_data','form_data']});
+	data.update_time = timestamp('YYYY-MM-DD HH:mm:ss');
+	let result = await ProPage.update(data,{ where : { id: { $eq : data.id } }}, {fieds:['html_data','page_data','form_data','update_time']});
 	ctx.body = JSON.stringify(result);
 }

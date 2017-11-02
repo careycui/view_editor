@@ -106,9 +106,16 @@
 		},
 		methods:{
 			proxyChangePos (pointer) {
-				let oldl = this.currentCom.style.dragPosrect.left;
+				let posType = this.currentCom.style.dragPosrect.posType;
 				let oldt = this.currentCom.style.dragPosrect.top;
-				this.currentCom.style.dragPosrect.left = oldl + pointer.x;
+				if(posType === 'LEFT'){
+					let oldl = this.currentCom.style.dragPosrect.LEFT.left;
+					this.currentCom.style.dragPosrect.LEFT.left = oldl + pointer.x;
+				}
+				if(posType === 'CENTER'){
+					let oldl = this.currentCom.style.dragPosrect.CENTER.marginLeft;
+					this.currentCom.style.dragPosrect.CENTER.marginLeft = oldl + pointer.x;
+				}
 				this.currentCom.style.dragPosrect.top = oldt + pointer.y;
 			}
 		}

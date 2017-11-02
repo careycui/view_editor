@@ -38,7 +38,7 @@
 				</div>
 			</el-col>
 			<el-col :xs="24" :sm="19" :md="20" :lg="20" class="project-body">
-				<router-view @openBase="openBase"></router-view>
+				<router-view @openBase="openBase" @openPreview="openPreview"></router-view>
 			</el-col>
 		</el-row>
 		<el-dialog title="页面信息" size="small" :visible.sync="baseDialogVisible" :close-on-click-modal="false" custom-class="dialog-size" v-loading.body="loading">
@@ -84,19 +84,26 @@
 			    <el-button type="primary" @click="submitBase">确 定</el-button>
 			  </div>
 		</el-dialog>
+		<preview :visible="isPreview" :srcdoc="html" @updateVisible="updateVisible"></preview>
 	</div>
 </template>
 <script>
+	import Preview from './components/preview_dialog'
 	import { Message } from 'element-ui'
 
 	export default {
 		name: 'home',
+		components:{
+			Preview
+		},
 		data () {
 			return {
 				activeName: '',
 				baseDialogVisible: false,
 				editPage: '',
-				loading: false
+				loading: false,
+				isPreview: false,
+				html: ''
 			}
 		},
 		beforeMount () {
@@ -142,7 +149,24 @@
 						type: 'error'
 					});
 				}
-			}
+			},
+			openPreview (page) {
+				let html = JSON.parse(page.html_data);
+				console.log(html);
+				if(!html){
+					Message({
+						message: '还未添加页面内容',
+						showClose: true,
+						type: 'error'
+					});
+					return;
+				}
+				this.html = html;
+				this.isPreview = true;
+			},
+		    updateVisible (val) {
+		      this.isPreview = val;
+		    }
 		}
 	}
 </script>
@@ -305,7 +329,7 @@
 			position: absolute;
 			left: 0;
 			top: 0;
-			padding-top: 70px;
+			padding-top: 50px;
 			width: 200px;
 			height: 180px;
 			border-top-left-radius: 5px;
@@ -319,6 +343,15 @@
 			-webkit-transition: all .3s;
 			-moz-transition: all .3s;
 			transition: all .3s;
+
+			& .update-time{
+				display: block;
+				color: #fff;
+				text-align:center;
+				line-height: 1.5;
+				font-size: 12px;
+			}
+
 		}
 		.bottom-bar{
 			position: absolute;

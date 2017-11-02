@@ -32,7 +32,10 @@
 		    						<el-button icon="delete" size="mini" class="bottom-bar--btn">删除</el-button>
 		    					</div>
 		    					<div class="project-card--btns">
-		    						<el-button size="small" class="plain-btn">
+		    						<span class="update-time">
+		    							更新时间：{{ page.update_time }}
+		    						</span>
+		    						<el-button size="small" class="plain-btn" @click="goPreview(page)">
 		    							<i class="fa fa-eye bottom-bar--icon"></i> 预览
 		    						</el-button>
 		    						<el-button size="small" class="plain-btn" @click="goEditor(page.id,page.t_type)">
@@ -80,7 +83,10 @@
 		    						<el-button icon="delete" size="mini" class="bottom-bar--btn">删除</el-button>
 		    					</div>
 		    					<div class="project-card--btns">
-		    						<el-button size="small" class="plain-btn">
+		    						<span class="update-time">
+		    							更新时间：{{ page.update_time }}
+		    						</span>
+		    						<el-button size="small" class="plain-btn" @click="goPreview(page)">
 		    							<i class="fa fa-eye bottom-bar--icon"></i> 预览
 		    						</el-button>
 		    						<el-button size="small" class="plain-btn" @click="goEditor(page.id,page.t_type)">
@@ -101,7 +107,7 @@
 		    				</div>
 		    			</div>
 			    	</el-tab-pane>
-			    	<el-tab-pane label="H5" name="h5" class="ani slideInDownSm delay">
+			    	<el-tab-pane label="海报" name="h5" class="ani slideInDownSm delay">
 			    		<div class="list" v-if="getH5List().length > 0">
 		    				<div class="project-card" v-for="page in getH5List()">
 		    					<div class="project-card--img">
@@ -127,7 +133,10 @@
 		    						<el-button icon="delete" size="mini" class="bottom-bar--btn">删除</el-button>
 		    					</div>
 		    					<div class="project-card--btns">
-		    						<el-button size="small" class="plain-btn">
+		    						<span class="update-time">
+		    							更新时间：{{ page.update_time }}
+		    						</span>
+		    						<el-button size="small" class="plain-btn" @click="goPreview(page)">
 		    							<i class="fa fa-eye bottom-bar--icon"></i> 预览
 		    						</el-button>
 		    						<el-button size="small" class="plain-btn" @click="goEditor(page.id,page.t_type)">

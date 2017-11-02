@@ -53,7 +53,15 @@ const dragPosrect = () => {
 		width: 200,
 		height: 100,
 		left: 500,
-		top: 0
+		top: 0,
+		posType: 'LEFT',
+		CENTER: {
+			left: '50%',
+			marginLeft: -100
+		},
+		LEFT: {
+			left: 500
+		}
 	}
 };
 //动画元素属性
@@ -104,22 +112,20 @@ const formatter = {
 		return posRect;
 	},
 	dragPosrectFormatter (posRect) {
-		posRect.width = posRect.width + 'px';
-
-		posRect.height = isNum(posRect.height)?posRect.height + 'px':'';
-
-		if(posRect.left === 'none'){
-			posRect.left = null;
+		let pos = {
+			position: posRect.position,
+			width: posRect.width + 'px',
+			height: isNum(posRect.height)?posRect.height + 'px':'',
+			top: posRect.top === 'none'?null:posRect.top + 'px'
+		};
+		if(posRect.posType === 'LEFT'){
+			pos.left = posRect.LEFT.left?posRect.LEFT.left + 'px':null;
 		}else{
-			posRect.left = posRect.left + 'px';
+			pos.left = posRect.CENTER.left?posRect.CENTER.left:'50%';
+			pos.marginLeft = posRect.CENTER.marginLeft?posRect.CENTER.marginLeft+'px':null;
 		}
 
-		if(posRect.top === 'none'){
-			posRect.top = null;
-		}else{
-			posRect.top = posRect.top + 'px';
-		}
-		return posRect;
+		return pos;
 	},
 	brFormatter (br) {
 		br.borderWidth = br.borderWidth + 'px';

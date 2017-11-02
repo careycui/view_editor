@@ -67,6 +67,9 @@ var PAGE_MIXIN = {
 		},
 		openEditDialog (page) {
 			this.$emit('openBase',page);
+		},
+		goPreview (page) {
+			this.$emit('openPreview', page);
 		}
 	}
 };
