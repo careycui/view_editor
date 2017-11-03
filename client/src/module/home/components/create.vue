@@ -16,7 +16,7 @@
 								<p class="add-desc">新建PC详情页</p>
 								<div class="add-btns">
 									<el-button type="primary" size="small" @click="handleSavePro('PC_BASE')">普通页</el-button>
-									<el-button type="primary" size="small" @click="handleSavePro('PC_H5')">海报页</el-button>
+									<el-button type="primary" size="small" @click="handleSavePro('PC_H5')" :disabled="true">海报页</el-button>
 								</div>
 							</div>
 							<div class="project-card">
@@ -24,7 +24,7 @@
 								<p class="add-desc">新建mobile详情页</p>
 								<div class="add-btns">
 									<el-button type="primary" size="small" @click="handleSavePro('M_BASE')">普通页</el-button>
-									<el-button type="primary" size="small" @click="handleSavePro('M_H5')">海报页</el-button>
+									<el-button type="primary" size="small" @click="handleSavePro('M_H5')" :disabled="true">海报页</el-button>
 								</div>
 							</div>
 						</div>
@@ -41,7 +41,7 @@
 								<p class="add-desc">新建PC专题页</p>
 								<div class="add-btns">
 									<el-button type="primary" size="small" @click="handleSaveTopic('PC_BASE')">普通页</el-button>
-									<el-button type="primary" size="small" @click="handleSaveTopic('PC_H5')">海报页</el-button>
+									<el-button type="primary" size="small" @click="handleSaveTopic('PC_H5')" :disabled="true">海报页</el-button>
 								</div>
 							</div>
 							<div class="project-card">
@@ -49,7 +49,7 @@
 								<p class="add-desc">新建Mobile专题页</p>
 								<div class="add-btns">
 									<el-button type="primary" size="small" @click="handleSaveTopic('M_BASE')">普通页</el-button>
-									<el-button type="primary" size="small" @click="handleSaveTopic('M_H5')">海报页</el-button>
+									<el-button type="primary" size="small" @click="handleSaveTopic('M_H5')" :disabled="true">海报页</el-button>
 								</div>
 							</div>
 						</div>
@@ -119,7 +119,7 @@ export default{
 		handleSavePro (type) {
 			let baseData = PAGE_CONF[type];
 			this.$http({
-				url: 'http://localhost:3030/pro/save',
+				url: G.API.host + 'pro/save',
 				method: 'POST',
 				data: baseData,
 				responseType: 'json'
@@ -134,7 +134,7 @@ export default{
 		handleSaveTopic (type) {
 			let baseData = PAGE_CONF[type];
 			this.$http({
-				url: 'http://localhost:3030/topic/save',
+				url: G.API.host + 'topic/save',
 				method: 'POST',
 				data: baseData,
 				responseType: 'json'

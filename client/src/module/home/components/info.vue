@@ -171,7 +171,7 @@ export default{
 		setPageList () {
 			var _this = this;
 			this.$http({
-				url: 'http://localhost:3030/pro/index/'+ this.type,
+				url: G.API.host + 'pro/index/'+ this.type,
 				method: 'GET',
 				responseType: 'json'
 			}).then(function(res){

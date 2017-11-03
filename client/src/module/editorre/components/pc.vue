@@ -136,12 +136,12 @@ export default {
       this.wrect.height = obj.h + 'px';
     },
     setHtml () {
-      let css = '<link rel="stylesheet" type="text/css" href="http://localhost:8080/static/component.css" />' ;
-      let css1 = '<link rel="stylesheet" type="text/css" href="http://localhost:8080/static/animate-min.css" />' ;
-      let lib = '\<script type="text/javascript" src="http://localhost:8080/static/jquery.min.js"\>\<\/script\>';
-      let lib1 = '\<script type="text/javascript" src="http://localhost:8080/static/img-slide-min.js"\>\<\/script\>';
-      let lib2 = '\<script type="text/javascript" src="http://localhost:8080/static/aniview-min.js"\>\<\/script\>';
-      let page = '\<script type="text/javascript" src="http://localhost:8080/static/page.js"\>\<\/script\>';
+      let css = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/component.css" />' ;
+      let css1 = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/animate-min.css" />' ;
+      let lib = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/jquery.min.js"\>\<\/script\>';
+      let lib1 = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/img-slide-min.js"\>\<\/script\>';
+      let lib2 = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/aniview-min.js"\>\<\/script\>';
+      let page = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/page.js"\>\<\/script\>';
 
       let $cnt = this.$el.querySelector('.app-content');
       let html = $cnt.innerHTML.replace(/(&quot;)+/g, '\'').replace(/(data\-v\-[\w]+\=[\"]{2})+/g, '').replace(/(\n)+/g, '')
@@ -157,7 +157,7 @@ export default {
       let id = this.baseData.id;
 
       this.$http({
-        url: 'http://localhost:3030/'+ type +'/savepage',
+        url: G.API.host+ type +'/savepage',
         method: 'post',
         data: {
           id: id,
@@ -198,7 +198,7 @@ export default {
     submitBase () {
       var _this = this;
       this.$http({
-        url: 'http://localhost:3030/'+ _this.baseData.t_type +'/update',
+        url: G.API.host+ _this.baseData.t_type +'/update',
           method: 'POST',
           data:_this.baseData,
           responseType: 'json'

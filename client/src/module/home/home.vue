@@ -135,7 +135,7 @@
 				var _this = this;
 				this.loading = true;
 				this.$http({
-					url: 'http://localhost:3030/'+ _this.editPage.t_type +'/update',
+					url: G.API.host + _this.editPage.t_type +'/update',
 						method: 'POST',
 						data:_this.editPage,
 						responseType: 'json'

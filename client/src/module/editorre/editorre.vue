@@ -35,7 +35,7 @@ export default {
     var type = getQueryString('t_type');
     const _this = this;
     this.$http({
-      url: 'http://localhost:3030/'+ type +'/getPage/'+ id,
+      url: G.API.host+ type +'/getPage/'+ id,
       method: 'get',
       responseType: 'json'
     }).then(function(result){

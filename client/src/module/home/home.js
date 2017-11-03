@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import './../../global'
 import VueRouter from 'vue-router'
 import axios from 'axios'
 import Home from './home.vue'
