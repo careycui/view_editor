@@ -16,7 +16,7 @@ function getEntry(globPath) {
     pathsrc = tmp[1];
   }
     pathname = pathsrc + '\/' + basename;
-    entries[pathname] = entry;
+    entries[pathname] = ['babel-polyfill', entry];
     
     //console.log(pathname+'-----------'+entry);
     
