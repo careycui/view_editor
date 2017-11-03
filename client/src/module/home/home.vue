@@ -33,7 +33,20 @@
 								<i class="el-icon-document"></i>Mobile
 							</el-menu-item>
 						</el-submenu>
-					    <el-menu-item index="/asset" router="/asset"><i class="el-icon-picture"></i>素材库</el-menu-item>
+						<el-submenu index="3">
+							<template slot="title">
+								<i class="el-icon-menu"></i>
+								素材库
+							</template>
+							<el-menu-item index="/assetimg" router="/assetimg">
+								<i class="el-icon-picture"></i>
+								图片
+							</el-menu-item>
+								<el-menu-item index="/assettmp" router="/assettmp">
+								<i class="el-icon-document"></i>
+								模板
+							</el-menu-item>
+						</el-submenu>
 				    </el-menu>
 				</div>
 			</el-col>
@@ -112,7 +125,7 @@
 		methods : {
 			hangdleSelect (index, indexPath) {
 				console.log(index, this.$route.path);
-				// this.activeName = index;
+				this.activeName = index;
 			},
 			openPage () {
 				this.activeName = '';

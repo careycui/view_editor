@@ -2,7 +2,7 @@
 	<transition>
 		<div class="project-body--box">
 			<div class="project-body--title">
-				<h3>详情页</h3>
+				<h3>自定义模板</h3>
 			</div>
 			<div class="project-body--body">
 				<el-tabs v-model="activeName" @tab-click="handleTabClick">
@@ -156,7 +156,7 @@
 </template>
 <script>
 export default{
-	name: 'topic',
+	name: 'assetTmp',
 	data () {
 		return {
 			activeName: 'first'
