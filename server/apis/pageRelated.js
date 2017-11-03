@@ -54,23 +54,25 @@ module.exports.saveTopic = async (ctx, next) => {
 }
 module.exports.updatePro = async (ctx, next) => {
 	let data = ctx.request.body;
-	let result = await ProPage.update(data,{ where : { id: { $eq : data.id } }}, {fieds:['title','img_cover','desc']});
+	data.update_time = timestamp('YYYY-MM-DD HH:mm:ss');
+	let result = await ProPage.update(data,{ where : { id: { $eq : data.id } }}, {fields:['title','img_cover','desc','update_time']});
 	ctx.body = JSON.stringify(result);
 }
 module.exports.updateTopic = async (ctx, next) => {
 	let data = ctx.request.body;
-	let result = await TopicPage.update(data,{ where : { id: { $eq : data.id } }}, {fieds:['title','img_cover','desc']});
+	data.update_time = timestamp('YYYY-MM-DD HH:mm:ss');
+	let result = await TopicPage.update(data,{ where : { id: { $eq : data.id } }}, {fields:['title','img_cover','desc','update_time']});
 	ctx.body = JSON.stringify(result);
 }
 module.exports.savePageTopic = async (ctx, next) => {
 	let data = ctx.request.body;
 	data.update_time = timestamp('YYYY-MM-DD HH:mm:ss');
-	let result = await TopicPage.update(data,{ where : { id: { $eq : data.id } }}, {fieds:['html_data','page_data','form_data','update_time']});
+	let result = await TopicPage.update(data,{ where : { id: { $eq : data.id } }}, {fields:['html_data','page_data','form_data','update_time']});
 	ctx.body = JSON.stringify(result);
 }
 module.exports.savePagePro = async (ctx, next) => {
 	let data = ctx.request.body;
 	data.update_time = timestamp('YYYY-MM-DD HH:mm:ss');
-	let result = await ProPage.update(data,{ where : { id: { $eq : data.id } }}, {fieds:['html_data','page_data','form_data','update_time']});
+	let result = await ProPage.update(data,{ where : { id: { $eq : data.id } }}, {fields:['html_data','page_data','form_data','update_time']});
 	ctx.body = JSON.stringify(result);
 }
