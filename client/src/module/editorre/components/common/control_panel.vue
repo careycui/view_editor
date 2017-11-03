@@ -19,7 +19,7 @@
 		data () {
 			return {
 				pos: {
-					left: '100px',
+					left: '600px',
 					top: '60px'
 				}
 			}

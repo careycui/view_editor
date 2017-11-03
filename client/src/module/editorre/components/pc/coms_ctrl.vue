@@ -144,7 +144,7 @@ import { Message } from 'element-ui'
 		position: fixed;
 		top: 0;
 		bottom: 0;
-		right: 0;
+		left: 0;
 		padding: 50px 10px;
 
 		background-color: #1f2d3d;
