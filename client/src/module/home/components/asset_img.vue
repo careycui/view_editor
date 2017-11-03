@@ -13,7 +13,7 @@
 									<el-input
 									  	placeholder="请输入类型"
 									  	icon="search"
-									  	size="mini"
+									  	size="small"
 									  	:on-icon-click="handleIconClick">
 									</el-input>
 								</div>
@@ -48,7 +48,7 @@
 						<div class="file-box__right">
 							<div class="file-box__search">
 								<div style="display: inline-block;vertical-align:top;">
-									<el-button type="primary" size="mini" @click="openUploadDialog">
+									<el-button type="primary" size="small" @click="openUploadDialog">
 										<i class="el-icon-upload"></i>
 										添加图片
 									</el-button>
@@ -57,12 +57,12 @@
 									<el-input
 									  	placeholder="请输入关键字"
 									  	icon="search"
-									  	size="mini"
+									  	size="small"
 									  	:on-icon-click="handleIconClick">
 									</el-input>
 								</div>
 								<div style="display: inline-block;width:120px;vertical-align:top;">
-									<el-select size="mini" v-model="sortType">
+									<el-select size="small" v-model="sortType">
 										<el-option
 									      	v-for="item in sortOpt"
 									      	:key="item.value"
@@ -78,6 +78,10 @@
 									<div class="file-box__content-item__cover">
 										<div class="img-cntrl">
 											<div class="img-cntrl__inner" style="">
+												<el-button size="mini" class="plain-btn">
+					    							<i class="fa fa-eye bottom-bar--icon"></i> 原图
+					    						</el-button>
+					    						<div class="pd5"></div>
 												<el-button size="mini" class="plain-btn">
 					    							<i class="fa fa-trash bottom-bar--icon"></i> 删除
 					    						</el-button>

@@ -1,7 +1,7 @@
 <template>
   <div id="editor-inner" v-window="getWindow">
     <div class="top-bar">
-      <top-bar @openCode="openCode" :innerHtml='html' @savePage="savePage" @openPreview="openPreview"></top-bar>
+      <top-bar @openCode="openCode" :innerHtml='html' @savePage="savePage" @openBaseData="openBaseData" @openPreview="openPreview"></top-bar>
     </div>
     <coms-ctrl></coms-ctrl>
 
@@ -30,6 +30,49 @@
       </div>
     </el-dialog>
     <preview :visible="isPreview" :srcdoc="html" @updateVisible="updateVisible"></preview>
+    <el-dialog title="页面信息" size="small" :visible.sync="baseDialogVisible" :close-on-click-modal="false" :modal-append-to-body="false" custom-class="dialog-size">
+      <el-row v-if="baseData">
+        <el-col :md="10" :xs="24" :sm="24" style="text-align:center;">
+          <div class="project-card" style="margin:0;">
+              <div class="project-card--img">
+                <img :src="baseData.img_cover">
+              </div>
+              <div class="project-card--title">
+                {{ baseData.title || '未命名页面' }}
+              </div>
+              <div class="project-card--desc">
+                {{ baseData.desc || '未添加描述' }}
+              </div>
+              <div class="project-card--sign">
+                <img src="//mfs.ys7.com/mall/1749a21b9221474c593e251dc32c739d.png" v-if="baseData.page_type === 0">
+                <img src="//mfs.ys7.com/mall/91b7d8245f8a0006f45e35fbb21734cb.png" v-if="baseData.page_type === 1">
+              </div>
+            </div>
+        </el-col>
+        <el-col :md="14" :xs="24" :sm="24">
+          <el-form label-position="top" label-width="80px">
+            <el-form-item label="封面图" :form="baseData">
+              <el-input size="small" v-model="baseData.img_cover">
+                <template slot="prepend">URL</template>
+              </el-input>
+            </el-form-item>
+            <el-form-item label="页面名称">
+              <el-input size="small" v-model="baseData.title"></el-input>
+            </el-form-item>
+            <el-form-item label="页面描述">
+              <el-input type="textarea" :rows="3" size="small" v-model="baseData.desc"></el-input>
+            </el-form-item>
+            <el-form-item label="页面类型">
+              <el-input :disabled="true" :value="baseData.page_type === 0?'baseData':'H5'"></el-input>
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-row>
+      <div slot="footer" class="dialog-footer">
+          <el-button @click="baseDialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="submitBase">确 定</el-button>
+        </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -70,6 +113,7 @@ export default {
         height: '667px'
       },
       dialogVisible: false,
+      baseDialogVisible: false,
       html: '',
       isPreview: false
     }
@@ -145,6 +189,26 @@ export default {
     },
     updateVisible (val) {
       this.isPreview = val;
+    },
+    openBaseData () {
+      this.baseDialogVisible = !this.baseDialogVisible;
+    },
+    submitBase () {
+      var _this = this;
+      this.$http({
+        url: 'http://localhost:3030/'+ _this.baseData.t_type +'/update',
+          method: 'POST',
+          data:_this.baseData,
+          responseType: 'json'
+        }).then(function(res){
+          _this.baseDialogVisible = false;
+        }, function(err,xhr){
+          Message({
+            message: '保存失败,请稍后再试',
+            showClose: true,
+            type: 'error'
+          });
+        });
     }
   }
 }

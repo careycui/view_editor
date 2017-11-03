@@ -33,7 +33,9 @@ import  {Input,
 		Slider,
 		Row,
 		Col,
-		ColorPicker} from 'element-ui'
+		ColorPicker,
+		Form,
+		FormItem} from 'element-ui'
 
 Vue.use(Input);
 Vue.use(InputNumber);
@@ -60,6 +62,8 @@ Vue.use(Slider);
 Vue.use(Row);
 Vue.use(Col);
 Vue.use(ColorPicker);
+Vue.use(Form);
+Vue.use(FormItem);
 
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false

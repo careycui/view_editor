@@ -41,6 +41,7 @@ const state = {
 		t_type: '',
 		title: '',
 		desc: '',
+		img_cover: '',
 		platform_type: 0,
 		page_type: 0,
 		update_time: ''
@@ -100,6 +101,7 @@ const mutations ={
 		state.base.id = obj.id;
 		state.base.title = obj.title;
 		state.base.desc = obj.desc;
+		state.base.img_cover = obj.img_cover;
 		state.base.t_type = obj.t_type;
 		state.base.platform_type = obj.platform_type;
 		state.base.page_type = obj.page_type;
