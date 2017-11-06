@@ -1,10 +1,14 @@
 <template>
-	<div class="control-panel" :style="[pos]" v-if="currentCom">
+	<div class="control-panel" :class="{ active: isActive}" :style="[pos]" v-if="currentCom">
 		<div class="control-panel--header active" v-drag="setPos" data-drag-parent="true">
 			<h4>
 				组件设置
 				<span class="control-panel_close" @click="close">
 					<i class="el-icon-close"></i>
+				</span>
+				<span class="control-panel_cntr" @click="cntrl">
+					<i class="el-icon-minus" v-if="isActive"></i>
+					<i class="el-icon-plus" v-if="!isActive"></i>
 				</span>
 			</h4>
 		</div>
@@ -21,7 +25,8 @@
 				pos: {
 					left: '600px',
 					top: '60px'
-				}
+				},
+				isActive: true
 			}
 		},
 		computed: {
@@ -41,6 +46,9 @@
 			},
 			close (){
 				this.$store.dispatch('changeComKey', '');
+			},
+			cntrl (){
+				this.isActive = !this.isActive;
 			}
 		}
 	}
@@ -52,7 +60,7 @@
 		top: 60px;
 
 		width: 280px;
-		height: 600px;
+		height: 30px;
 		background-color: #324057;
 		z-index: 1000;
 
@@ -60,6 +68,15 @@
 		color: #e4e4e4;
 		font-size: 12px;
 		border-radius: 5px;
+
+		-webkit-transition: height .35s cubic-bezier(0.46, 0.83, 0.63, 1),left 0.1s cubic-bezier(0.46, 0.83, 0.63, 1),top 0.1s cubic-bezier(0.46, 0.83, 0.63, 1);
+		-moz-transition: height .35s cubic-bezier(0.46, 0.83, 0.63, 1),left 0.1s cubic-bezier(0.46, 0.83, 0.63, 1),top 0.1s cubic-bezier(0.46, 0.83, 0.63, 1);
+		-ms-transition: height .35s cubic-bezier(0.46, 0.83, 0.63, 1),left 0.1s cubic-bezier(0.46, 0.83, 0.63, 1),top 0.1s cubic-bezier(0.46, 0.83, 0.63, 1);
+		transition: height .35s cubic-bezier(0.46, 0.83, 0.63, 1),left 0.1s cubic-bezier(0.46, 0.83, 0.63, 1),top 0.1s cubic-bezier(0.46, 0.83, 0.63, 1);
+
+		&.active{
+			height: 600px;
+		}
 
 		& .control-panel--header{
 			width: 100%;
@@ -77,6 +94,17 @@
 			}
 
 			& .control-panel_close{
+				display: inline-block;
+				float: right;
+				margin-right: -10px;
+				width: 30px;
+				height: 30px;
+				font-size: 12px;
+				text-align: center;
+				cursor: pointer;
+			}
+
+			& .control-panel_cntr{
 				display: inline-block;
 				float: right;
 				margin-right: -10px;

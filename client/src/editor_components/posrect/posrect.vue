@@ -89,7 +89,7 @@ import CInputNumber from './../../editor_components/input_num/input_num'
 				deep: true
 			},
 			data:{
-				handler (newVal) {
+				handler (newVal, oldVal) {
 					this.$emit('input', newVal);
 				},
 				deep: true
