@@ -116,8 +116,7 @@ import { Message } from 'element-ui'
 		    		Message({
 			          	showClose:true,
 			          	message: '未选中组件',
-			          	type: 'error',
-			          	duration: 0
+			          	type: 'error'
 			        });
 		    		return false;
 		    	}
@@ -125,8 +124,7 @@ import { Message } from 'element-ui'
 		    		Message({
 			          	showClose:true,
 			          	message: '已删除当前组件',
-			          	type: 'warning',
-			          	duration: 0
+			          	type: 'warning'
 			        });
 		    	});;
 		    },
