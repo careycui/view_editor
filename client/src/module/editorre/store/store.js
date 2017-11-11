@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+const Token = require('uuid-token-generator');
+let token = new Token(Token.BASE16);
 
 Vue.use(Vuex);
 const _getParentCom = (coms, currComKey) => {
@@ -127,7 +129,7 @@ const mutations ={
 const actions = {
 	addContainer ({commit}, obj) {
 		return new Promise((resolve, reject) => {
-			let unique = 'cp-'+new Date().getTime();
+			let unique = 'cp-'+ token.generate();
 			obj.page.$$key = unique;
 			obj.page.id = unique;
 			commit('ADD_ROOT', obj.page);
@@ -147,7 +149,7 @@ const actions = {
 					parentCom =  _getParentCom(getters.getPageData, parentCom.$$key);
 				}
 			}
-			let unique = 'cp-'+new Date().getTime()+Math.round(Math.random()*10);
+			let unique = 'cp-'+ token.generate();
 			obj.com.$$key = unique;
 			obj.com.id = unique;
 			commit('ADD_COM', {cc:parentCom, chc:obj.com});

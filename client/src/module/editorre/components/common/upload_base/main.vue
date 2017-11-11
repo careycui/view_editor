@@ -37,8 +37,8 @@
 				</div>
 				<div class="el-dialog__footer">
 					<span class="dialog-footer">
-						<el-button size="small" @click="close">取消</el-button>
-						<el-button type="primary" size="small">确定</el-button>
+						<el-button size="small" @click="closeDialog(false)">取消</el-button>
+						<el-button type="primary" size="small" @click="closeDialog(true)">确定</el-button>
 					</span>
 				</div>
 			</div>
@@ -82,11 +82,17 @@
 				this.$destroy(true);
 				this.$el.parentNode.removeChild(this.$el);
 			},
-			close () {
+			closeDialog(status){
 				this.isShow = false;
-				let srcs = this._getSrc(this.text);
-				this.onClose && this.onClose(srcs);
-
+				if(status){
+					let srcs;
+					if(this.activePanel === 'upload'){
+						srcs = this.imgList;
+					}else{
+						srcs = this._getSrc(this.text);
+					}
+					this.onClose && this.onClose(srcs);
+				}
 			},
 			open () {
 				this.isShow = true;

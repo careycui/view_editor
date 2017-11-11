@@ -70,12 +70,17 @@
 				<transition name="fade">
 					<div class="coms-panel__cnt-item"
 						:class="{ active: key === activePanel }" v-show="key === activePanel">
-							<ul class="list-inline com-list">
+							<ul class="list-inline com-list" v-show="sc.coms.length>0">
 					            <li class="com-list--item" @click.stop="add(cs)" 
 					            	v-for="cs in sc.coms" :key="cs.$$key">
 					              	<i class="fa fa-lg" :class="cs.desc.icon"></i><br>
 					              	{{ cs.desc.label }}
 					            </li>
+				          	</ul>
+				          	<ul class="list-inline com-list" v-show="sc.coms.length<1">
+				          		<li class="com-list--item">
+				          			空
+				          		</li>
 				          	</ul>
 					</div>
 				</transition>
@@ -217,9 +222,9 @@ let _changeCopyChild = (content) => {
 				}else{
 					this.activePanel = key;
 				}
-				if(!this.cntActive){
-					this.cntActive = true;
-				}
+				// if(!this.cntActive){
+				// 	this.cntActive = true;
+				// }
 			},
 			add (com) {
 		    	let data = com.data();
@@ -367,6 +372,14 @@ let _changeCopyChild = (content) => {
 		    	this.comsPanelActive = !this.comsPanelActive;
 		    },
 		    openUploadDialog (){
+		    	if(!this.curContainerKey){
+		    		Message({
+		    			showClose:true,
+			          	message: '未选中组件',
+		    			type:'error'
+		    		});
+		    		return false;
+		    	}
 		    	let coms = this.sysComs.LEVEL_1.coms;
 		    	let _this = this;
 		    	let com;
@@ -384,11 +397,18 @@ let _changeCopyChild = (content) => {
 		    				let data = com.data();
 					    	data.$$comKey = com.comKey;
 					    	data.$$level = com.desc.level;
-					    	// data.bannerImg = img;
+					    	data.bannerImg = img;
+
+					    	let imgObj = new Image();
+					    	imgObj.onload = () => {
+					    		imgObj.onload = null;
+					    		let w = imgObj.width;
+					    		let h = imgObj.height;
+						    	data.style.posRect.width = w;
+						    	data.style.posRect.height = h;
+					    	};
+					    	imgObj.src = img;
 					    	_this.$store.dispatch('addCom', {com: data, container: container}).then((obj) => {
-					    		setTimeout(() => {
-						    		obj.com.bannerImg = img;
-					    		}, 0);
 					    		if(!container){
 					    			_this.curContainerKey = obj.curCon.$$key;
 					    		}
@@ -452,6 +472,7 @@ let _changeCopyChild = (content) => {
 	    top: 0;
 		background-color: lighten(#1f2d3d, 5%);
 		box-shadow: -4px -4px 10px rgba(0,0,0, .3);
+		z-index: 1;
 
 		&:hover{
 			color: #bfcbd9;
@@ -657,6 +678,8 @@ let _changeCopyChild = (content) => {
 	.tree-box{
 		margin: 10px auto;
 		background-color: lighten(#1f2d3d, 10%);
+		max-height: 400px;
+		overflow-y: auto;
 
 		&.tree-box__empty{
 			text-align: center;

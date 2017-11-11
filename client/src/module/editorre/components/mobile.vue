@@ -77,7 +77,7 @@
 
 <script>
 import PreviewPanel from './mobile/preview_panel'
-import ComponentCtrl from './pc/component_ctrl'
+import ComponentCtrl from './mobile/component_ctrl'
 
 import ControlPanel from './common/control_panel'
 import Lines from './common/lines'
