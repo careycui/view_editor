@@ -1,6 +1,7 @@
 .pcontainer{
 	position: relative;
 	width: 1920px;
+	min-height: 300px;
 	background-color: #fff;
 	background-repeat: no-repeat;
 	background-position: center center;

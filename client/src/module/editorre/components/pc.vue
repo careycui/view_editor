@@ -3,8 +3,7 @@
     <div class="top-bar">
       <top-bar @openCode="openCode" :innerHtml='html' @savePage="savePage" @openBaseData="openBaseData" @openPreview="openPreview"></top-bar>
     </div>
-    <coms-ctrl></coms-ctrl>
-
+    <component-ctrl></component-ctrl>
     <control-panel></control-panel>
 
     <div class="app-content pc" :style="[wrect]">
@@ -61,7 +60,7 @@
               <el-input type="textarea" :rows="3" size="small" v-model="baseData.desc"></el-input>
             </el-form-item>
             <el-form-item label="页面类型">
-              <el-input :disabled="true" :value="baseData.page_type === 0?'baseData':'H5'"></el-input>
+              <el-input :disabled="true" :value="baseData.page_type === 0?'BASE':'H5'"></el-input>
             </el-form-item>
           </el-form>
         </el-col>
@@ -76,7 +75,7 @@
 
 <script>
 import PreviewPanel from './pc/preview_panel'
-import ComsCtrl from './pc/coms_ctrl'
+import ComponentCtrl from './pc/component_ctrl'
 
 import ControlPanel from './common/control_panel'
 import Lines from './common/lines'
@@ -99,7 +98,7 @@ var getQueryString = function (name) {
 export default {
   name: 'pc',
   components: {
-    PreviewPanel, Lines, TopBar, Preview, ControlPanel, ComsCtrl
+    PreviewPanel, Lines, TopBar, Preview, ControlPanel, ComponentCtrl
   },
   data () {
     return {

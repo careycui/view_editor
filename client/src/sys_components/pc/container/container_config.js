@@ -1,4 +1,9 @@
-import CONFIG from './../../utils/base'
+import BASE from './../../utils/base'
+const changeDp = () => {
+	let db = BASE.posRect();
+	db.height = 'auto';
+	return db
+};
 export default {
 	getData () {
 		return {
@@ -7,8 +12,8 @@ export default {
 			label: '页面容器',
 			enableDrag: false,
 			style:{
-				bg: CONFIG.bg(),
-				posRect: CONFIG.posRect()
+				bg: BASE.bg(),
+				posRect: changeDp()
 			},
 			content:[]
 		}

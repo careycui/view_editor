@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 let dialogInstance;
 
-let DialogConstructor = Vue.extend(require('./dialog'));
+let DialogConstructor = Vue.extend(require('./main'));
 var UploadDialog = function(options){
 	// if(dialogInstance){
 	// 	dialogInstance.open();

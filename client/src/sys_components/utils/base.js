@@ -38,7 +38,7 @@ const posRect = () => {
 	return {
 		position: 'relative',
 		width: 1920,
-		height: 100,
+		height: 300,
 		left: '50%',
 		right: 'none',
 		top: '0',

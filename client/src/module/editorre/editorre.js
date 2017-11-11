@@ -6,7 +6,6 @@ import axios from 'axios'
 import store from './store/store'
 import editor from './editorre.vue'
 import OperateBox from './../../sys_components/utils/operate_box'
-import CDialog from './../../editor_components/dialog/index'
 
 import register from './utils/register.js'
 
@@ -36,7 +35,8 @@ import  {Input,
 		Col,
 		ColorPicker,
 		Form,
-		FormItem} from 'element-ui'
+		FormItem,
+		Upload} from 'element-ui'
 
 Vue.use(Input);
 Vue.use(InputNumber);
@@ -65,6 +65,7 @@ Vue.use(Col);
 Vue.use(ColorPicker);
 Vue.use(Form);
 Vue.use(FormItem);
+Vue.use(Upload);
 
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false
@@ -113,7 +114,6 @@ Vue.directive('window', function(el, binding){
 );
 //注册全部可视化组件
 Vue.use(register);
-Vue.use(CDialog);
 
 Vue.component('operateBox', OperateBox);
 /* eslint-disable no-new */

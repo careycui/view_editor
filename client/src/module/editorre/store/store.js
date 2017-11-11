@@ -136,18 +136,22 @@ const actions = {
 	},
 	addCom ({commit, getters}, obj) {
 		return new Promise((resolve, reject) => {
-			let currentCom = getters.getCurrentCom?getters.getCurrentCom:getters.getPageData[getters.getPageData.length - 1];
+			let container = obj.container || getters.getPageData[getters.getPageData.length - 1];
+			let currentCom = getters.getCurrentCom?getters.getCurrentCom:container;
 			let parentCom;
 			if(currentCom.$$level !==0 && obj.com.$$level !== currentCom.$$level){
 				parentCom = currentCom;
 			}else{
 				parentCom = _getParentCom(getters.getPageData, getters.getCurrentComKey);
+				while(parentCom.$$level === obj.com.$$level){
+					parentCom =  _getParentCom(getters.getPageData, parentCom.$$key);
+				}
 			}
-			let unique = 'cp-'+new Date().getTime();
+			let unique = 'cp-'+new Date().getTime()+Math.round(Math.random()*10);
 			obj.com.$$key = unique;
 			obj.com.id = unique;
 			commit('ADD_COM', {cc:parentCom, chc:obj.com});
-			resolve(obj.com);
+			resolve({com: obj.com, curCon: parentCom});
 		});
 	},
 	updateCom ({commit}, obj) {
@@ -176,6 +180,9 @@ const actions = {
 	deleteCom ({commit, getters}, obj) {
 		return new Promise((resolve, reject) => {
 			let currentCom = getters.getCurrentCom;
+			if(obj && obj.cons){
+				currentCom = obj.cons;
+			}
 			let parentObj;
 			if(currentCom.$$level === 2){
 				parentObj = getters.getPageData;

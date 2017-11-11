@@ -23,7 +23,7 @@
 		data () {
 			return {
 				pos: {
-					left: '600px',
+					left: '200px',
 					top: '60px'
 				},
 				isActive: true
@@ -56,12 +56,12 @@
 <style lang="scss">
 	.control-panel{
 		position: fixed;
-		left: 400px;
+		left: 100px;
 		top: 60px;
 
 		width: 280px;
 		height: 30px;
-		background-color: #324057;
+		background-color: lighten(#1f2d3d, 10%);
 		z-index: 1000;
 
 		overflow: hidden;
@@ -125,7 +125,7 @@
 	}
 
 //editor css
-.el-tabs__header{
+.control-panel--cnt .el-tabs__header{
 	background-color: #324057;
 }
 .el-tabs__nav{

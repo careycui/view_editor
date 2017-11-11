@@ -3,8 +3,7 @@
     <div class="top-bar">
       <top-bar @openCode="openCode" :innerHtml='html' @savePage="savePage" @openBaseData="openBaseData" @openPreview="openPreview"></top-bar>
     </div>
-    <coms-ctrl></coms-ctrl>
-
+    <component-ctrl></component-ctrl>
     <control-panel></control-panel>
 
     <div class="app-content mobile">
@@ -78,7 +77,7 @@
 
 <script>
 import PreviewPanel from './mobile/preview_panel'
-import ComsCtrl from './mobile/coms_ctrl'
+import ComponentCtrl from './pc/component_ctrl'
 
 import ControlPanel from './common/control_panel'
 import Lines from './common/lines'
@@ -101,7 +100,7 @@ var getQueryString = function (name) {
 export default {
   name: 'mobile',
   components: {
-    PreviewPanel, Lines, TopBar, Preview, ControlPanel, ComsCtrl
+    PreviewPanel, Lines, TopBar, Preview, ControlPanel, ComponentCtrl
   },
   data () {
     return {

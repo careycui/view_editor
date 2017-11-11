@@ -15,7 +15,7 @@
 					</div>
 				</div>
 				<bg v-model="data.style.bg"></bg>
-				<posrect v-model="data.style.posRect" :comId="data.id" :type="posType"></posrect>
+				<posrect v-model="data.style.posRect" :comId="data.id" :type="posType" :heightAuto="true"></posrect>
 			</el-tab-pane>
 		</el-tabs>
 	</div>

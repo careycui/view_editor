@@ -136,7 +136,7 @@ import { Message } from 'element-ui'
 		}
 	}
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 	.coms-panel{
 		width: 250px;
 		position: fixed;

@@ -14,8 +14,11 @@
 				</el-col>
 				<el-col :span="12">
 					<label class="el-form-item__label" style="width:40px;text-align:center;">H</label>
-					<div class="el-form-item__content" style="margin-left:40px;">
+					<div class="el-form-item__content" style="margin-left:40px;" v-if="!heightAuto">
 						<c-input-number size="small" :max="1920" v-model="data.height"></c-input-number>
+					</div>
+					<div class="el-form-item__content" style="margin-left:40px;" v-if="heightAuto">
+						<el-input size="small" value="auto" class="br2" :disabled="true"></el-input>
 					</div>
 				</el-col>
 			</el-row>
@@ -63,6 +66,10 @@ import CInputNumber from './../../editor_components/input_num/input_num'
 				type: String,
 				default: 'static'//static: relative, outflow: absolute
 			},
+			heightAuto: {
+				type: Boolean,
+				default: false
+			},
 			comId: String,
 			value: {
 				type: Object,
@@ -85,6 +92,7 @@ import CInputNumber from './../../editor_components/input_num/input_num'
 				immediate:true,
 				handler (newVal){
 					this.data = newVal;
+					this.setHPos(this.hAlign);
 				},
 				deep: true
 			},
@@ -137,11 +145,7 @@ import CInputNumber from './../../editor_components/input_num/input_num'
 		},
 		methods:{
 			setHPos (type) {
-				if(this.hAlign === type){
-					return;
-				}
 				this.hAlign = type;
-				let w = _getParentW(this.comId);
 				switch(type){
 					case 'h-left':
 						this.data.left = '0';

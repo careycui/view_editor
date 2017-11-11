@@ -53,19 +53,22 @@
 			}
 		},
 		watch:{
-			bannerImg (nv, ol) {
-				const _this = this;
-				_this.$nextTick(() => {
-					let img = new Image();
-					img.onload = function(){
-						img.onload = null;
-						let w = img.width;
-						let h = img.height;
-						_this.data.style.posRect.width = w;
-						_this.data.style.posRect.height = h;
-					};
-					img.src = nv;
-				});
+			bannerImg:{
+				immediate: true,
+				handler (nv, ol) {
+					const _this = this;
+					// _this.$nextTick(() => {
+						let img = new Image();
+						img.onload = function(){
+							img.onload = null;
+							let w = img.width;
+							let h = img.height;
+							_this.data.style.posRect.width = w;
+							_this.data.style.posRect.height = h;
+						};
+						img.src = nv;
+					// });
+				}
 			}
 		},
 		data () {

@@ -2,17 +2,30 @@ import { SYS_UI_DESC } from './pc/pc_config.js'
 import { SYS_M_UI_DESC } from './mobile/mobile_config.js'
 
 const COMS_TREE_LABELS = {
-	LEVEL_2: '布局组件',
-	LEVEL_1: '容器组件',
-	LEVEL_0: '元素',
-	LEVEL_01: '素材模板'
+	LEVEL_2: {
+		label: '布局',
+		icon: 'fa-cubes'
+	},
+	LEVEL_1: {
+		label: '容器',
+		icon: 'fa-cube'
+	},
+	LEVEL_0: {
+		label: '元素',
+		icon: 'fa-puzzle-piece'
+	},
+	LEVEL_01: {
+		label: '素材',
+		icon: 'fa-photo'
+	}
 };
 //解析组件描述，并转换为页面可用的数据结构
 const parseComs = (coms) => {
 	let coms_tree = {};
 	Object.keys(COMS_TREE_LABELS).map( key => {
 		coms_tree[key] = {
-			label: COMS_TREE_LABELS[key],
+			label: COMS_TREE_LABELS[key].label,
+			icon:  COMS_TREE_LABELS[key].icon,
 			coms:[]
 		};
 	});

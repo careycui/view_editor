@@ -17,16 +17,6 @@
 									  	:on-icon-click="handleIconClick">
 									</el-input>
 								</div>
-								<!-- <div style="display: inline-block;width:38%;vertical-align:top;">
-									<el-select size="mini" v-model="sortType">
-										<el-option
-									      	v-for="item in sortOpt"
-									      	:key="item.value"
-									      	:label="item.label"
-									      	:value="item.value">
-									    </el-option>
-									</el-select>
-								</div> -->
 							</div>
 							<div class="file-box__sort">
 								<div class="file-box__sort-item">

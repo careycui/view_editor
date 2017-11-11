@@ -73,7 +73,8 @@
 		},
 		computed:{
 			currentCom (){
-				return this.$store.getters.getCurrentCom;
+				let com = this.$store.getters.getCurrentCom;
+				return com;
 			},
 			enableDrag (){
 				let enableDrag = this.currentCom.enableDrag;
