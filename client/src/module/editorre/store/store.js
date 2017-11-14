@@ -4,12 +4,15 @@ const Token = require('uuid-token-generator');
 let token = new Token(Token.BASE16);
 
 Vue.use(Vuex);
-const _getParentCom = (coms, currComKey) => {
-	let $pc;
 
-	let _isContain = (children) => {
+const _getParentCom = (coms, key) => {
+	if(!coms || coms.length < 1){
+		return false;
+	}
+
+	let _isContain = (children, key) => {
 		let eqr = children.some((com) => {
-			if(com.$$key === currComKey){
+			if(com.$$key === key){
 				return true;
 			}
 			return false;
@@ -17,25 +20,47 @@ const _getParentCom = (coms, currComKey) => {
 		return eqr;
 	};
 
-	let _getEle = (coms) => {
-		coms.some((com) => {
-			if(com.content && com.content.length>0){
-				let result = _isContain(com.content);
-				if(result){
-					$pc = com;
-					return true;
-				}else{
-					_getEle(com.content);
-					return false;
-				}
-			}else{
-				return false;
-			}
-		});
-	};
-	_getEle(coms);
-
-	return $pc;
+	var stack = [];
+	var com;
+	coms.forEach((com, i) => {
+		stack.push(com);
+	});
+	var tmp;
+	while(stack.length){
+		tmp = stack.shift();
+	 	var children = tmp.content;
+		if(children && children.length > 0 && _isContain(children, key)){
+			com = tmp;
+			break;
+		}
+        if(children && children.length > 0){
+            stack = stack.concat(children);
+        }
+	}
+	return com;
+};
+const _getCom = (coms, key) => {
+	if(!coms || coms.length < 1){
+		return false;
+	}
+	var stack = [];
+	var com;
+	coms.forEach((com, i) => {
+		stack.push(com);
+	});
+	var tmp;
+	while(stack.length){
+		tmp = stack.shift();
+		if(tmp.$$key === key){
+			com = tmp;
+			break;
+		}
+	 	var children = tmp.content;
+        if(children && children.length > 0){
+            stack = stack.concat(children);
+        }
+	}
+	return com;
 };
 const state = {
 	base:{
@@ -68,18 +93,19 @@ const getters = {
 		let pageData = getters.getPageData;
 		let currKey = getters.getCurrentComKey;
 		let currCom;
-		let _getCurrent = (comNodes) => {
-			comNodes.every((com, i) => {
-				if(com.$$key === currKey){
-					currCom = com;
-					return false;
-				}else if(com.content && com.content.length > 0){
-					_getCurrent(com.content);
-				}
-				return true;
-			});
-		};
-		_getCurrent(pageData);
+		// let _getCurrent = (comNodes) => {
+		// 	comNodes.every((com, i) => {
+		// 		if(com.$$key === currKey){
+		// 			currCom = com;
+		// 			return false;
+		// 		}else if(com.content && com.content.length > 0){
+		// 			_getCurrent(com.content);
+		// 		}
+		// 		return true;
+		// 	});
+		// };
+		// _getCurrent(pageData);
+		currCom = _getCom(pageData, currKey);
 		return currCom;
 	}
 };

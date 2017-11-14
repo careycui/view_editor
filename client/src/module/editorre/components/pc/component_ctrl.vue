@@ -28,23 +28,8 @@
 							{{ index+1 }}
 						</span>
 					</div>
-					<!-- <div class="page-box__btns" @click.stop="changeContainerKey(ct.$$key)">
-						<i class="el-icon-setting"></i>
-					</div> -->
 				</div>
 			</div>
-			<!-- <div class="coms-panel__cnt-item"
-				:class="{ active: key === activePanel }"
-				:id="key" v-for="(sc, key) in sysComs"
-				v-if="key!=='LEVEL_2'">
-					<ul class="list-inline com-list">
-			            <li class="com-list--item" @click="add(cs)" 
-			            	v-for="cs in sc.coms" :key="cs.$$key">
-			              	<i class="fa fa-lg" :class="cs.desc.icon"></i><br>
-			              	{{ cs.desc.label }}
-			            </li>
-		          	</ul>
-			</div> -->
 		</div>
 		<div class="coms-panel__bar">
 			<div class="coms-item coms-item__cntrl" @click="handleCntrl">
@@ -222,9 +207,6 @@ let _changeCopyChild = (content) => {
 				}else{
 					this.activePanel = key;
 				}
-				// if(!this.cntActive){
-				// 	this.cntActive = true;
-				// }
 			},
 			add (com) {
 		    	let data = com.data();
@@ -356,9 +338,6 @@ let _changeCopyChild = (content) => {
 		    	});
 		    },
 		    changeContainerKey (key){
-		    	// if(this.curContainerKey === key){
-		    	// 	return;
-		    	// }
 		    	this.curContainerKey = key;
 		    	this.$store.dispatch('changeComKey', key);
 		    },
@@ -473,6 +452,7 @@ let _changeCopyChild = (content) => {
 		background-color: lighten(#1f2d3d, 5%);
 		box-shadow: -4px -4px 10px rgba(0,0,0, .3);
 		z-index: 1;
+		text-align: left;
 
 		&:hover{
 			color: #bfcbd9;
