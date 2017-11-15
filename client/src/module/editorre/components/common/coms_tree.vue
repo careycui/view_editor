@@ -2,7 +2,7 @@
 	<div class="coms-tree__node">
 		<div class="coms-tree__content"
 			:class="{ active: isActive}"
-			@click="handleClick(content, isActive)">
+			@click.stop="handleClick(content, isActive)">
 			<span class="coms-tree__tag">
 				<i class="el-icon-setting"></i>
 			</span>
@@ -70,6 +70,11 @@
 	vertical-align: middle;
 	cursor: pointer;
 
+	-webkit-transition: all .25s;
+	-moz-transition: all .25s;
+	-ms-transition: all .25s;
+	transition: all .25s;
+
 	& .coms-tree__content{
 		padding-left: 5px;
 		background-color: lighten(#1f2d3d, 5%);
@@ -94,6 +99,12 @@
 		left: 0;
 		text-align: center;
 		background-color: #1f2d3d;
+	}
+
+	&.dragging{
+		margin: 5px 0;
+		border-top: 1px solid #fff;
+		border-bottom: 1px solid #fff;
 	}
 }
 </style>

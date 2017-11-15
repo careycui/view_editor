@@ -93,18 +93,6 @@ const getters = {
 		let pageData = getters.getPageData;
 		let currKey = getters.getCurrentComKey;
 		let currCom;
-		// let _getCurrent = (comNodes) => {
-		// 	comNodes.every((com, i) => {
-		// 		if(com.$$key === currKey){
-		// 			currCom = com;
-		// 			return false;
-		// 		}else if(com.content && com.content.length > 0){
-		// 			_getCurrent(com.content);
-		// 		}
-		// 		return true;
-		// 	});
-		// };
-		// _getCurrent(pageData);
 		currCom = _getCom(pageData, currKey);
 		return currCom;
 	}
@@ -150,6 +138,10 @@ const mutations ={
 		});
 		Vue.delete(obj.parent, index);
 		state.currentComKey = '';
+	},
+	SORT_COM (state, obj) {
+		obj.parent.splice(obj.dragIndex, 1);
+		obj.parent.splice(obj.dropIndex, 0, obj.dragEle);
 	}
 };
 const actions = {
@@ -219,6 +211,20 @@ const actions = {
 			}
 			commit('DEL_COM', {parent: parentObj, key: currentCom});
 			resolve(currentCom);
+		});
+	},
+	sort ({commit, getters}, obj) {
+		return new Promise((resolve, reject) => {
+			let com = obj.dragEle;
+			let parentObj;
+			if(com.$$level === 2){
+				parentObj = getters.getPageData;
+			}else{
+				parentObj = _getParentCom(getters.getPageData, com.$$key).content;
+			}
+			obj.parent = parentObj;
+			commit('SORT_COM', obj)
+			resolve(true);
 		});
 	}
 }

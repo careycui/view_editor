@@ -18,8 +18,10 @@
 				</div>
 				<div class="page-box"
 					:class="{active: ct.$$key === curContainerKey}"
-					v-for=" (ct, index) in containerData"
-					@click="changeContainerKey(ct.$$key)">
+					v-for=" (ct, index) in treeData"
+					@click="changeContainerKey(ct.$$key)"
+					v-dragging="{item: ct, list: treeData, group: '$$key'}"
+					:key="ct.$$key">
 					<p>
 						{{ ct.label }}
 					</p>
@@ -89,7 +91,8 @@
 						:content="cnt"
 						:currComKey="currentComKey"
 						@handleSelectClick="setCurrKey"
-						v-for="cnt in currentChildComs.content">
+						v-for="cnt in currentChildComs.content"
+						v-dragging="{item: cnt, list: currentChildComs.content, group: '$$key-c'}">
 					</coms-tree>
 				</div>
 				<div class="tree-box tree-box__empty" v-if="currentChildComs && currentChildComs.content.length<1">
@@ -152,28 +155,41 @@ let _changeCopyChild = (content) => {
 			}
 		},
 		mounted () {
-	    	if(this.containerData.length<1){
+	    	if(this.treeData.length<1){
 		    	this.addPage();
 			}
+			this.$dragging.$on('dragend', (value) => {
+				let dragEle = value.draged;
+				let dropEle = value.to;
+				let group = value.group;
+				let _getIndex = (data,key) => {
+					let index;
+					data.some((item, i) => {
+			    		if(item.$$key === key){
+			    			index = i;
+			    			return true;
+			    		}
+			    		return false;
+			    	});
+			    	return index;
+				}
+				let container = group === '$$key'? this.treeData : this.currentChildComs.content;
+				let dragIndex = _getIndex(container, dragEle.$$key);
+				let dropIndex = _getIndex(container, dropEle.$$key);
+				this.$store.dispatch('sort', {dragIndex:dragIndex, dropIndex:dropIndex, dragEle: dragEle});
+			})
 		},
 		computed: {
 			baseData () {
 		      return this.$store.getters.getBaseData;
-		    },
-		    containerData () {
-		    	const pageData = this.$store.getters.getPageData;
-		    	let cons = [];
-		    	pageData.forEach((c, i) => {
-		    		cons.push(c);
-		    	});
-		    	return cons;
 		    },
 		    treeData () {
 		      return this.$store.getters.getPageData;
 		    },
 		    currentChildComs () {
 		    	let com;
-		    	this.containerData.some((item, i) => {
+		    	let pageData = this.$store.getters.getPageData;
+		    	pageData.some((item, i) => {
 		    		if(item.$$key === this.curContainerKey){
 		    			com = item;
 		    			return true;
@@ -272,7 +288,7 @@ let _changeCopyChild = (content) => {
 		    _getContainer (){
 		    	let key = this.curContainerKey;
 		    	let container;
-		    	this.containerData.some((c, i) => {
+		    	this.treeData.some((c, i) => {
 		    		if(c.$$key === key){
 		    			container = c;
 		    			return true;
@@ -474,6 +490,11 @@ let _changeCopyChild = (content) => {
 		border: 1px solid #bbb;
 		cursor: pointer;
 
+		-webkit-transition: all .25s;
+		-moz-transition: all .25s;
+		-ms-transition: all .25s;
+		transition: all .25s;
+
 		& p{
 			margin: 0;
 			line-height: 60px;
@@ -504,11 +525,18 @@ let _changeCopyChild = (content) => {
 			right: 0;
 			top: 0;
 		}
+		&.dragging{
+			transform: scale(1.05, 1.05);
+		}
 		&.active{
 			border: 1px solid #20a0ff;
 
 			& .page-num{
 				border-top: 30px solid #20a0ff;
+			}
+
+			&.dragging{
+				transform: scale(1.05, 1.05);
 			}
 		}
 		& .page-box__btns{

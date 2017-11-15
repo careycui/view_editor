@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+
 import './../../global'
 import axios from 'axios'
 import store from './store/store'
@@ -8,6 +9,8 @@ import editor from './editorre.vue'
 import OperateBox from './../../sys_components/utils/operate_box'
 
 import register from './utils/register.js'
+
+import DragSort from './components/common/drag_sort/index'
 
 import  {Input,
 		InputNumber,
@@ -66,6 +69,9 @@ Vue.use(ColorPicker);
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Upload);
+
+
+Vue.use(DragSort)
 
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false
