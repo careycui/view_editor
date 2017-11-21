@@ -12,20 +12,22 @@
 
     <lines :line="line" :wrect="wrect"></lines>
 
-    <el-dialog title="HTML CODES" custom-class="cudialog" :visible.sync="dialogVisible" size="small" :close-on-click-modal="false" @open="setHtml">
+    <el-dialog title="HTML CODES" custom-class="cudialog" :visible.sync="dialogVisible" size="small" :close-on-click-modal="false">
       <div class="pre-code ys-grid">
-        <div class="ys-grid-row">
-          <div class="ys-cell-10">
-            <el-input :autosize="{minRows: 8, maxRows: 16}" type="textarea" :value="html" resize="none" ref="htmlText" :autofocus="true"></el-input>
-          </div>
-          <div class="ys-cell-2">
-            <button class="ys-btn ys-color-btn-primary" @click="selectAll"><i class="fa fa-clipboard"></i> 全选复制</button>
-            <div class="placeholder"></div>
-            <button class="ys-btn ys-color-btn-primary"><i class="fa fa-eye"></i> 预览</button>
-          </div>
-        </div>
+          <el-row>
+            <el-col :span="20">
+              <el-input :autosize="{minRows: 8, maxRows: 16}" type="textarea" :value="html" resize="none" ref="htmlText" :autofocus="true"></el-input>
+            </el-col>
+            <el-col :span="4">
+              <el-button type="warning" class="br2" @click="selectAll">
+                <i class="fa fa-clipboard"></i> 全选复制
+              </el-button>
+              <div class="placeholder"></div>
+            </el-col>
+          </el-row>
       </div>
     </el-dialog>
+
     <preview :visible="isPreview" :srcdoc="html" @updateVisible="updateVisible"></preview>
     <el-dialog title="页面信息" size="small" :visible.sync="baseDialogVisible" :close-on-click-modal="false" :modal-append-to-body="false" custom-class="dialog-size">
       <el-row v-if="baseData">
@@ -81,6 +83,7 @@ import ControlPanel from './common/control_panel'
 import Lines from './common/lines'
 import TopBar from './common/top_bar'
 import { Message } from 'element-ui'
+import { Loading } from 'element-ui'
 
 import Preview from './common/preview_dialog'
 
@@ -125,7 +128,10 @@ export default {
   },
   methods:{
     openCode () {
-      this.dialogVisible = true;
+      let _this = this;
+      this.savePage(() => {
+        _this.dialogVisible = true;
+      });
     },
     setLine (obj) {
       this.line = obj;
@@ -135,20 +141,18 @@ export default {
       this.wrect.height = obj.h + 'px';
     },
     setHtml () {
-      let css = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/component.css" />' ;
-      let css1 = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/animate-min.css" />' ;
-      let lib = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/jquery.min.js"\>\<\/script\>';
-      let lib1 = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/img-slide-min.js"\>\<\/script\>';
-      let lib2 = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/aniview-min.js"\>\<\/script\>';
-      let page = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/page.js"\>\<\/script\>';
-
-      let $cnt = this.$el.querySelector('.app-content');
+      let $cnt = this.$el.querySelector('#preview').cloneNode(true);
+      let $operate = $cnt.querySelector('.operate-box');
+      if($operate){
+        $cnt.removeChild($operate);
+      }
       let html = $cnt.innerHTML.replace(/(&quot;)+/g, '\'').replace(/(data\-v\-[\w]+\=[\"]{2})+/g, '').replace(/(\n)+/g, '')
-                                .replace(/(\<\![\-]{4}\>)+/g, '').replace(/active/g, '');
-      html = css + css1 + lib + lib2  + html + page;
+                                .replace(/(\<\![\-]{4}\>)+/g, '').replace(/active/g, '')+'\n';
+      html = html;
       this.html = html;
     },
-    savePage () {
+    savePage (callback) {
+      let loading = Loading.service();
       this.setHtml();
       let htmlData = JSON.stringify(this.html);
       let pageData = JSON.stringify(this.$store.getters.getPageData);
@@ -165,12 +169,15 @@ export default {
         },
         responseType: 'json'
       }).then(function(res){
+        loading.close();
+        callback && callback();
         Message({
           message: '保存成功',
           showClose: true,
           type: 'info'
         });
       },function(err){
+        loading.close();
         Message({
           message: '保存失败，请稍后再试',
           showClose: true,
@@ -185,8 +192,10 @@ export default {
       document.execCommand('copy');
     },
     openPreview () {
-      this.setHtml();
-      this.isPreview = true;
+      let _this = this;
+      this.savePage(() => {
+        _this.isPreview = true;
+      });
     },
     updateVisible (val) {
       this.isPreview = val;
@@ -216,6 +225,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '/static/ezviz.css';
 .app-content.pc{
   position: relative;
   width: 100%;
@@ -239,7 +249,7 @@ export default {
 .pre-code{
   div {
     overflow: auto;
-    border-radius: 5px;
+    text-align: center;
   }
 }
 .placeholder{

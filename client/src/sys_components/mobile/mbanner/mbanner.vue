@@ -1,6 +1,7 @@
 <template>
-	<div class="m-banner" :style="[formatterStyle.bg, formatterStyle.opacity]">
+	<div class="m-whole" :style="[formatterStyle.bg, formatterStyle.opacity]">
 		<img :src="data.bannerImg">
+		<slot></slot>
 	</div>
 </template>
 <script>

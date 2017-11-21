@@ -165,7 +165,25 @@
 			},
 			openPreview (page) {
 				let html = JSON.parse(page.html_data);
-				console.log(html);
+
+				let css = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/component.css" />' ;
+			  	let css1 = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/animate-min.css" />' ;
+			  	let lib = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/jquery.min.js"\>\<\/script\>';
+			  	let lib1 = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/img-slide-min.js"\>\<\/script\>';
+			  	let lib2 = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/aniview-min.js"\>\<\/script\>';
+			  	let pagejs = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/page.js"\>\<\/script\>';
+
+		      	let mcss = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/mcomponent.css" />';
+     			let mcss1 = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/animate-min.css" />';
+
+		      	let pt = this.$store.getters.getBaseData.platform_type;
+		      	let src;
+		      	if(pt === 1){
+		      		src = mcss + mss1  + html;
+		      	}else{
+		      		src = css + css1 + html + lib + lib1 + lib2 + pagejs;
+		      	}
+
 				if(!html){
 					Message({
 						message: '还未添加页面内容',
@@ -174,7 +192,7 @@
 					});
 					return;
 				}
-				this.html = html;
+				this.html = src;
 				this.isPreview = true;
 			},
 		    updateVisible (val) {

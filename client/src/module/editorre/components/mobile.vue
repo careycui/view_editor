@@ -23,7 +23,6 @@
           <div class="ys-cell-2">
             <button class="ys-btn ys-color-btn-primary" @click="selectAll"><i class="fa fa-clipboard"></i> 全选复制</button>
             <div class="placeholder"></div>
-            <button class="ys-btn ys-color-btn-primary"><i class="fa fa-eye"></i> 预览</button>
           </div>
         </div>
       </div>
@@ -86,6 +85,8 @@ import Preview from './common/preview_dialog'
 
 import { Message } from 'element-ui'
 
+import MC from './../../../sys_components/utils/mobile_util.js'
+
 var getQueryString = function (name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     var r = window.location.search.substr(1).match(reg);  //获取url中"?"符后的字符串并正则匹配
@@ -137,13 +138,14 @@ export default {
       this.wrect.height = obj.h + 'px';
     },
     setHtml () {
-      let css = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/mcomponent.css" />' ;
-      let css1 = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/animate-min.css" />' ;
-
-      let $cnt = this.$el.querySelector('.app-content');
+      let $cnt = this.$el.querySelector('#preview').cloneNode(true);
+      let $operate = $cnt.querySelector('.operate-box');
+      if($operate){
+        $cnt.removeChild($operate);
+      }
       let html = $cnt.innerHTML.replace(/(&quot;)+/g, '\'').replace(/(data\-v\-[\w]+\=[\"]{2})+/g, '').replace(/(\n)+/g, '')
                                 .replace(/(\<\![\-]{4}\>)+/g, '').replace(/active/g, '');
-      html = css + css1 + html;
+      html = html;
       this.html = html;
     },
     savePage () {
@@ -209,15 +211,19 @@ export default {
           });
         });
     }
+  },
+  mounted () {
+    document.documentElement.style.fontSize = MC.getBaseFt(G.M.clientWidth) + 'px';
   }
 }
 </script>
 
 <style lang="scss">
+@import '/static/ezviz-m.css';
 .app-content.mobile{
     position: absolute;
     width: 100%;
-    height: 504px;
+    height: 599px;
     top: 50%;
     margin-top: -247px;
     margin-right: 350px;
@@ -225,10 +231,12 @@ export default {
 
     & .mobile-inner{
       position: absolute;
-      width: 320px;
-      height: 504px;
+
+      width: 375px;
+      margin-left: -187.5px;
+
+      height: 599px;
       left: 50%;
-      margin-left: -160px;
       z-index: 10;
       overflow-y: auto;
       overflow-x: hidden;
@@ -238,10 +246,10 @@ export default {
     &:after{
       content: ' ';
       position: absolute;
-      height: 544px;
-      width: 340px;
+      height: 639px;
+      width: 395px;
+      margin-left: -197.5px;
       left: 50%;
-      margin-left: -170px;
       top: -20px;
       background-color: #fff;
       border-radius: 15px;

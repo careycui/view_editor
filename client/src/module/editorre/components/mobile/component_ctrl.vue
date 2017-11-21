@@ -428,6 +428,7 @@ let _changeCopyChild = (content) => {
 	    top: 0;
 		background-color: lighten(#1f2d3d, 5%);
 		box-shadow: -4px -4px 10px rgba(0,0,0, .3);
+		text-align: left;
 
 		&:hover{
 			color: #bfcbd9;

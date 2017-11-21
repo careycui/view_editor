@@ -1,0 +1,19 @@
+.m-container{
+	position: relative;
+	margin: 0 auto;
+	max-width: 7.5rem;
+	overflow: hidden;
+}
+.m-whole{
+	position: relative;
+	min-height: 10px;
+}
+.m-whole h1{
+	margin: 0;
+}
+.m-container img{
+	width: 100%;
+    height: auto;
+    border: 0;
+    vertical-align: top;
+}

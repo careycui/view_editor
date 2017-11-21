@@ -1,3 +1,5 @@
+import MC from './mobile_util.js'
+const base = MC.getBaseFt(G.M.clientWidth);
 //判断是否为数字
 const isNum = (val) => {
 	return val === +val;
@@ -23,7 +25,7 @@ const br = () => {
 //字体相关属性
 const ft = () => {
 	return {
-		fontFamily: 'Microsoft Yahei',
+		fontFamily: 'Roboto',
 		fontSize: 14,
 		fontWeight: 400,
 		lineHeight: 12,
@@ -74,6 +76,9 @@ const eleAni = () => {
 		isPlayed: false
 	}
 };
+//formatter对象，用于格式化编辑属性
+// 前缀为pc_的用于pc端
+// 前缀为m_的用于mobile
 const formatter = {
 	bgFormatter (bg) {
 		let ibg = bg;
@@ -111,6 +116,31 @@ const formatter = {
 		}
 		return posRect;
 	},
+	m_posRectFormatter (posRect) {
+		posRect.width = MC.px2rem(posRect.width, base) + 'rem';
+		posRect.height = MC.px2rem(posRect.height, base) + 'rem';
+
+		if(posRect.marginLeft === 'none'){
+			posRect.marginLeft = null;
+		}else{
+			posRect.marginLeft = MC.px2rem(posRect.marginLeft, base) + 'rem';
+		}
+
+		if(posRect.marginTop === 'none'){
+			posRect.marginTop = null;
+		}else{
+			posRect.marginTop = MC.px2rem(posRect.marginTop, basee) + 'rem';
+		}
+
+		if(posRect.left === 'none'){
+			posRect.left = null;
+		}
+
+		if(posRect.right === 'none'){
+			posRect.right = null;
+		}
+		return posRect;
+	},
 	dragPosrectFormatter (posRect) {
 		let pos = {
 			position: posRect.position,
@@ -123,6 +153,22 @@ const formatter = {
 		}else{
 			pos.left = posRect.CENTER.left?posRect.CENTER.left:'50%';
 			pos.marginLeft = posRect.CENTER.marginLeft?posRect.CENTER.marginLeft+'px':null;
+		}
+
+		return pos;
+	},
+	m_dragPosrectFormatter (posRect) {
+		let pos = {
+			position: posRect.position,
+			width: MC.px2rem(posRect.width, base) + 'rem',
+			height: isNum(posRect.height)?MC.px2rem(posRect.height, base) + 'rem':'',
+			top: posRect.top === 'none'?null:MC.px2rem(posRect.top, base) + 'rem'
+		};
+		if(posRect.posType === 'LEFT'){
+			pos.left = posRect.LEFT.left?MC.px2rem(posRect.LEFT.left, base) + 'rem':null;
+		}else{
+			pos.left = posRect.CENTER.left?posRect.CENTER.left:'50%';
+			pos.marginLeft = posRect.CENTER.marginLeft?MC.px2rem(posRect.CENTER.marginLeft,base)+'rem':null;
 		}
 
 		return pos;
@@ -153,6 +199,12 @@ const formatter = {
 		let ift = ft;
 		ift.fontSize = ift.fontSize + 'px';
 		ift.lineHeight = ift.lineHeight + 'px';
+		return ift;
+	},
+	m_ftFormatter (ft) {
+		let ift = ft;
+		ift.fontSize = MC.px2rem(ift.fontSize, base) + 'rem';
+		ift.lineHeight = MC.px2rem(ift.lineHeight, base) + 'rem';
 		return ift;
 	}
 };

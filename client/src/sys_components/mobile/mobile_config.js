@@ -6,6 +6,14 @@ import MBanner from './mbanner/mbanner'
 import MBannerEditor from './mbanner/mbanner_editor'
 import MBannerConfig from  './mbanner/mbanner_config'
 
+import MBannerTitle from './mbanner_title/mbanner_title'
+import MBannerTitleEditor from './mbanner_title/mbanner_title_editor'
+import MBannerTitleConfig from  './mbanner_title/mbanner_title_config'
+
+import MText from './mtext/text_ele'
+import MTextEditor from './mtext/text_ele_editor'
+import MTextConfig from  './mtext/text_ele_config'
+
 /**
  * 基础组件描述对象
  * 	comObj 组件对象
@@ -43,6 +51,32 @@ const ui_desc = [{
 	},
 	data () {
 		return MBannerConfig.getData()
+	}
+
+}, {
+	comKey: 'mbannerTitle',
+	comObj: MBannerTitle,
+	comEditorObj: MBannerTitleEditor,
+	desc: {
+		label: '通栏标题',
+		icon: 'fa-header',
+		level: 0
+	},
+	data () {
+		return MBannerTitleConfig.getData()
+	}
+
+}, {
+	comKey: 'mText',
+	comObj: MText,
+	comEditorObj: MTextEditor,
+	desc: {
+		label: '文本',
+		icon: 'fa-file-text-o',
+		level: 0
+	},
+	data () {
+		return MTextConfig.getData()
 	}
 
 }];

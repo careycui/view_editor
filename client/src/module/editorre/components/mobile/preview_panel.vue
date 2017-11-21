@@ -57,10 +57,10 @@
 <style>
 	.preview-mobile{
 		position: absolute;
-		width: 320px;
-		height: 504px;
+		width: 375px;
+		height: 599px;
 		left: 50%;
-		margin-left: -160px;
+		margin-left: -187.5px;
 		z-index: 10;
 	}
 </style>

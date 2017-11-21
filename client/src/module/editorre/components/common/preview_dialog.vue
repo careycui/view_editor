@@ -19,11 +19,12 @@
 	          </iframe>
 	        </div>
 	      </div>
-	    </div> 
+	    </div>
 	</transition>
 </template>
 <script>
 import { Loading } from 'element-ui'
+import MC from './../../../../sys_components/utils/mobile_util.js'
 
 const fullPos = {
 	width: '100%',
@@ -47,12 +48,14 @@ export default {
 		}
 	},
 	mounted () {
-		this.$el.querySelector('#pre-iframe').onload = function(){
-			setTimeout(function(){
-				if(loadInstance){
-					loadInstance.close();
-				}
-			}, 1000);
+		let pt = this.$store.getters.getBaseData.platform_type;
+		this.$el.querySelector('#pre-iframe').onload = function(e){
+			if(pt === 1){
+				this.contentDocument.documentElement.style.fontSize = MC.getBaseFt(750) + 'px';
+			}
+			if(loadInstance){
+				loadInstance.close();
+			}
 		};
 	},
 	methods : {
@@ -70,12 +73,30 @@ export default {
 	},
 	watch : {
 		visible (val) {
+
 			if(val){
+				let css = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/component.css" />' ;
+			  	let css1 = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/animate-min.css" />' ;
+			  	let lib = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/jquery.min.js"\>\<\/script\>';
+			  	let lib1 = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/img-slide-min.js"\>\<\/script\>';
+			  	let lib2 = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/aniview-min.js"\>\<\/script\>';
+			  	let page = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/page.js"\>\<\/script\>';
+
+		      	let mcss = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/mcomponent.css" />';
+     			let mcss1 = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/animate-min.css" />';
+
+		      	let pt = this.$store.getters.getBaseData.platform_type;
+		      	let src;
+		      	if(pt === 1){
+		      		src = mcss + mss1  + this.srcdoc;
+		      	}else{
+		      		src = css + css1 + this.srcdoc + lib + lib1 + lib2 + page;
+		      	}
 				loadInstance = Loading.service({
 					target: document.querySelector('#preview-dialog')
 				});
 				let frameDom = this.$el.querySelector('#pre-iframe');
-				frameDom.srcdoc = this.srcdoc;
+				frameDom.srcdoc = src;
 			}
 		}
 	}

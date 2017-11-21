@@ -7,3 +7,6 @@ window.G.STATIC = {
 	// host: '//172.7.14.58:8080/'
 	host: '//localhost:8080/'
 }
+window.G.M = {
+	clientWidth: 375
+}
