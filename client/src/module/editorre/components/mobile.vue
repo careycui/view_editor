@@ -255,14 +255,15 @@ export default {
 
       height: 603px;
       left: 50%;
+      top: 50%;
       z-index: 10;
       overflow-y: auto;
       overflow-x: hidden;
       outline: 4px solid rgba(51, 51, 51, 0.57);
 
-      -webkit-transform: translate(-50%, 0);
-      -moz-transform: translate(-50%, 0);
-      transform: translate(-50%, 0);
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
     }
 
     & .mobile-after{
@@ -270,14 +271,14 @@ export default {
       height: 603px;
       width: 375px;
       left: 50%;
-      top: -20px;
+      top: 50%;
       padding: 20px 10px;
       background-color: #fff;
       border-radius: 15px;
 
-      -webkit-transform: translate(-50%, 0);
-      -moz-transform: translate(-50%, 0);
-      transform: translate(-50%, 0);
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
 
       box-sizing: content-box;
     }
