@@ -24,6 +24,7 @@
 </template>
 <script>
 import { Loading } from 'element-ui'
+import MC from './../../../sys_components/utils/mobile_util.js'
 
 const fullPos = {
 	width: '100%',
@@ -39,7 +40,7 @@ let loadInstance;
 
 export default {
 	name: 'preview',
-	props: ['visible', 'srcdoc'],
+	props: ['visible', 'srcdoc', 'pt'],
 	data () {
 		return {
 			pos: oriPos,
@@ -47,12 +48,14 @@ export default {
 		}
 	},
 	mounted () {
+		let _this = this;
 		this.$el.querySelector('#pre-iframe').onload = function(){
-			setTimeout(function(){
-				if(loadInstance){
-					loadInstance.close();
-				}
-			}, 1000);
+			if(_this.pt === 1){
+				this.contentDocument.documentElement.style.fontSize = MC.getBaseFt(750) + 'px';
+			}
+			if(loadInstance){
+				loadInstance.close();
+			}
 		};
 	},
 	methods : {

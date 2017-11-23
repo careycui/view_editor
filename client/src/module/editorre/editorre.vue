@@ -52,6 +52,7 @@ export default {
         }, page: JSON.parse(data.page_data)}).then(() => {
           if(data.platform_type === 1){
             _this.comName = 'mobile';
+            _this.$store.dispatch('setClientWidth', G.M.clientWidth);
           }else{
             _this.comName = 'pc';
           }

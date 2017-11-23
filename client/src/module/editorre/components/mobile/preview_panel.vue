@@ -58,9 +58,12 @@
 	.preview-mobile{
 		position: absolute;
 		width: 375px;
-		height: 599px;
+		height: 603px;
 		left: 50%;
-		margin-left: -187.5px;
 		z-index: 10;
+
+	 	-webkit-transform: translate(-50%, 0);
+      	-moz-transform: translate(-50%, 0);
+      	transform: translate(-50%, 0);
 	}
 </style>

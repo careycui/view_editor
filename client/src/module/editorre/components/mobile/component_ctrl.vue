@@ -233,11 +233,11 @@ let _changeCopyChild = (content) => {
 		    	});
 		    },
 			addPage (){
-		      	let containers = this.$sys_coms.LEVEL_2;
+		      	let containers = this.$sys_m_coms.LEVEL_2;
 		      	let pageContainer;
 		      	let t_type = this.$store.getters.getComType;
 		      	containers.coms.forEach((c,i) => {
-		        	if(c.comKey == 'container'){
+		        	if(c.comKey == 'mContainer'){
 		          		pageContainer = c;
 		        	}
 		      	});

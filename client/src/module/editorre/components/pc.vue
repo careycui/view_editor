@@ -225,7 +225,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '/static/ezviz.css';
+@import '/static/component.css';
 .app-content.pc{
   position: relative;
   width: 100%;

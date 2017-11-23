@@ -82,13 +82,13 @@ export default {
 			  	let lib2 = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/aniview-min.js"\>\<\/script\>';
 			  	let page = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/page.js"\>\<\/script\>';
 
-		      	let mcss = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/mcomponent.css" />';
+		      	let mcss = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/ezviz-m.css" />';
      			let mcss1 = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/animate-min.css" />';
 
 		      	let pt = this.$store.getters.getBaseData.platform_type;
 		      	let src;
 		      	if(pt === 1){
-		      		src = mcss + mss1  + this.srcdoc;
+		      		src = mcss + mcss1  + this.srcdoc;
 		      	}else{
 		      		src = css + css1 + this.srcdoc + lib + lib1 + lib2 + page;
 		      	}

@@ -74,7 +74,8 @@ const state = {
 		update_time: ''
 	},
 	json:[],
-	currentComKey: ''
+	currentComKey: '',
+	clientWidth: 375
 };
 const getters = {
 	getBaseData (state) {
@@ -95,6 +96,9 @@ const getters = {
 		let currCom;
 		currCom = _getCom(pageData, currKey);
 		return currCom;
+	},
+	clientWidth (state) {
+		return state.clientWidth;
 	}
 };
 const mutations ={
@@ -142,6 +146,9 @@ const mutations ={
 	SORT_COM (state, obj) {
 		obj.parent.splice(obj.dragIndex, 1);
 		obj.parent.splice(obj.dropIndex, 0, obj.dragEle);
+	},
+	SET_CLIENT_WIDTH (state, obj) {
+		state.clientWidth = obj;
 	}
 };
 const actions = {
@@ -226,6 +233,9 @@ const actions = {
 			commit('SORT_COM', obj)
 			resolve(true);
 		});
+	},
+	setClientWidth ({commit}, obj) {
+		commit('SET_CLIENT_WIDTH', obj)
 	}
 }
 export default new Vuex.Store({

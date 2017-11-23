@@ -60,7 +60,7 @@ const ui_desc = [{
 	desc: {
 		label: '通栏标题',
 		icon: 'fa-header',
-		level: 0
+		level: 1
 	},
 	data () {
 		return MBannerTitleConfig.getData()

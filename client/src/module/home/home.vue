@@ -97,7 +97,7 @@
 			    <el-button type="primary" @click="submitBase">确 定</el-button>
 			  </div>
 		</el-dialog>
-		<preview :visible="isPreview" :srcdoc="html" @updateVisible="updateVisible"></preview>
+		<preview :visible="isPreview" :srcdoc="html" @updateVisible="updateVisible" :pt="viewPt"></preview>
 	</div>
 </template>
 <script>
@@ -116,7 +116,8 @@
 				editPage: '',
 				loading: false,
 				isPreview: false,
-				html: ''
+				html: '',
+				viewPt: 0
 			}
 		},
 		beforeMount () {
@@ -176,10 +177,10 @@
 		      	let mcss = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/mcomponent.css" />';
      			let mcss1 = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/animate-min.css" />';
 
-		      	let pt = this.$store.getters.getBaseData.platform_type;
+		      	let pt = page.platform_type;
 		      	let src;
 		      	if(pt === 1){
-		      		src = mcss + mss1  + html;
+		      		src = mcss + mcss1  + html;
 		      	}else{
 		      		src = css + css1 + html + lib + lib1 + lib2 + pagejs;
 		      	}
@@ -192,6 +193,7 @@
 					});
 					return;
 				}
+				this.viewPt = pt;
 				this.html = src;
 				this.isPreview = true;
 			},

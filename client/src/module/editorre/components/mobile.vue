@@ -7,11 +7,12 @@
     <control-panel></control-panel>
 
     <div class="app-content mobile">
-      <div class="mobile-inner">
-        <preview-panel></preview-panel>
+      <div class="mobile-inner" :style="[client]">
+        <preview-panel :style="[client]"></preview-panel>
       </div>
+      <div class="mobile-after" :style="[client]"></div>
     </div>
-
+    <scale-ctrl></scale-ctrl>
     <lines :line="line" :wrect="wrect"></lines>
 
     <el-dialog title="HTML CODES" custom-class="cudialog" :visible.sync="dialogVisible" size="small" :close-on-click-modal="false" @open="setHtml">
@@ -77,6 +78,7 @@
 <script>
 import PreviewPanel from './mobile/preview_panel'
 import ComponentCtrl from './mobile/component_ctrl'
+import ScaleCtrl from './mobile/scale'
 
 import ControlPanel from './common/control_panel'
 import Lines from './common/lines'
@@ -101,7 +103,7 @@ var getQueryString = function (name) {
 export default {
   name: 'mobile',
   components: {
-    PreviewPanel, Lines, TopBar, Preview, ControlPanel, ComponentCtrl
+    PreviewPanel, Lines, TopBar, Preview, ControlPanel, ComponentCtrl, ScaleCtrl
   },
   data () {
     return {
@@ -115,7 +117,11 @@ export default {
       dialogVisible: false,
       baseDialogVisible: false,
       html: '',
-      isPreview: false
+      isPreview: false,
+      client:{
+        width: '375px',
+        height: '603px'
+      }
     }
   },
   computed:{
@@ -124,6 +130,19 @@ export default {
     },
      baseData () {
       return this.$store.getters.getBaseData;
+    },
+    clientWidth () {
+      return this.$store.getters.clientWidth;
+    }
+  },
+  watch:{
+    clientWidth (n, o) {
+      let w = n;
+      let h = MC.getWrect(n);
+      this.client.width = w + 'px';
+      this.client.height = h + 'px';
+      document.documentElement.style.fontSize = MC.getBaseFt(w) + 'px';
+      this.$store.dispatch('changeComKey', '');
     }
   },
   methods:{
@@ -213,7 +232,7 @@ export default {
     }
   },
   mounted () {
-    document.documentElement.style.fontSize = MC.getBaseFt(G.M.clientWidth) + 'px';
+    document.documentElement.style.fontSize = MC.getBaseFt(this.$store.getters.clientWidth) + 'px';
   }
 }
 </script>
@@ -223,9 +242,9 @@ export default {
 .app-content.mobile{
     position: absolute;
     width: 100%;
-    height: 599px;
+    height: 603px;
     top: 50%;
-    margin-top: -247px;
+    margin-top: -280px;
     margin-right: 350px;
     // overflow-y: auto;
 
@@ -233,26 +252,34 @@ export default {
       position: absolute;
 
       width: 375px;
-      margin-left: -187.5px;
 
-      height: 599px;
+      height: 603px;
       left: 50%;
       z-index: 10;
       overflow-y: auto;
       overflow-x: hidden;
-      outline: 4px solid rgba(51, 51, 51, 0.57)
+      outline: 4px solid rgba(51, 51, 51, 0.57);
+
+      -webkit-transform: translate(-50%, 0);
+      -moz-transform: translate(-50%, 0);
+      transform: translate(-50%, 0);
     }
 
-    &:after{
-      content: ' ';
+    & .mobile-after{
       position: absolute;
-      height: 639px;
-      width: 395px;
-      margin-left: -197.5px;
+      height: 603px;
+      width: 375px;
       left: 50%;
       top: -20px;
+      padding: 20px 10px;
       background-color: #fff;
       border-radius: 15px;
+
+      -webkit-transform: translate(-50%, 0);
+      -moz-transform: translate(-50%, 0);
+      transform: translate(-50%, 0);
+
+      box-sizing: content-box;
     }
 }
 .top-bar{
