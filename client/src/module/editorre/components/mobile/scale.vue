@@ -3,8 +3,9 @@
 		<transition name="dialog-fade">
 			<div class="ctrl-scale__list" v-show="showList">
 				<ul>
-					<li v-for="l in scaleList" :class="{active: l.selected}" @click.stop="setScaleVal(l)">
-						{{ l.value }}
+					<li v-for="(l, index) in scaleList" :class="{active: l.selected}" @click.stop="setScaleVal(l, index)">
+						{{ l.label }}
+						<span class="s-label">{{ l.sLabel }}</span>
 					</li>
 				</ul>
 				<div class="trangle"></div>
@@ -14,7 +15,7 @@
 	    	<div class="minus"></div>
 	  	</div>
 	  	<div class="ctrl-scale__text" @click="showList = !showList">
-	        {{ curVal }}
+	        {{ curData.label }}
 	  	</div>
 	  	<div class="ctrl-scale__plus" :class="{disabled: index > scaleList.length - 2}" @click="plusScale">
 	        <div class="plus-h"></div>
@@ -29,41 +30,56 @@ import MC from './../../../../sys_components/utils/mobile_util.js'
 		data () {
 			return {
 				scaleList:[{
-					value: '50%',
+					label: '50%',
+					value: 0.5,
 					selected: false
 				},{
-					value: '75%',
+					label: '75%',
+					value: 0.75,
 					selected: false
 				},{
-					value: '100%',
+					label: '100%',
+					sLabel: 'iphone 6',
+					value: 1,
 					selected: true
 				},{
-					value: '125%',
+					label: '125%',
+					value: 1.25,
 					selected: false
 				},{
-					value: '150%',
+					label: '150%',
+					value: 1.5,
+					selected: false
+				},{
+					label: '85.4%',
+					sLabel: 'iphone 5',
+					value: 0.854,
 					selected: false
 				}],
-				curVal: '100%',
 				showList: false,
 				index: 2
 			}
 		},
+		computed: {
+			curData (){
+				return this.scaleList[this.index];
+			}
+		},
 		watch:{
-			curVal (n, o) {
-				let num = n.replace('%', '');
-				num = num/100;
-				G.M.clientWidth = 375 * num;
-
-				this.$store.dispatch('setClientWidth', G.M.clientWidth);
+			curData:{
+				handler (n, o) {
+					G.M.clientWidth = 375 * n.value;
+					this.$store.dispatch('setClientWidth', G.M.clientWidth);
+				},
+				deep: true
 			}
 		},
 		methods:{
-			setScaleVal (l) {
+			setScaleVal (l, index) {
 				this.scaleList.forEach((scale, i) => {
 					scale.selected = false;
 				});
-				this.curVal = l.value;
+				this.index = index;
 				l.selected = true;
 				this.showList = false;
 			},
@@ -73,7 +89,7 @@ import MC from './../../../../sys_components/utils/mobile_util.js'
 				}
 				this.index = this.index - 1;
 				let c = this.scaleList[this.index];
-				this.setScaleVal(c);
+				this.setScaleVal(c, this.index);
 			},
 			plusScale () {
 				if(this.index > this.scaleList.length - 2){
@@ -81,7 +97,7 @@ import MC from './../../../../sys_components/utils/mobile_util.js'
 				}
 				this.index = this.index + 1;
 				let c = this.scaleList[this.index];
-				this.setScaleVal(c);
+				this.setScaleVal(c, this.index);
 			}
 		}
 	}
@@ -222,5 +238,9 @@ import MC from './../../../../sys_components/utils/mobile_util.js'
 		border-left: 10px solid transparent;
 		border-right: 10px solid transparent;
 	}
+}
+.s-label{
+	float: right;
+	color: #bbb;
 }
 </style>

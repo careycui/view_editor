@@ -10,7 +10,7 @@
       <div class="mobile-inner" :style="[client]">
         <preview-panel :style="[client]"></preview-panel>
       </div>
-      <div class="mobile-after" :style="[client]"></div>
+      <!-- <div class="mobile-after" :style="[client]"></div> -->
     </div>
     <scale-ctrl></scale-ctrl>
     <lines :line="line" :wrect="wrect"></lines>
@@ -241,29 +241,28 @@ export default {
 @import '/static/ezviz-m.css';
 .app-content.mobile{
     position: absolute;
-    width: 100%;
-    height: 603px;
-    top: 50%;
-    margin-top: -280px;
-    margin-right: 350px;
-    // overflow-y: auto;
+    right: 250px;
+    left: 0;
+    height: 100%;
+    padding: 50px 0 40px 0;
+    overflow-y: auto;
 
     & .mobile-inner{
-      position: absolute;
-
+      position: relative;
       width: 375px;
-
       height: 603px;
       left: 50%;
-      top: 50%;
+      top: 0;
       z-index: 10;
       overflow-y: auto;
       overflow-x: hidden;
-      outline: 4px solid rgba(51, 51, 51, 0.57);
+      outline: 2px solid #20A0FF;
+      background-color: #fff;
+      box-shadow: 0px 4px 15px rgba(0,0,0,.6);
 
-      -webkit-transform: translate(-50%, -50%);
-      -moz-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, 0);
+      -moz-transform: translate(-50%, 0);
+      transform: translate(-50%, 0);
     }
 
     & .mobile-after{

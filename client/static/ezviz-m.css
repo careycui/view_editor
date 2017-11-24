@@ -4,6 +4,10 @@
 	max-width: 7.5rem;
 	overflow: hidden;
 }
+.m-container p, .m-cotainer h1{
+	margin: 0;
+	padding: 0;
+}
 .m-whole{
 	position: relative;
 	min-height: 10px;

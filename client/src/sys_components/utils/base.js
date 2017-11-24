@@ -1,5 +1,4 @@
 import MC from './mobile_util.js'
-const base = MC.getBaseFt(G.M.clientWidth);
 //判断是否为数字
 const isNum = (val) => {
 	return val === +val;
@@ -117,6 +116,7 @@ const formatter = {
 		return posRect;
 	},
 	m_posRectFormatter (posRect) {
+		const base = MC.getBaseFt(G.M.clientWidth) * 1;
 		posRect.width = MC.px2rem(posRect.width, base) + 'rem';
 		posRect.height = MC.px2rem(posRect.height, base) + 'rem';
 
@@ -158,6 +158,7 @@ const formatter = {
 		return pos;
 	},
 	m_dragPosrectFormatter (posRect) {
+		const base = MC.getBaseFt(G.M.clientWidth) * 1;
 		let pos = {
 			position: posRect.position,
 			width: MC.px2rem(posRect.width, base) + 'rem',
@@ -202,6 +203,7 @@ const formatter = {
 		return ift;
 	},
 	m_ftFormatter (ft) {
+		const base = MC.getBaseFt(G.M.clientWidth) * 1;
 		let ift = ft;
 		ift.fontSize = MC.px2rem(ift.fontSize, base) + 'rem';
 		ift.lineHeight = MC.px2rem(ift.lineHeight, base) + 'rem';

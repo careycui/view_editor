@@ -174,7 +174,7 @@
 			  	let lib2 = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/aniview-min.js"\>\<\/script\>';
 			  	let pagejs = '\<script type="text/javascript" src="'+ G.STATIC.host +'static/page.js"\>\<\/script\>';
 
-		      	let mcss = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/mcomponent.css" />';
+		      	let mcss = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/ezviz-m.css" />';
      			let mcss1 = '<link rel="stylesheet" type="text/css" href="'+ G.STATIC.host +'static/animate-min.css" />';
 
 		      	let pt = page.platform_type;
