@@ -18,8 +18,10 @@
 				</div>
 				<div class="page-box"
 					:class="{active: ct.$$key === curContainerKey}"
-					v-for=" (ct, index) in containerData"
-					@click="changeContainerKey(ct.$$key)">
+					v-for=" (ct, index) in treeData"
+					@click="changeContainerKey(ct.$$key)"
+					v-dragging="{item: ct, list: treeData, group: '$$key'}"
+					:key="ct.$$key">
 					<p>
 						{{ ct.label }}
 					</p>
@@ -28,23 +30,8 @@
 							{{ index+1 }}
 						</span>
 					</div>
-					<!-- <div class="page-box__btns" @click.stop="changeContainerKey(ct.$$key)">
-						<i class="el-icon-setting"></i>
-					</div> -->
 				</div>
 			</div>
-			<!-- <div class="coms-panel__cnt-item"
-				:class="{ active: key === activePanel }"
-				:id="key" v-for="(sc, key) in sysComs"
-				v-if="key!=='LEVEL_2'">
-					<ul class="list-inline com-list">
-			            <li class="com-list--item" @click="add(cs)" 
-			            	v-for="cs in sc.coms" :key="cs.$$key">
-			              	<i class="fa fa-lg" :class="cs.desc.icon"></i><br>
-			              	{{ cs.desc.label }}
-			            </li>
-		          	</ul>
-			</div> -->
 		</div>
 		<div class="coms-panel__bar">
 			<div class="coms-item coms-item__cntrl" @click="handleCntrl">
@@ -70,12 +57,17 @@
 				<transition name="fade">
 					<div class="coms-panel__cnt-item"
 						:class="{ active: key === activePanel }" v-show="key === activePanel">
-							<ul class="list-inline com-list">
+							<ul class="list-inline com-list" v-show="sc.coms.length>0">
 					            <li class="com-list--item" @click.stop="add(cs)" 
 					            	v-for="cs in sc.coms" :key="cs.$$key">
 					              	<i class="fa fa-lg" :class="cs.desc.icon"></i><br>
 					              	{{ cs.desc.label }}
 					            </li>
+				          	</ul>
+				          	<ul class="list-inline com-list" v-show="sc.coms.length<1">
+				          		<li class="com-list--item">
+				          			空
+				          		</li>
 				          	</ul>
 					</div>
 				</transition>
@@ -99,7 +91,8 @@
 						:content="cnt"
 						:currComKey="currentComKey"
 						@handleSelectClick="setCurrKey"
-						v-for="cnt in currentChildComs.content">
+						v-for="cnt in currentChildComs.content"
+						v-dragging="{item: cnt, list: currentChildComs.content, group: '$$key-c'}">
 					</coms-tree>
 				</div>
 				<div class="tree-box tree-box__empty" v-if="currentChildComs && currentChildComs.content.length<1">
@@ -162,28 +155,41 @@ let _changeCopyChild = (content) => {
 			}
 		},
 		mounted () {
-	    	if(this.containerData.length<1){
+	    	if(this.treeData.length<1){
 		    	this.addPage();
 			}
+			this.$dragging.$on('dragend', (value) => {
+				let dragEle = value.draged;
+				let dropEle = value.to;
+				let group = value.group;
+				let _getIndex = (data,key) => {
+					let index;
+					data.some((item, i) => {
+			    		if(item.$$key === key){
+			    			index = i;
+			    			return true;
+			    		}
+			    		return false;
+			    	});
+			    	return index;
+				}
+				let container = group === '$$key'? this.treeData : this.currentChildComs.content;
+				let dragIndex = _getIndex(container, dragEle.$$key);
+				let dropIndex = _getIndex(container, dropEle.$$key);
+				this.$store.dispatch('sort', {dragIndex:dragIndex, dropIndex:dropIndex, dragEle: dragEle});
+			})
 		},
 		computed: {
 			baseData () {
 		      return this.$store.getters.getBaseData;
-		    },
-		    containerData () {
-		    	const pageData = this.$store.getters.getPageData;
-		    	let cons = [];
-		    	pageData.forEach((c, i) => {
-		    		cons.push(c);
-		    	});
-		    	return cons;
 		    },
 		    treeData () {
 		      return this.$store.getters.getPageData;
 		    },
 		    currentChildComs () {
 		    	let com;
-		    	this.containerData.some((item, i) => {
+		    	let pageData = this.$store.getters.getPageData;
+		    	pageData.some((item, i) => {
 		    		if(item.$$key === this.curContainerKey){
 		    			com = item;
 		    			return true;
@@ -216,9 +222,6 @@ let _changeCopyChild = (content) => {
 					this.activePanel = '';
 				}else{
 					this.activePanel = key;
-				}
-				if(!this.cntActive){
-					this.cntActive = true;
 				}
 			},
 			add (com) {
@@ -285,7 +288,7 @@ let _changeCopyChild = (content) => {
 		    _getContainer (){
 		    	let key = this.curContainerKey;
 		    	let container;
-		    	this.containerData.some((c, i) => {
+		    	this.treeData.some((c, i) => {
 		    		if(c.$$key === key){
 		    			container = c;
 		    			return true;
@@ -351,9 +354,6 @@ let _changeCopyChild = (content) => {
 		    	});
 		    },
 		    changeContainerKey (key){
-		    	// if(this.curContainerKey === key){
-		    	// 	return;
-		    	// }
 		    	this.curContainerKey = key;
 		    	this.$store.dispatch('changeComKey', key);
 		    },
@@ -367,9 +367,48 @@ let _changeCopyChild = (content) => {
 		    	this.comsPanelActive = !this.comsPanelActive;
 		    },
 		    openUploadDialog (){
+		    	if(!this.curContainerKey){
+		    		Message({
+		    			showClose:true,
+			          	message: '未选中组件',
+		    			type:'error'
+		    		});
+		    		return false;
+		    	}
+		    	let coms = this.sysComs.LEVEL_1.coms;
+		    	let _this = this;
+		    	let com;
+		    	coms.some((c, i) => {
+		    		if(c.comKey === 'banner'){
+		    			com = c;
+		    			return true;
+		    		}
+		    		return false;
+		    	});
+		    	let container = this._getContainer();
 		    	UploadDialog({
 		    		onClose:function(data){
-		    			console.log(data);
+		    			data.forEach((img, i) => {
+		    				let data = com.data();
+					    	data.$$comKey = com.comKey;
+					    	data.$$level = com.desc.level;
+					    	data.bannerImg = img;
+
+					    	let imgObj = new Image();
+					    	imgObj.onload = () => {
+					    		imgObj.onload = null;
+					    		let w = imgObj.width;
+					    		let h = imgObj.height;
+						    	data.style.posRect.width = w;
+						    	data.style.posRect.height = h;
+					    	};
+					    	imgObj.src = img;
+					    	_this.$store.dispatch('addCom', {com: data, container: container}).then((obj) => {
+					    		if(!container){
+					    			_this.curContainerKey = obj.curCon.$$key;
+					    		}
+					    	});
+		    			});
 		    		}
 		    	});
 
@@ -428,6 +467,7 @@ let _changeCopyChild = (content) => {
 	    top: 0;
 		background-color: lighten(#1f2d3d, 5%);
 		box-shadow: -4px -4px 10px rgba(0,0,0, .3);
+		z-index: 1;
 		text-align: left;
 
 		&:hover{
@@ -449,6 +489,11 @@ let _changeCopyChild = (content) => {
 		overflow: hidden;
 		border: 1px solid #bbb;
 		cursor: pointer;
+
+		-webkit-transition: all .25s;
+		-moz-transition: all .25s;
+		-ms-transition: all .25s;
+		transition: all .25s;
 
 		& p{
 			margin: 0;
@@ -480,11 +525,18 @@ let _changeCopyChild = (content) => {
 			right: 0;
 			top: 0;
 		}
+		&.dragging{
+			transform: scale(1.05, 1.05);
+		}
 		&.active{
 			border: 1px solid #20a0ff;
 
 			& .page-num{
 				border-top: 30px solid #20a0ff;
+			}
+
+			&.dragging{
+				transform: scale(1.05, 1.05);
 			}
 		}
 		& .page-box__btns{
@@ -634,6 +686,8 @@ let _changeCopyChild = (content) => {
 	.tree-box{
 		margin: 10px auto;
 		background-color: lighten(#1f2d3d, 10%);
+		max-height: 400px;
+		overflow-y: auto;
 
 		&.tree-box__empty{
 			text-align: center;
