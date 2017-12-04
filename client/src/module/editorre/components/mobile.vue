@@ -86,6 +86,7 @@ import TopBar from './common/top_bar'
 import Preview from './common/preview_dialog'
 
 import { Message } from 'element-ui'
+import { Loading } from 'element-ui'
 
 import MC from './../../../sys_components/utils/mobile_util.js'
 
@@ -147,7 +148,10 @@ export default {
   },
   methods:{
     openCode () {
-      this.dialogVisible = true;
+      let _this = this;
+      this.savePage(() => {
+        _this.dialogVisible = true;
+      });
     },
     setLine (obj) {
       this.line = obj;
@@ -167,7 +171,8 @@ export default {
       html = html;
       this.html = html;
     },
-    savePage () {
+    savePage (callback) {
+      let loading = Loading.service();
       this.setHtml();
       let htmlData = JSON.stringify(this.html);
       let pageData = JSON.stringify(this.$store.getters.getPageData);
@@ -184,6 +189,8 @@ export default {
         },
         responseType: 'json'
       }).then(function(res){
+        loading.close();
+        callback && callback();
         Message({
           message: '保存成功',
           showClose: true,
@@ -204,8 +211,10 @@ export default {
       document.execCommand('copy');
     },
     openPreview () {
-      this.setHtml();
-      this.isPreview = true;
+      let _this = this;
+      this.savePage(() => {
+        _this.isPreview = true;
+      });
     },
     updateVisible (val) {
       this.isPreview = val;

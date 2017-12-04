@@ -56,7 +56,15 @@
 				if(isActive){
 					return;
 				}
-				this.$emit('handleSelectClick', node);
+				this.tree.setCurrKey(node);
+			}
+		},
+		created () {
+			const parent = this.$parent;
+			if(parent.isTree){
+				this.tree = parent;
+			}else{
+				this.tree = parent.tree;
 			}
 		}
 	}

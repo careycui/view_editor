@@ -1,15 +1,19 @@
 <template>
 	<div class="c-input-number" :class="[size]">
 		<div class="c-input__ctrl">
-			<div class="c-input__ctrl-inc" @click="increase">
+			<div class="c-input__ctrl-inc" v-long-click="increase">
 				<div class="triangle"></div>
 			</div>
-			<div class="c-input__ctrl-dec" @click="decrease">
+			<div class="c-input__ctrl-dec" v-long-click="decrease">
 				<div class="triangle"></div>
 			</div>
 		</div>
 		<div class="c-input__inner">
-			<input ref="input" type="text" class="c-input__inner-input" @input="handleInputValid" :value="currentValue">
+			<input ref="input" type="text" class="c-input__inner-input"
+			@keydown.up.prevent="increase"
+			@keydown.down.prevent="decrease"
+			@input="handleInputValid"
+			:value="currentValue">
 		</div>
 	</div>
 </template>
@@ -17,6 +21,33 @@
 	import debounce from 'throttle-debounce/debounce';
 	export default{
 		name: 'cInputNumber',
+		directives:{
+			longClick:{
+				bind(el, binding, vnode){
+					let startTime;
+					let interval;
+					let handler = binding.value;
+
+					let upHandler = () => {
+						document.removeEventListener('mouseup', upHandler);
+
+						if(new Date() - 200 < startTime){
+							handler();
+						}
+						clearInterval(interval);
+						interval = void 0;
+					};
+					el.addEventListener('mousedown', () => {
+						startTime = new Date();
+
+						document.addEventListener('mouseup', upHandler, false);
+						clearInterval(interval);
+						interval = setInterval(handler, 200);
+
+					}, false);
+				}
+			}
+		},
 		props: {
 			value: {
 				type: Number,
@@ -38,7 +69,7 @@
 			size: String,
 		    delay: {
 		    	type: Number,
-		        default: 300
+		        default: 600
 		    }
 		},
 		data () {
@@ -68,6 +99,12 @@
 			}
 		},
 		methods:{
+			handlerDown (){
+				let startTime = new Date();
+				setInterval(function(){
+
+				},160);
+			},
 			//解决精度损失问题
 			_getPrecision(value){
 				let valStr = value.toString();

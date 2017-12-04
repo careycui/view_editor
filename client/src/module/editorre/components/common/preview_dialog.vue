@@ -18,6 +18,9 @@
 	          <iframe frameborder="0" width="100%" height="100%" id="pre-iframe">
 	          </iframe>
 	        </div>
+	        <div class="mobile-cntrl" id="mobile-cntrl" style="display: none;">
+	        	<el-button type="warning" class="br2 mb10" v-for="m in mobile" @click="setMobile(m)" :key="m.value">{{ m.label }}</el-button>
+	        </div>
 	      </div>
 	    </div>
 	</transition>
@@ -44,14 +47,35 @@ export default {
 	data () {
 		return {
 			pos: oriPos,
-			isFull: false
+			isFull: false,
+			mobile:[{
+				label: 'iphone 4',
+				value: 320
+			},{
+				label: 'iphone 5',
+				value: 320
+			},{
+				label: 'iphone 6',
+				value: 375
+			},{
+				label: 'iphone 6 plus',
+				value: 414
+			},{
+				label: 'Galaxy Note 3',
+				value: 360
+			},{
+				label: 'Origin',
+				value: 750
+			}]
 		}
 	},
 	mounted () {
 		let pt = this.$store.getters.getBaseData.platform_type;
-		this.$el.querySelector('#pre-iframe').onload = function(e){
+		let $el = this.$el;
+		$el.querySelector('#pre-iframe').onload = function(e){
 			if(pt === 1){
 				this.contentDocument.documentElement.style.fontSize = MC.getBaseFt(750) + 'px';
+				$el.querySelector('#mobile-cntrl').style.display = 'block';
 			}
 			if(loadInstance){
 				loadInstance.close();
@@ -69,6 +93,9 @@ export default {
 		handleRestore () {
 			this.isFull = false;
 			this.pos = oriPos;
+		},
+		setMobile (m) {
+			this.$el.querySelector('#pre-iframe').contentDocument.documentElement.style.fontSize = MC.getBaseFt(m.value) + 'px';
 		}
 	},
 	watch : {
@@ -111,5 +138,15 @@ export default {
 .el-dialog__body{
 	height: 95%;
 	padding: 30px 10px;
+}
+.mobile-cntrl{
+	position: absolute;
+	right: 50px;
+	top: 20%;
+}
+.mb10{
+	display: block;
+	margin-bottom: 10px;
+	margin-left: 0;
 }
 </style>

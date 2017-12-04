@@ -84,16 +84,12 @@
 						<i class="el-icon-close"></i>
 					</span>
 				</div>
-				<div class="tree-box" v-if="currentChildComs && currentChildComs.content.length>0">
-					<coms-tree
-						:label="cnt.label"
-						:key="cnt.$$key"
-						:content="cnt"
-						:currComKey="currentComKey"
-						@handleSelectClick="setCurrKey"
-						v-for="cnt in currentChildComs.content"
-						v-dragging="{item: cnt, list: currentChildComs.content, group: '$$key-c'}">
-					</coms-tree>
+				<div class="tree" v-if="currentChildComs && currentChildComs.content.length>0">
+					<tree @nodeSelectedClick="nodeSelectedClick"
+					  	:data="currentChildComs.content"
+					  	:strict="true"
+					  	ref="tree">
+			  	  	</tree>
 				</div>
 				<div class="tree-box tree-box__empty" v-if="currentChildComs && currentChildComs.content.length<1">
 					<p>
@@ -110,9 +106,9 @@
 	</div>
 </template>
 <script>
-import comsTree from './../common/coms_tree'
 import { Message } from 'element-ui'
 import UploadDialog from './../common/upload_base/index'
+import Tree from './../common/coms_tree/coms_tree'
 
 let _copy = (obj) => {
 	let type = Object.prototype.toString.call(obj)
@@ -140,7 +136,7 @@ let _changeCopyChild = (content) => {
 	export default{
 		name: 'componentCtrl',
 		components:{
-			comsTree
+			Tree
 		},
 		data () {
 			return {
@@ -153,6 +149,9 @@ let _changeCopyChild = (content) => {
 		      	curContainerKey: '',
 		      	comsPanelActive: false
 			}
+		},
+		created () {
+			this.isTree = true;
 		},
 		mounted () {
 	    	if(this.treeData.length<1){
@@ -177,7 +176,7 @@ let _changeCopyChild = (content) => {
 				let dragIndex = _getIndex(container, dragEle.$$key);
 				let dropIndex = _getIndex(container, dropEle.$$key);
 				this.$store.dispatch('sort', {dragIndex:dragIndex, dropIndex:dropIndex, dragEle: dragEle});
-			})
+			});
 		},
 		computed: {
 			baseData () {
@@ -232,6 +231,8 @@ let _changeCopyChild = (content) => {
 		    	this.$store.dispatch('addCom', {com: data, container: container}).then((obj) => {
 		    		if(!container){
 		    			this.curContainerKey = obj.curCon.$$key;
+		    		}else{
+		    			this.$refs.tree.setSelected(obj.com);
 		    		}
 		    	});
 		    },
@@ -283,7 +284,9 @@ let _changeCopyChild = (content) => {
 		    	let content = copyCom.content;
 		    	let container = this._getContainer();
 		    	_changeCopyChild(content);
-		    	this.$store.dispatch('addCom', {com: copyCom, container: container});
+		    	this.$store.dispatch('addCom', {com: copyCom, container: container}).then((obj) => {
+		    		this.$refs.tree.setSelected(obj.com);
+		    	});
 		    },
 		    _getContainer (){
 		    	let key = this.curContainerKey;
@@ -351,17 +354,12 @@ let _changeCopyChild = (content) => {
 			          	message: '已删除当前组件',
 			          	type: 'warning'
 			        });
+			        this.$refs.tree.setSelected();
 		    	});
 		    },
 		    changeContainerKey (key){
 		    	this.curContainerKey = key;
 		    	this.$store.dispatch('changeComKey', key);
-		    },
-		    setCurrKey (node){
-		    	if(this.currComKey === node.$$key){
-		    		return;
-		    	}
-		    	this.$store.dispatch('changeComKey', node.$$key);
 		    },
 		    toggleComsPanel (){
 		    	this.comsPanelActive = !this.comsPanelActive;
@@ -412,6 +410,12 @@ let _changeCopyChild = (content) => {
 		    		}
 		    	});
 
+		    },
+		    nodeSelectedClick (model){
+		     	if(this.currComKey === model.$$key){
+		    		return;
+		    	}
+		    	this.$store.dispatch('changeComKey', model.$$key);
 		    }
 		}
 	}
@@ -683,8 +687,7 @@ let _changeCopyChild = (content) => {
 			}
 		}
 	}
-	.tree-box{
-		margin: 10px auto;
+	.tree{
 		background-color: lighten(#1f2d3d, 10%);
 		max-height: 400px;
 		overflow-y: auto;

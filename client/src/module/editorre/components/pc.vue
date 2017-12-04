@@ -72,6 +72,7 @@
           <el-button type="primary" @click="submitBase">确 定</el-button>
         </div>
     </el-dialog>
+
   </div>
 </template>
 
@@ -86,6 +87,7 @@ import { Message } from 'element-ui'
 import { Loading } from 'element-ui'
 
 import Preview from './common/preview_dialog'
+
 
 var getQueryString = function (name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
