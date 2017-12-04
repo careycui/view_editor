@@ -1,5 +1,6 @@
 import MC from './mobile_util.js'
 const base = MC.getBaseFt(G.M.clientWidth) * 1;
+
 //判断是否为数字
 const isNum = (val) => {
 	return val === +val;

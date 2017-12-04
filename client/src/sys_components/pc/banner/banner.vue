@@ -1,10 +1,8 @@
 <template>
-	<div class="banner" 
-	:style="[formatterStyle.posRect, formatterStyle.bg, formatterStyle.opacity]">
-		<div class="pcontainer-bg" v-if="data.bannerImg">
-			<img :src="data.bannerImg" class="bg-img">
-		</div>
+	<div class="pwhole" 
+	:style="[formatterStyle.opacity, formatterStyle.h]">
 		<slot></slot>
+		<img :src="data.bannerImg" v-if="data.bannerImg">
 	</div>
 </template>
 <script>
@@ -24,8 +22,7 @@ const formatter = BASE.formatter;
 						bannerImg: 'about:blank',
 						style:{
 							opacity: 1,
-							bg: BASE.bg(),
-							posRect: BASE.posRect()
+							height: 'auto'
 						}
 					}
 				}
@@ -34,11 +31,12 @@ const formatter = BASE.formatter;
 		computed: {
 			formatterStyle () {
 				let style = this.data.style;
-				style.bg = formatter.bgFormatter(style.bg);
-				style.posRect = formatter.posRectFormatter(style.posRect);
 				style.opacity = {
 					opacity: style.opacity
 				};
+				style.h = {
+					height: style.height === 'auto'?'auto':style.height + 'px'
+				}
 				return style;
 			}
 		}

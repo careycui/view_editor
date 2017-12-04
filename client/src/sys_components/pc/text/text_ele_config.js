@@ -13,8 +13,7 @@ export default {
 			enableDrag: true,
 			style:{
 				dragPosrect: changeDp(),
-				ft: BASE.ft(),
-				eleAni: BASE.eleAni()
+				ft: BASE.ft()
 			}
 		}
 	}

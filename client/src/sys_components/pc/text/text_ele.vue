@@ -1,12 +1,8 @@
 <template>
 	<div class="text-ele" :style="[formatterStyle.wrect]">
-		<div class="ani-stage">
-			<p :class="{'ani': !!formatterStyle.eleAni.animation}"
-			   :data-animation="formatterStyle.eleAni.animation" 
-			   :style="[formatterStyle.ft, {animation: (formatterStyle.eleAni.isPlayed?formatterStyle.eleAni.animation: '')}]">
-			   {{ data.text }}
-			</p>
-		</div>
+		<p :style="[formatterStyle.ft]">
+		   {{ data.text }}
+		</p>
 	</div>
 </template>
 <script>
@@ -26,7 +22,6 @@ const formatter = BASE.formatter;
 						text: '基本文本',
 						style:{
 							dragPosrect: BASE.dragPosrect(),
-							eleAni: BASE.eleAni(),
 							ft: BASE.ft()
 						}
 					}
@@ -37,7 +32,6 @@ const formatter = BASE.formatter;
 			formatterStyle () {
 				let style = this.data.style;
 				style.wrect = formatter.dragPosrectFormatter(style.dragPosrect);
-				style.eleAni = formatter.eleAniFormatter(style.eleAni);
 				style.ft = formatter.ftFormatter(style.ft);
 				return style;
 			}
@@ -45,5 +39,7 @@ const formatter = BASE.formatter;
 	}
 </script>
 <style lang="scss" scoped>
-	
+	.text-ele{
+		z-index: 1;
+	}
 </style>

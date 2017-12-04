@@ -94,6 +94,7 @@
 						let comDom = document.getElementById(comKey);
 						let parentDom = document.getElementById('preview');
 						let rect = _getRelativeDomRect(comDom, parentDom);
+
 						this.style = {
 							width: rect.width + 'px',
 							height: rect.height + 'px',

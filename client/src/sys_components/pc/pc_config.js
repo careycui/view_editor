@@ -6,6 +6,10 @@ import Banner from './banner/banner'
 import BannerEditor from './banner/banner_editor'
 import BannerConfig from  './banner/banner_config'
 
+import BannerTitle from './banner_title/banner_title'
+import BannerTitleEditor from './banner_title/banner_title_editor'
+import BannerTitleConfig from  './banner_title/banner_title_config'
+
 import ImageEle from './image/image_ele'
 import ImageEleEditor from './image/image_ele_editor'
 import ImageEleConfig from  './image/image_ele_config'
@@ -14,6 +18,9 @@ import TextEle from './text/text_ele'
 import TextEleEditor from './text/text_ele_editor'
 import TextEleConfig from  './text/text_ele_config'
 
+import LinkEle from './link/link_ele'
+import LinkEleEditor from './link/link_ele_editor'
+import LinkEleConfig from  './link/link_ele_config'
 /**
  * 基础组件描述对象
  * 	comObj 组件对象
@@ -53,6 +60,18 @@ const ui_desc = [{
 		return BannerConfig.getData();
 	}
 }, {
+	comKey: 'bannerTitle',
+	comObj: BannerTitle,
+	comEditorObj: BannerTitleEditor,
+	desc: {
+		label: '通栏标题',
+		icon: 'fa-header',
+		level: 0
+	},
+	data () {
+		return BannerTitleConfig.getData();
+	}
+}, {
 	comKey: 'imageEle',
 	comObj: ImageEle,
 	comEditorObj: ImageEleEditor,
@@ -75,6 +94,18 @@ const ui_desc = [{
 	},
 	data () {
 		return TextEleConfig.getData();
+	}
+}, {
+	comKey: 'linkEle',
+	comObj: LinkEle,
+	comEditorObj: LinkEleEditor,
+	desc: {
+		label: '链接',
+		icon: 'fa-link',
+		level: 0
+	},
+	data () {
+		return LinkEleConfig.getData();
 	}
 }];
 export const SYS_UI_DESC = ui_desc;

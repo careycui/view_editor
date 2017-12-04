@@ -9,8 +9,7 @@ export default {
 			enableDrag: false,
 			style:{
 				opacity: 1,
-				bg: CONFIG.bg(),
-				posRect: CONFIG.posRect()
+				height: 'auto'
 			},
 			content:[]
 		}

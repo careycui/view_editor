@@ -20,27 +20,31 @@
 						<el-input size="small" class="br2" v-model="data.bannerImg" placeholder="图片链接"></el-input>
 					</div>
 				</div>
+				<div class="tab-line">
+					<div class="tab-line--title">基本样式</div>
+				</div>
 				<div class="el-form-item">
 					<label class="el-form-item__label" style="width:50px;">透明度</label>
 					<div class="el-form-item__content" style="margin-left:50px;">
 						<c-input-number size="small" v-model="data.style.opacity" :step="0.1" :min="0" :max="1"></c-input-number>
 					</div>
 				</div>
-				<bg v-model="data.style.bg"></bg>
-				<posrect v-model="data.style.posRect" :comId="data.id" :type="posType"></posrect>
+				<div class="el-form-item">
+					<label class="el-form-item__label" style="width:50px;">H</label>
+					<div class="el-form-item__conetnt" style="margin-left:50px;">
+						<el-input size="small" v-model="data.style.height" class="br2"></el-input>
+					</div>
+				</div>
 			</el-tab-pane>
 		</el-tabs>
 	</div>
 </template>
 <script>
 	import CInputNumber from './../../../editor_components/input_num/input_num'
-	import ColorPicker from './../../../editor_components/color_picker/color_picker'
-	import Bg from './../../../editor_components/bg/bg'
-	import Posrect from './../../../editor_components/posrect/posrect'
 	export default {
 		name: 'bannerEditor',
 		components:{
-			CInputNumber, ColorPicker, Bg, Posrect
+			CInputNumber
 		},
 		props:{
 			data: {
@@ -61,10 +65,8 @@
 						let img = new Image();
 						img.onload = function(){
 							img.onload = null;
-							let w = img.width;
 							let h = img.height;
-							_this.data.style.posRect.width = w;
-							_this.data.style.posRect.height = h;
+							_this.data.style.height = h;
 						};
 						img.src = nv;
 					// });

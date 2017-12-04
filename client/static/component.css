@@ -7,13 +7,6 @@
 	background-position: center center;
 	text-align: center;
 }
-.pcontainer .pcontainer-bg{
-	position: absolute;
-	left: 0;
-	top: 0;
-	right: 0;
-	bottom: 0;
-}
 .bg-img, .img{
 	display: block;
 	width: 100%;
@@ -94,4 +87,40 @@
 	0%,100%{
 		opacity: 0;
 	}
+}
+/* new css */
+.pwhole{
+	position: relative;
+	width: 100%;
+	min-height: 20px;
+}
+.pwhole img{
+	position: relative;
+	width: 1920px;
+	left: 50%;
+	margin-left: -960px;
+}
+.pwhole p{
+	margin: 0;
+}
+.text-ele{
+	z-index:1;
+}
+img{
+	display: block;
+	border: 0;
+}
+.pwhole .reset-img{
+	left: auto;
+	margin-left: auto;
+}
+.link-ele{
+	z-index: 1;
+}
+.link-ele a{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	background-image: url(about:blank);
+	vertical-align: middle;
 }
