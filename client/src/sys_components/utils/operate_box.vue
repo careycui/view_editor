@@ -1,16 +1,20 @@
 <template>
 	<div class="operate-box" :class="{active: isActive, 'enable-drag': enableDrag}" :style="[style]" v-drag="proxyChangePos">
 		<div class="op-line op-line_t">
-			<div class="op-circle"></div>
+			<div class="op-circle" v-drag-rect:top="proxyChangeRect"
+				v-if="currentCom.style.dragPosrect"></div>
 		</div>
 		<div class="op-line op-line_r">
-			<div class="op-circle"></div>
+			<div class="op-circle" v-drag-rect:right="proxyChangeRect"
+				v-if="currentCom.style.dragPosrect"></div>
 		</div>
 		<div class="op-line op-line_b">
-			<div class="op-circle"></div>
+			<div class="op-circle" v-drag-rect:bottom="proxyChangeRect"
+				v-if="currentCom.style.dragPosrect"></div>
 		</div>
 		<div class="op-line op-line_l">
-			<div class="op-circle"></div>
+			<div class="op-circle" v-drag-rect:left="proxyChangeRect"
+				v-if="currentCom.style.dragPosrect"></div>
 		</div>
 	</div>
 </template>
@@ -63,6 +67,33 @@
 		                    document.onmouseup = null;
 		                 };
 			        };
+				}
+			},
+			dragRect:{
+				bind (el, binding) {
+					const rectEle = el;
+					const type = binding.arg;
+					rectEle.onmousedown = function(e){
+						e.stopPropagation();
+						let oX = e.pageX;
+						let oY = e.pageY;
+
+						document.onmousemove = function(e){
+							let cX = e.pageX;
+							let cY = e.pageY;
+							let disX = cX - oX;
+							let disY = cY - oY;
+							oX = cX;
+							oY = cY;
+
+							binding.value(type, {disX: disX, disY: disY});
+						}
+
+						document.onmouseup = function (e) {
+		                    document.onmousemove = null;
+		                    document.onmouseup = null;
+	                 	};
+					}
 				}
 			}
 		},
@@ -119,6 +150,53 @@
 					this.currentCom.style.dragPosrect.CENTER.marginLeft = oldl + pointer.x;
 				}
 				this.currentCom.style.dragPosrect.top = oldt + pointer.y;
+			},
+			_setComRect (dis) {
+				this.currentCom.style.dragPosrect.top = this.style.top.replace(/px/g, '') * 1;
+				this.currentCom.style.dragPosrect.width = this.style.width.replace(/px/g, '') * 1;
+				this.currentCom.style.dragPosrect.height = this.style.height.replace(/px/g, '') * 1;
+
+				if(dis){
+					let posType = this.currentCom.style.dragPosrect.posType;
+					if(posType === 'LEFT'){
+						this.currentCom.style.dragPosrect.LEFT.left = this.style.left.replace(/px/g, '') * 1;
+					}
+					if(posType === 'CENTER'){
+						let oldl = this.currentCom.style.dragPosrect.CENTER.marginLeft;
+						this.currentCom.style.dragPosrect.CENTER.marginLeft = oldl + dis.disX;
+					}
+				}
+			},
+			_topChange (dis) {
+				let h = this.style.height.replace(/px/g, '') * 1;
+				this.style.height = (h - dis.disY) + 'px';
+				let t = this.style.top.replace(/px/g, '') * 1;
+				this.style.top = (t + dis.disY) + 'px';
+
+				this._setComRect();
+			},
+			_rightChange (dis) {
+				let w = this.style.width.replace(/px/g, '') * 1;
+				this.style.width = (w + dis.disX) + 'px';
+
+				this._setComRect();
+			},
+			_bottomChange (dis) {
+				let h = this.style.height.replace(/px/g, '') * 1;
+				this.style.height = (h + dis.disY) + 'px';
+
+				this._setComRect();
+			},
+			_leftChange (dis) {
+				let w = this.style.width.replace(/px/g, '') * 1;
+				this.style.width = (w - dis.disX) + 'px';
+				let l = this.style.left.replace(/px/g, '') * 1;
+				this.style.left = (l + dis.disX ) + 'px';
+
+				this._setComRect(dis);
+			},
+			proxyChangeRect (type, dis) {
+				this['_' + type + 'Change'](dis);
 			}
 		}
 	}
@@ -132,6 +210,8 @@
 		border: 1px solid #20a0ff;
 		border-radius: 6px;
 		box-sizing: border-box;
+		cursor: crosshair;
+		z-index: 1;
 	}
 	.operate-box{
 		display: none;
@@ -146,24 +226,23 @@
 	}
 	.op-line{
 		position: absolute;
-		background-color: #20a0ff;
 
 		&.op-line_t{
 			width: 100%;
-			height: 1px;
-			top: -1px;
+			top: -2px;
+			border-top: 2px dashed #20a0ff;
 
 			& .op-circle{
 				@extend %circle;
-				top: -5px;
+				top: -7px;
 				left: 50%;
 				margin-left: -6px;
 			}
 		}
 		&.op-line_r{
-			width: 1px;
 			height: 100%;
-			right: -1px;
+			right: -2px;
+			border-left: 2px dashed #20a0ff;
 
 			& .op-circle{
 				@extend %circle;
@@ -174,8 +253,8 @@
 		}
 		&.op-line_b{
 			width: 100%;
-			height: 1px;
-			bottom: -1px;
+			bottom: -2px;
+			border-top: 2px dashed #20a0ff;
 
 			& .op-circle{
 				@extend %circle;
@@ -186,12 +265,12 @@
 		}
 		&.op-line_l{
 			height: 100%;
-			width: 1px;
-			left: -1px;
+			left: -2px;
+			border-left: 2px dashed #20a0ff;
 
 			& .op-circle{
 				@extend %circle;
-				left: -5px;
+				left: -7px;
 				top: 50%;
 				margin-top: -6px;
 			}

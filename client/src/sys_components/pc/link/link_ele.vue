@@ -1,6 +1,10 @@
 <template>
-	<div class="link-ele" :style="[formatterStyle.wrect, formatterStyle.bg]">
-		<a :href="data.link" :target="data.target" :style="[formatterStyle.ft]">
+	<div class="link-ele ani-stage" :style="[formatterStyle.wrect, formatterStyle.bg]">
+		<a :href="data.link"
+			:target="data.target"
+			:class="{'ani': !!formatterStyle.eleAni.animation}"
+			:data-animation="formatterStyle.eleAni.animation"
+			:style="[formatterStyle.ft,{animation: (formatterStyle.eleAni.isPlayed?formatterStyle.eleAni.animation: '')}]">
 			{{ data.text }}
 		</a>
 	</div>
@@ -25,7 +29,8 @@ const formatter = BASE.formatter;
 						style:{
 							bg: BASE.bg(),
 							dragPosrect: BASE.dragPosrect(),
-							ft: BASE.ft()
+							ft: BASE.ft(),
+							eleAni: BASE.eleAni()
 						}
 					}
 				}
@@ -37,6 +42,7 @@ const formatter = BASE.formatter;
 				style.wrect = formatter.dragPosrectFormatter(style.dragPosrect);
 				style.ft = formatter.ftFormatter(style.ft);
 				style.bg = formatter.bgFormatter(style.bg);
+				style.eleAni = formatter.eleAniFormatter(style.eleAni);
 				return style;
 			}
 		}

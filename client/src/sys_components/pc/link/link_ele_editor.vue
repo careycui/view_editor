@@ -47,6 +47,9 @@
 				<drag-posrect v-model="data.style.dragPosrect" :comId="data.id"></drag-posrect>
 				<ft v-model="data.style.ft"></ft>
 			</el-tab-pane>
+			<el-tab-pane label="动画" name="ani" class="editor-pane">
+				<ani-panel v-model="data.style.eleAni"></ani-panel>
+			</el-tab-pane>
 		</el-tabs>
 	</div>
 </template>
@@ -56,10 +59,11 @@
 	import Bg from './../../../editor_components/bg/bg'
 	import Ft from './../../../editor_components/ft/ft'
 	import DragPosrect from './../../../editor_components/drag_posrect/drag_posrect'
+	import AniPanel from './../../../editor_components/ani_panel/ani_panel'
 	export default {
 		name: 'linkEleEditor',
 		components:{
-			CInputNumber, ColorPicker, Bg, DragPosrect, Ft
+			CInputNumber, ColorPicker, Bg, DragPosrect, Ft, AniPanel
 		},
 		props:{
 			data:{

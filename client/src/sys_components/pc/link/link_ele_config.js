@@ -16,7 +16,8 @@ export default {
 			style:{
 				bg: changeBg(),
 				dragPosrect: BASE.dragPosrect(),
-				ft: BASE.ft()
+				ft: BASE.ft(),
+				eleAni: BASE.eleAni()
 			}
 		}
 	}

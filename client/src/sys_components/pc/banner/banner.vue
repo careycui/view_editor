@@ -1,5 +1,5 @@
 <template>
-	<div class="pwhole" 
+	<div class="pwhole"
 	:style="[formatterStyle.opacity, formatterStyle.h]">
 		<slot></slot>
 		<img :src="data.bannerImg" v-if="data.bannerImg">

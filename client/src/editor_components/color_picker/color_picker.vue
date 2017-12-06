@@ -10,6 +10,10 @@
 					:style="{backgroundColor:base}"
 					v-for="base in baseColors" @click="pickBase(base)">
 				</span>
+				<span class="color-picker__base-item"
+					style="margin-left: -3px;"
+					:style="{backgroundColor: 'transparent'}"
+					@click="setTransparent"></span>
 			</div>
 		</div>
 		<chrome 
@@ -96,6 +100,9 @@ import tinycolor from 'tinycolor2'
 		},
 		watch:{
 			value (newVal) {
+				if(newVal === 'transparent'){
+					return;
+				}
 				let color = tinycolor(newVal);
 				this.currentValue = {
 					hex: color.toHexString().toUpperCase(),
@@ -126,6 +133,18 @@ import tinycolor from 'tinycolor2'
 					hex: color.toHexString().toUpperCase(),
     				rgba: color.toRgb(),
     				rgbas: color.toRgbString()
+				});
+			},
+			setTransparent () {
+				this.setCurrentValue({
+					hex: 'transparent',
+					rgba:{
+						r: 0,
+						g: 0,
+						b: 0,
+						a: 0
+					},
+					rgbas: 'rgb(0, 0, 0)'
 				});
 			},
 			handleColorPanel () {
@@ -203,6 +222,7 @@ import tinycolor from 'tinycolor2'
 			background-color: #f0f;
 			vertical-align: top;
 			margin: 1px;
+			border: 1px solid #8391a5;
 
 			box-shadow: 0 0px 4px transparent;
 			-webkit-transform: scale(1,1);

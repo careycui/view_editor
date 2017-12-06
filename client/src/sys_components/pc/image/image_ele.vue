@@ -1,5 +1,5 @@
 <template>
-	<div class="image-ele" :style="[formatterStyle.wrect]">
+	<div class="image-ele" :style="[formatterStyle.wrect]" style="z-index:1;">
 		<div class="ani-stage">
 			<img class="reset-img" 
 				:class="{'ani': !!formatterStyle.eleAni.animation}"
