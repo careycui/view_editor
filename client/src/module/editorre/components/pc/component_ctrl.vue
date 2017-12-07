@@ -79,6 +79,12 @@
 					<el-button type="primary" size="mini" @click="copyCom">
 						<i class="fa fa-copy"></i>
 					</el-button>
+					<el-button type="primary" size="mini" @click="copyToClipboard" title="复制到粘贴板">
+						<i class="fa" :class="{'fa-clipboard': !!!copy_com, 'fa-check': !!copy_com}"></i>
+					</el-button>
+					<el-button type="primary" size="mini" @click="insertTo" :disabled="!!!copy_com" title="插入复制内容">
+						<i class="fa fa-indent"></i>
+					</el-button>
 					<el-button type="warning" icon="delete" size="mini" @click="deleteCom"></el-button>
 					<span class="children-panel__close" @click="toggleComsPanel">
 						<i class="el-icon-close"></i>
@@ -157,7 +163,8 @@ let _changeCopyChild = (content) => {
 		        	children: 'content'
 		      	},
 		      	curContainerKey: '',
-		      	comsPanelActive: false
+		      	comsPanelActive: false,
+		      	copy_com: ''
 			}
 		},
 		created () {
@@ -294,6 +301,46 @@ let _changeCopyChild = (content) => {
 		    	let content = copyCom.content;
 		    	let container = this._getContainer();
 		    	_changeCopyChild(content);
+		    	this.$store.dispatch('addCom', {com: copyCom, container: container}).then((obj) => {
+		    		this.$refs.tree.setSelected(obj.com);
+		    	});
+		    },
+		    copyToClipboard () {
+		    	if(this.copy_com){
+		    		this.copy_com = null;
+		    		return;
+		    	}
+		    	let comKey = this.currentComKey;
+		    	if(!comKey || comKey === this.curContainerKey){
+		    		Message({
+		    			showClose:true,
+			          	message: '未选中组件',
+			          	type: 'warning'
+		    		});
+		    		return false;
+		    	}
+		    	let com = this.$store.getters.getCurrentCom;
+		    	let copyCom = _copy(com);
+		    	let content = copyCom.content;
+		    	_changeCopyChild(content);
+
+		    	this.copy_com = copyCom;
+		    },
+		    insertTo (){
+		    	if(!!!this.copy_com){
+		    		return;
+		    	}
+		    	let comKey = this.currentComKey;
+		    	if(!comKey || comKey === this.curContainerKey || this.copy_com.$$key === comKey){
+		    		Message({
+		    			showClose:true,
+			          	message: '未选中组件容器',
+			          	type: 'warning'
+		    		});
+		    		return false;
+		    	}
+		    	let container = this._getContainer();
+		    	let copyCom = this.copy_com;
 		    	this.$store.dispatch('addCom', {com: copyCom, container: container}).then((obj) => {
 		    		this.$refs.tree.setSelected(obj.com);
 		    	});

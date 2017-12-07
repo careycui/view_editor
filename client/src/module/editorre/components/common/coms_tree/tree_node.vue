@@ -7,7 +7,8 @@
 	    <ul class="pl20 tree-box__ul" v-for="td in model.content"
 	    	v-show="isFolder"
 	    	v-if="model.content.length > 0" :key="td.key">
-	        <tree-node :model="td"></tree-node>
+	        <tree-node :model="td">
+	        </tree-node>
 	    </ul>
 	</li>
 </template>

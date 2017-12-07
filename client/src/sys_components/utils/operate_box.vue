@@ -2,19 +2,19 @@
 	<div class="operate-box" :class="{active: isActive, 'enable-drag': enableDrag}" :style="[style]" v-drag="proxyChangePos">
 		<div class="op-line op-line_t">
 			<div class="op-circle" v-drag-rect:top="proxyChangeRect"
-				v-if="currentCom.style.dragPosrect"></div>
+				v-if="currentCom.style.dragPosrect && currentCom.resize !== 'w'"></div>
 		</div>
 		<div class="op-line op-line_r">
 			<div class="op-circle" v-drag-rect:right="proxyChangeRect"
-				v-if="currentCom.style.dragPosrect"></div>
+				v-if="currentCom.style.dragPosrect && currentCom.resize !== 'h'"></div>
 		</div>
 		<div class="op-line op-line_b">
 			<div class="op-circle" v-drag-rect:bottom="proxyChangeRect"
-				v-if="currentCom.style.dragPosrect"></div>
+				v-if="currentCom.style.dragPosrect && currentCom.resize !== 'w'"></div>
 		</div>
 		<div class="op-line op-line_l">
 			<div class="op-circle" v-drag-rect:left="proxyChangeRect"
-				v-if="currentCom.style.dragPosrect"></div>
+				v-if="currentCom.style.dragPosrect && currentCom.resize !== 'h'"></div>
 		</div>
 	</div>
 </template>
@@ -151,12 +151,11 @@
 				}
 				this.currentCom.style.dragPosrect.top = oldt + pointer.y;
 			},
-			_setComRect (dis) {
-				this.currentCom.style.dragPosrect.top = this.style.top.replace(/px/g, '') * 1;
+			_setComRect (type, dis) {
 				this.currentCom.style.dragPosrect.width = this.style.width.replace(/px/g, '') * 1;
 				this.currentCom.style.dragPosrect.height = this.style.height.replace(/px/g, '') * 1;
 
-				if(dis){
+				if(type === 'left'){
 					let posType = this.currentCom.style.dragPosrect.posType;
 					if(posType === 'LEFT'){
 						this.currentCom.style.dragPosrect.LEFT.left = this.style.left.replace(/px/g, '') * 1;
@@ -166,6 +165,10 @@
 						this.currentCom.style.dragPosrect.CENTER.marginLeft = oldl + dis.disX;
 					}
 				}
+				if(type === 'top'){
+					let oldt = this.currentCom.style.dragPosrect.top;
+					this.currentCom.style.dragPosrect.top = oldt + dis.disY;
+				}
 			},
 			_topChange (dis) {
 				let h = this.style.height.replace(/px/g, '') * 1;
@@ -173,7 +176,7 @@
 				let t = this.style.top.replace(/px/g, '') * 1;
 				this.style.top = (t + dis.disY) + 'px';
 
-				this._setComRect();
+				this._setComRect('top', dis);
 			},
 			_rightChange (dis) {
 				let w = this.style.width.replace(/px/g, '') * 1;
@@ -193,7 +196,7 @@
 				let l = this.style.left.replace(/px/g, '') * 1;
 				this.style.left = (l + dis.disX ) + 'px';
 
-				this._setComRect(dis);
+				this._setComRect('left', dis);
 			},
 			proxyChangeRect (type, dis) {
 				this['_' + type + 'Change'](dis);
