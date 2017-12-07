@@ -232,20 +232,20 @@
 
 		&.op-line_t{
 			width: 100%;
-			top: -2px;
-			border-top: 2px dashed #20a0ff;
+			top: -1px;
+			border-top: 1px dashed #20a0ff;
 
 			& .op-circle{
 				@extend %circle;
-				top: -7px;
+				top: -6px;
 				left: 50%;
 				margin-left: -6px;
 			}
 		}
 		&.op-line_r{
 			height: 100%;
-			right: -2px;
-			border-left: 2px dashed #20a0ff;
+			right: -1px;
+			border-left: 1px dashed #20a0ff;
 
 			& .op-circle{
 				@extend %circle;
@@ -256,8 +256,8 @@
 		}
 		&.op-line_b{
 			width: 100%;
-			bottom: -2px;
-			border-top: 2px dashed #20a0ff;
+			bottom: -1px;
+			border-top: 1px dashed #20a0ff;
 
 			& .op-circle{
 				@extend %circle;
@@ -268,12 +268,12 @@
 		}
 		&.op-line_l{
 			height: 100%;
-			left: -2px;
-			border-left: 2px dashed #20a0ff;
+			left: -1px;
+			border-left: 1px dashed #20a0ff;
 
 			& .op-circle{
 				@extend %circle;
-				left: -7px;
+				left: -6px;
 				top: 50%;
 				margin-top: -6px;
 			}
