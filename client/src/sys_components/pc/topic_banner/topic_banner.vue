@@ -1,24 +1,27 @@
 <template>
-	<div class="pcontainer activity" :style="[formatterStyle.posRect, formatterStyle.bg]">
+	<div class="activity-banner"
+	:style="[formatterStyle.h]">
 		<slot></slot>
+		<img :src="data.bannerImg" v-if="data.bannerImg">
 	</div>
 </template>
 <script>
 import BASE from './../../utils/base'
+
 const formatter = BASE.formatter;
 
 	export default {
-		name: 'container',
+		name: 'topicBanner',
 		props:{
 			data:{
 				type: Object,
 				default () {
 					return {
 						id: '',
-						label: 'Container',
+						label: 'Topic Banner',
+						bannerImg: 'about:blank',
 						style:{
-							bg: BASE.bg(),
-							posRect: BASE.posRect()
+							height: 'auto'
 						}
 					}
 				}
@@ -27,15 +30,14 @@ const formatter = BASE.formatter;
 		computed: {
 			formatterStyle () {
 				let style = this.data.style;
-				style.bg = formatter.bgFormatter(style.bg);
-				style.posRect = formatter.posRectFormatter(style.posRect);
+				style.h = {
+					height: style.height === 'auto'?'auto':style.height + 'px'
+				}
 				return style;
 			}
 		}
 	}
 </script>
 <style lang="scss" scoped>
-	.pcontainer{
-		position: relative;
-	}
+
 </style>

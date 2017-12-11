@@ -6,6 +6,10 @@ import Banner from './banner/banner'
 import BannerEditor from './banner/banner_editor'
 import BannerConfig from  './banner/banner_config'
 
+import TopicBanner from './topic_banner/topic_banner'
+import TopicBannerEditor from './topic_banner/topic_banner_editor'
+import TopicBannerConfig from  './topic_banner/topic_banner_config'
+
 import BannerTitle from './banner_title/banner_title'
 import BannerTitleEditor from './banner_title/banner_title_editor'
 import BannerTitleConfig from  './banner_title/banner_title_config'
@@ -58,6 +62,18 @@ const ui_desc = [{
 	},
 	data () {
 		return BannerConfig.getData();
+	}
+}, {
+	comKey: 'topicBanner',
+	comObj: TopicBanner,
+	comEditorObj: TopicBannerEditor,
+	desc: {
+		label: '活动通栏图',
+		icon: 'fa-columns',
+		level: 1
+	},
+	data () {
+		return TopicBannerConfig.getData();
 	}
 }, {
 	comKey: 'bannerTitle',
