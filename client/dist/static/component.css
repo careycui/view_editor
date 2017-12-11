@@ -1,0 +1,126 @@
+.pcontainer{
+	position: relative;
+	width: 1920px;
+	min-height: 300px;
+	background-color: #fff;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-align: center;
+}
+.bg-img, .img{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.section{
+	position: relative;
+	width: 1920px;
+}
+.banner{
+	position: relative;
+	width: 1920px;
+	left: 50%;
+	margin-left: -960px;
+}
+.img-link, .image-ele, .btn-ele, .link-ele{
+	position: absolute;
+	display: inline-block;
+}
+.btn-ele button {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+  	border: none;
+  	background-color: transparent;
+  	outline: none;
+  	text-align: center;
+  	cursor: pointer;
+  	min-width: 32px;
+  	vertical-align: middle;
+  	color: #333;
+    -moz-transition: all 0.25s;
+    -o-transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+  	transition: all 0.25s;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+  	border-radius: 2px;
+}
+.img-link a{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.link-ele a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	background-image: url(about:blank);
+	vertical-align: middle;
+}
+.text-ele p{
+	margin: 0;
+	padding: 0;
+}
+.ani-stage{
+	height: 100%;
+	width: 100%;
+	-webkit-perspective: 500px;
+    -moz-perspective: 500px;
+    perspective: 500px;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: peserve-3d;
+    transform-style: preserve-3d;
+}
+.ani{
+	animation-play-state: paused;
+}
+.ani-ele{
+	-webkit-animation-fill-mode: both;
+  	-moz-animation-fill-mode: both;
+  	animation-fill-mode: both;
+}
+.ani-ele.active{
+	/*opacity: 1;*/
+}
+@keyframes resetAni{
+	0%,100%{
+		opacity: 0;
+	}
+}
+/* new css */
+.pwhole{
+	position: relative;
+	width: 100%;
+	min-height: 20px;
+}
+.pwhole img{
+	position: relative;
+	width: 1920px;
+	left: 50%;
+	margin-left: -960px;
+}
+.pwhole p{
+	margin: 0;
+}
+.text-ele{
+	z-index:1;
+}
+img{
+	display: block;
+	border: 0;
+}
+.pwhole .reset-img{
+	left: auto;
+	margin-left: auto;
+}
+.link-ele{
+	z-index: 1;
+}
+.link-ele a{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	background-image: url(about:blank);
+	vertical-align: middle;
+}

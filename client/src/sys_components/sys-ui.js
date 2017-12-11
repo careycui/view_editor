@@ -6,6 +6,10 @@ const COMS_TREE_LABELS = {
 		label: '布局',
 		icon: 'fa-cubes'
 	},
+	LEVEL_02: {
+		label: '组',
+		icon: 'fa-cubes'
+	},
 	LEVEL_1: {
 		label: '容器',
 		icon: 'fa-cube'

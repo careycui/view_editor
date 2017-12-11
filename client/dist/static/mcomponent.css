@@ -1,0 +1,18 @@
+.preview-mobile{
+	min-width: 320px;
+	max-width: 750px;
+	margin: 0 auto;
+}
+.m-container{
+	width: 100%;
+	min-height: 200px;
+}
+.m-banner{
+	width: 100%;
+	min-height: 100px;
+}
+.m-banner img{
+	display: block;
+	width: 100%;
+	border: 0;
+}

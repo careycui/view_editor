@@ -46,7 +46,7 @@ import BgPosition from './components/bg_position'
 				type: Object,
 				default (){
 					return {
-						backgroundColor: '#FFFFFF',
+						backgroundColor: 'transparent',
 						backgroundImage: '',
 						backgroundPosition: 'center center',
 						backgroundRepeat: 'no-repeat'
@@ -66,7 +66,7 @@ import BgPosition from './components/bg_position'
 		data () {
 			return {
 				data:{
-					backgroundColor: '#FFFFFF',
+					backgroundColor: 'transparent',
 					backgroundImage: '',
 					backgroundPosition: 'center center',
 					backgroundRepeat:'no-repeat',

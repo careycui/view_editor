@@ -96,7 +96,7 @@ import CInputNumber from './../../editor_components/input_num/input_num'
 						height: 400,
 						left: 0,
 						top: 0,
-						posType: 'LEFT',
+						posType: 'CENTER',
 						CENTER: {
 							left: '50%',
 							marginLeft: -100

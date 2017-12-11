@@ -1,5 +1,5 @@
 <template>
-	<div class="banner-panel">
+	<div class="topic-panel">
 		<el-tabs v-model="acitveTab">
 			<el-tab-pane label="内容&样式" name="style" class="editor-pane">
 				<div class="el-form-item">
@@ -76,7 +76,7 @@
 	}
 </script>
 <style lang="scss" scoped>
-	.banner-panel{
+	.topic-panel{
 		width: 100%;
 		background-color: #D3DCE6;
 		box-sizing: border-box;

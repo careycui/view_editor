@@ -61,7 +61,7 @@ import tinycolor from 'tinycolor2'
 			},
 			value: {
 				type: String,
-				default: '#FFFFFF'
+				default: 'transparent'
 			},
 			size: String,
 			baseColors: {
@@ -101,6 +101,16 @@ import tinycolor from 'tinycolor2'
 		watch:{
 			value (newVal) {
 				if(newVal === 'transparent'){
+					this.currentValue = {
+						hex: 'transparent',
+						rgba:{
+							r: 0,
+							g: 0,
+							b: 0,
+							a: 0
+						},
+						rgbas: 'rgb(0, 0, 0, 0)'
+					};
 					return;
 				}
 				let color = tinycolor(newVal);
@@ -157,12 +167,16 @@ import tinycolor from 'tinycolor2'
 			}
 		},
 		beforeMount () {
-			let color = tinycolor(this.value);
-			this.currentValue = {
-				hex: color.toHexString().toUpperCase(),
-				rgba: color.toRgb(),
-				rgbas: color.toRgbString()
-			};
+			if(this.value === 'transparent'){
+				this.setTransparent();
+			}else{
+				let color = tinycolor(this.value);
+				this.currentValue = {
+					hex: color.toHexString().toUpperCase(),
+					rgba: color.toRgb(),
+					rgbas: color.toRgbString()
+				};
+			}
 		}
 	}
 </script>

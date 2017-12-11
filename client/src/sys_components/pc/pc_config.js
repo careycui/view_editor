@@ -2,6 +2,10 @@ import Container from './container/container'
 import ContainerEditor from './container/container_editor'
 import ContainerConfig from  './container/container_config'
 
+import Section from './section_panel/section_panel'
+import SectionEditor from './section_panel/section_panel_editor'
+import SectionConfig from  './section_panel/section_panel_config'
+
 import Banner from './banner/banner'
 import BannerEditor from './banner/banner_editor'
 import BannerConfig from  './banner/banner_config'
@@ -51,6 +55,18 @@ const ui_desc = [{
 		return ContainerConfig.getData()
 	}
 
+}, {
+	comKey: 'sectionPanel',
+	comObj: Section,
+	comEditorObj: SectionEditor,
+	desc: {
+		label: '内容面板',
+		icon: 'fa-columns',
+		level: '02'
+	},
+	data () {
+		return SectionConfig.getData();
+	}
 }, {
 	comKey: 'banner',
 	comObj: Banner,

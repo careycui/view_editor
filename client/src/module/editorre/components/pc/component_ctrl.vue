@@ -224,6 +224,14 @@ let _changeCopyChild = (content) => {
 		      return this.$sys_coms;
 		    }
 		},
+		watch:{
+			currentComKey (n, o){
+				if(n !== o && this.$refs.tree){
+					let com = this.$store.getters.getCurrentCom;
+					this.$refs.tree.setSelected(com);
+				}
+			}
+		},
 		methods:{
 			handleCntrl () {
 				this.cntActive = !this.cntActive;
@@ -321,6 +329,7 @@ let _changeCopyChild = (content) => {
 		    	}
 		    	let com = this.$store.getters.getCurrentCom;
 		    	let copyCom = _copy(com);
+		    	copyCom.$$key = new Date().getTime();
 		    	let content = copyCom.content;
 		    	_changeCopyChild(content);
 
@@ -340,7 +349,7 @@ let _changeCopyChild = (content) => {
 		    		return false;
 		    	}
 		    	let container = this._getContainer();
-		    	let copyCom = this.copy_com;
+		    	let copyCom = _copy(this.copy_com);
 		    	this.$store.dispatch('addCom', {com: copyCom, container: container}).then((obj) => {
 		    		this.$refs.tree.setSelected(obj.com);
 		    	});
@@ -433,8 +442,10 @@ let _changeCopyChild = (content) => {
 		    	let coms = this.sysComs.LEVEL_1.coms;
 		    	let _this = this;
 		    	let com;
+		    	let pageType = this.$store.getters.getComType;
+
 		    	coms.some((c, i) => {
-		    		if(c.comKey === 'banner'){
+		    		if(c.comKey === (pageType==='pro'?'banner':'topicBanner')){
 		    			com = c;
 		    			return true;
 		    		}
@@ -449,15 +460,15 @@ let _changeCopyChild = (content) => {
 					    	data.$$level = com.desc.level;
 					    	data.bannerImg = img;
 
-					    	let imgObj = new Image();
-					    	imgObj.onload = () => {
-					    		imgObj.onload = null;
-					    		let w = imgObj.width;
-					    		let h = imgObj.height;
-						    	data.style.posRect.width = w;
-						    	data.style.posRect.height = h;
-					    	};
-					    	imgObj.src = img;
+					    	// let imgObj = new Image();
+					    	// imgObj.onload = () => {
+					    	// 	imgObj.onload = null;
+					    	// 	let w = imgObj.width;
+					    	// 	let h = imgObj.height;
+						    // 	data.style.posRect.width = w;
+						    // 	data.style.posRect.height = h;
+					    	// };
+					    	// imgObj.src = img;
 					    	_this.$store.dispatch('addCom', {com: data, container: container}).then((obj) => {
 					    		if(!container){
 					    			_this.curContainerKey = obj.curCon.$$key;

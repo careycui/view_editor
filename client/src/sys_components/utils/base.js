@@ -9,7 +9,7 @@ const isNum = (val) => {
 const bg = () => {
 	return {
 		backgroundImage: '',
-		backgroundColor: '#FFFFFF',
+		backgroundColor: 'transparent',
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center'
 	}
@@ -57,7 +57,7 @@ const dragPosrect = () => {
 		height: 100,
 		left: 500,
 		top: 0,
-		posType: 'LEFT',
+		posType: 'CENTER',
 		CENTER: {
 			left: '50%',
 			marginLeft: -100
@@ -90,6 +90,10 @@ const formatter = {
 			bgImg = 'url(about:blank)';
 		}
 		ibg.backgroundImage = bgImg;
+		let bgColor = ibg.backgroundColor;
+		if(bgColor === 'transparent'){
+			ibg.backgroundColor = '';
+		}
 		return ibg;
 	},
 	posRectFormatter (posRect) {
