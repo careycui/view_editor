@@ -124,3 +124,26 @@ img{
 	background-image: url(about:blank);
 	vertical-align: middle;
 }
+
+/* topic css */
+.activity {
+    position: relative
+}
+
+.activity img {
+    display: block
+}
+
+.activity-banner {
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden
+}
+
+.activity-banner .activity-img,.activity-banner>img {
+    position: relative;
+    top: 0;
+    left: 50%;
+    margin-left: -960px;
+    width: 1920px
+}
