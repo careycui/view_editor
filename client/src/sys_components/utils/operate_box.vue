@@ -1,5 +1,5 @@
 <template>
-	<div class="operate-box" :class="{active: isActive, 'enable-drag': enableDrag}" :style="[style]" v-drag="proxyChangePos">
+	<div class="operate-box" :class="{active: isActive, 'enable-drag': enableDrag, 'low-index':currentCom.$$level !== 0}" :style="[style]" v-drag="proxyChangePos">
 		<div class="op-line op-line_t">
 			<div class="op-circle" v-drag-rect:top="proxyChangeRect"
 				v-if="currentCom.style.dragPosrect && currentCom.resize !== 'w'"></div>
@@ -119,7 +119,7 @@
 		watch:{
 			currentCom:{
 				immediate: true,
-				handler (newVal){
+				handler (newVal, o){
 					this.$nextTick(() => {
 						let comKey = newVal.id;
 						let comDom = document.getElementById(comKey);
@@ -225,6 +225,9 @@
 
 		&.active{
 			display: block;
+		}
+		&.low-index{
+			z-index: 0;
 		}
 	}
 	.op-line{

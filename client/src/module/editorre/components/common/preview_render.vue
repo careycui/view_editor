@@ -3,7 +3,8 @@
 		:is="model.$$comKey"
 		:id="model.id"
 		:data="model | copyObj"
-		:ref="model.$$key">
+		:ref="model.$$key"
+		@dblclick.native.stop="setComActive">
 		<preview-render
 			:model="com"
 			:key="com.$$key"
@@ -25,6 +26,11 @@
 		  		}else{
 		  			return obj;
 		  		}
+	  		}
+	  	},
+	  	methods:{
+	  		setComActive (){
+	  			this.$store.dispatch('changeComKey', this.model.$$key);
 	  		}
 	  	}
 	}
