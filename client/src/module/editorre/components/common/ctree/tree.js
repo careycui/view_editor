@@ -153,7 +153,8 @@ class TreeModel{
 			data: {content: this.nodesData},
 			tree: this,
 			index: 0,
-			isRoot: true
+			isRoot: true,
+			level: 0
 		});
 
 		this.dragModel = new DragModel({
@@ -174,10 +175,7 @@ class TreeModel{
 		let treeNode = this.getNode(node);
 		this.currentNode = treeNode;
 		if(treeNode && treeNode.parent){
-			treeNode.parent.isOpen = true;
-			if(this.accordion){
-				this.collapseOthers(treeNode.parent);
-			}
+			treeNode.parent.expandNode();
 		}
 	}
 	setCurrentNode (node){

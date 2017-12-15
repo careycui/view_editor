@@ -28,6 +28,7 @@ const TopicPage = seq.define('topic_page', {
 	update_time: Sequelize.DATE,
 	page_data: Sequelize.TEXT,
 	html_data: Sequelize.TEXT,
+	css: Sequelize.TEXT,
 	concat_id: Sequelize.STRING
 },{
 	freezeTableName: true,

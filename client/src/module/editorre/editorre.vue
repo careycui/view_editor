@@ -46,6 +46,7 @@ export default {
           desc: data.desc,
           img_cover: data.img_cover,
           page_data: data.page_data,
+          css: data.css,
           t_type: data.t_type,
           platform_type: data.platform_type,
           page_type: data.page_type

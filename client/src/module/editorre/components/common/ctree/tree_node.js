@@ -5,6 +5,7 @@ class TreeNodeModel{
 		this.isOpen = false;
 		this.parent = null;
 		this.isLeaf = false;
+		this.level = 0;
 
 		for(let option in options){
 			if(options.hasOwnProperty(option)){
@@ -36,7 +37,8 @@ class TreeNodeModel{
 				parent: this,
 				tree: this.tree,
 				index: index,
-				data: data
+				data: data,
+				level: this.level + 1
 			});
 		}
 		if(index === undefined || index < 0){
@@ -52,19 +54,33 @@ class TreeNodeModel{
 		this.isFolder = (this.children && this.children.length>0);
 		this.key = (this.data.$$key || ++nodeCount);
 	}
-	toggle (){
-		this.isOpen = !this.isOpen;
-		if(this.isOpen){
-			this.expandNode();
+	expandNode (){
+		this.isOpen = true;
+		let parent = this.parent;
+		if(parent){
+			parent.expandNode();
+			if(this.tree.accordion){
+				parent.collapseOtherChild(this);
+			}
 		}
 	}
-	expandNode (){
-		if(this.tree.accordion){
-			this.tree.collapseOthers(this);
+	collapseOtherChild (child){
+		if(this.isLeaf){
+			return;
 		}
+		this.children.forEach((item) => {
+			if(item !== child){
+				item.collapseNode();
+			}
+		});
 	}
 	collapseNode (){
 		this.isOpen = false;
+		if(this.children){
+			this.children.forEach((node, i) => {
+				!(node.isLeaf) && node.collapseNode();
+			});
+		}
 	}
 	removeChildNode (node){
 		let target = null;

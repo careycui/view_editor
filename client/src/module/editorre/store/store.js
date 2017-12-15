@@ -73,6 +73,7 @@ const state = {
 		page_type: 0,
 		update_time: ''
 	},
+	css:'',
 	json:[],
 	currentComKey: '',
 	clientWidth: 375
@@ -80,6 +81,9 @@ const state = {
 const getters = {
 	getBaseData (state) {
 		return state.base;
+	},
+	getCss (state) {
+		return state.css
 	},
 	getComType (state) {
 		return state.base.t_type;
@@ -125,6 +129,7 @@ const mutations ={
 		state.base.t_type = obj.t_type;
 		state.base.platform_type = obj.platform_type;
 		state.base.page_type = obj.page_type;
+		state.css = obj.css;
 	},
 	SET_PAGE (state, obj) {
 		if(obj && obj.length>0){
@@ -153,6 +158,9 @@ const mutations ={
 	},
 	SET_CLIENT_WIDTH (state, obj) {
 		state.clientWidth = obj;
+	},
+	UPDATE_CSS (state, obj) {
+		state.css = obj;
 	}
 };
 const actions = {
@@ -272,6 +280,9 @@ const actions = {
 	},
 	setClientWidth ({commit}, obj) {
 		commit('SET_CLIENT_WIDTH', obj)
+	},
+	updateCss ({commit}, obj) {
+		commit('UPDATE_CSS', obj);
 	}
 }
 export default new Vuex.Store({

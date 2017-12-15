@@ -1,5 +1,6 @@
 <template>
 	<div class="preview-mobile" id="preview">
+		<div v-html="extraCss" v-if="extraCss"></div>
 		<preview-render
       		:model="com"
       		:key="com.$$key"
@@ -22,6 +23,9 @@ import PreviewRender from './../common/preview_render'
 			},
 			currentComKey (){
 				return this.$store.getters.getCurrentComKey;
+			},
+			extraCss () {
+				return this.$store.getters.getCss;
 			}
 		},
 	  	filters: {

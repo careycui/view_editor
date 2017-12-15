@@ -1,7 +1,7 @@
 <template>
   <div id="editor-inner" v-window="getWindow">
     <div class="top-bar">
-      <top-bar @openCode="openCode" :innerHtml='html' @savePage="savePage" @openBaseData="openBaseData" @openPreview="openPreview"></top-bar>
+      <top-bar @openCode="openCode" :innerHtml='html' @savePage="savePage" @openBaseData="openBaseData" @openPreview="openPreview" @openGlobal="openGlobal"></top-bar>
     </div>
     <component-ctrl></component-ctrl>
     <control-panel></control-panel>
@@ -10,7 +10,6 @@
       <div class="mobile-inner" :style="[client]">
         <preview-panel :style="[client]"></preview-panel>
       </div>
-      <!-- <div class="mobile-after" :style="[client]"></div> -->
     </div>
     <scale-ctrl></scale-ctrl>
     <lines :line="line" :wrect="wrect"></lines>
@@ -72,6 +71,17 @@
           <el-button type="primary" @click="submitBase">确 定</el-button>
         </div>
     </el-dialog>
+    <el-dialog title="页面全局设置" size="small" custom-class="dialog-size" :visible.sync="globalView">
+      <el-row>
+        <el-col>
+          <el-input type="textarea" :rows="20" :value="extraCss" v-model="newCss"></el-input>
+        </el-col>
+      </el-row>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="globalView = false">取 消</el-button>
+        <el-button type="primary" @click="updateCss">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -119,6 +129,8 @@ export default {
       baseDialogVisible: false,
       html: '',
       isPreview: false,
+      globalView: false,
+      newCss: '',
       client:{
         width: '375px',
         height: '603px'
@@ -134,6 +146,14 @@ export default {
     },
     clientWidth () {
       return this.$store.getters.clientWidth;
+    },
+    extraCss: {
+      set (newVal){
+        this.$store.dispatch('updateCss', newVal);
+      },
+      get (){
+        return this.$store.getters.getCss;
+      }
     }
   },
   watch:{
@@ -176,6 +196,7 @@ export default {
       this.setHtml();
       let htmlData = JSON.stringify(this.html);
       let pageData = JSON.stringify(this.$store.getters.getPageData);
+      let css = this.$store.getters.getCss;
       let type = this.baseData.t_type;
       let id = this.baseData.id;
 
@@ -185,7 +206,8 @@ export default {
         data: {
           id: id,
           html_data: htmlData,
-          page_data: pageData
+          page_data: pageData,
+          css: css
         },
         responseType: 'json'
       }).then(function(res){
@@ -221,6 +243,13 @@ export default {
     },
     openBaseData () {
       this.baseDialogVisible = !this.baseDialogVisible;
+    },
+    openGlobal () {
+      this.globalView = true;
+    },
+    updateCss () {
+      this.globalView = false;
+      this.$store.dispatch('updateCss', this.newCss);
     },
     submitBase () {
       var _this = this;

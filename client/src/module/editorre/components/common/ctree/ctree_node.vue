@@ -3,7 +3,7 @@
 		<div class="tree-node__cnt"
 			@click.stop="nodeClick"
 			:class="{ active: tree.tree.currentNode === node }"
-			:style="{ lineHeight: tree.tree.getLineHeight()}"
+			:style="{ lineHeight: tree.tree.getLineHeight(), paddingLeft: ((node.level-1) * 25) + 'px'}"
 			draggable="true"
 			:data-key="node.key"
 			:drag-block="true"
@@ -20,7 +20,7 @@
 			<span class="tree-node__cnt-label">{{ node.data.label }}</span>
 		</div>
 		<div class="tree-node__children"
-			:style="{height: node.isOpen?openHeight:0}"
+			:style="{height: node.isOpen?'auto':0}"
 			v-if="isFolder">
 			<c-tree-node
 				:key="item.$$key"
@@ -41,6 +41,7 @@
 		},
 		data (){
 			return {
+				tree: null,
 				openHeight: 0
 			}
 		},
@@ -51,7 +52,11 @@
 		},
 		methods:{
 			toggleChildren (){
-				this.node.toggle();
+				if(this.node.isOpen){
+					this.node.collapseNode();
+				}else{
+					this.node.expandNode();
+				}
 			},
 			nodeClick (){
 				this.tree.tree.setCurrentNode(this.node);
@@ -86,6 +91,11 @@
 			if(this.node.children){
 				let h = this.node.children.length * this.tree.tree.lineHeight || 0;
 				this.openHeight = h + 'px';
+
+				// const $c = this.$el.querySelector('.tree-node__children');
+				// $c && ($c.addEventListener('transitionend', function(e){
+				// 	console.log(e.target.style.height);
+				// },false))
 			}
 		},
 		updated (){
@@ -99,7 +109,7 @@
 			if(parent.isTree){
 				this.tree = parent;
 			}else{
-				this.tree = parent.$parent;
+				this.tree = parent.tree;
 			}
 			if(this.node.children){
 				this.$watch('node.data.content', (n, o) => {
@@ -156,9 +166,5 @@
 	height: 0;
 	transition: all .35s .1s;
 	overflow: hidden;
-
-	& .tree-node__cnt{
-		padding-left: 25px;
-	}
 }
 </style>

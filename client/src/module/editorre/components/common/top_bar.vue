@@ -15,6 +15,9 @@
       </div>
     </el-col>
     <el-col class="top-bar__btn" :span="6" :offset="3">
+          <el-tooltip :open-delay="500" content="页面设置">
+            <button class="ys-btn ys-btn-sm ys-btn--c" @click="openGlobal"><i class="fa fa-cogs fa-2x"></i></button>
+          </el-tooltip>
           <el-tooltip :open-delay="500" content="导出HTML">
             <button class="ys-btn ys-btn-sm ys-btn--c" @click="openCodeDialog"><i class="fa fa-code fa-2x"></i></button>
           </el-tooltip>
@@ -57,6 +60,9 @@ export default {
 		},
     openBaseEditor () {
       this.$emit('openBaseData');
+    },
+    openGlobal () {
+      this.$emit('openGlobal');
     }
 	}
 }
