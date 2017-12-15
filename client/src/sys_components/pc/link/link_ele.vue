@@ -1,10 +1,10 @@
 <template>
-	<div class="link-ele ani-stage" :style="[formatterStyle.wrect, formatterStyle.bg]">
+	<div class="link-ele ani-stage" :style="[formatterStyle.wrect]">
 		<a :href="data.link"
 			:target="data.target"
 			:class="{'ani': !!formatterStyle.eleAni.animation}"
 			:data-animation="formatterStyle.eleAni.animation"
-			:style="[formatterStyle.ft,{animation: (formatterStyle.eleAni.isPlayed?formatterStyle.eleAni.animation: '')}]">
+			:style="[formatterStyle.ft, formatterStyle.bg,{animation: (formatterStyle.eleAni.isPlayed?formatterStyle.eleAni.animation: '')}]">
 			{{ data.text }}
 		</a>
 	</div>

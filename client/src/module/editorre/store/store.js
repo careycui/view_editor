@@ -147,6 +147,10 @@ const mutations ={
 		obj.parent.splice(obj.dragIndex, 1);
 		obj.parent.splice(obj.dropIndex, 0, obj.dragEle);
 	},
+	INSERT_SORT (state, obj) {
+		obj.dragParent.content.splice(obj.dragIndex, 1);
+		obj.toParent.content.splice(obj.toIndex, 0, obj.drag);
+	},
 	SET_CLIENT_WIDTH (state, obj) {
 		state.clientWidth = obj;
 	}
@@ -233,6 +237,38 @@ const actions = {
 			commit('SORT_COM', obj)
 			resolve(true);
 		});
+	},
+	insertSort ({commit, getters}, obj) {
+		return new Promise((resolve, reject) => {
+			const pageData = getters.getPageData;
+			const dragParent = _getCom(pageData, obj.dragParent.$$key) || _getParentCom(pageData, obj.drag.$$key);
+			const toParent = _getCom(pageData, obj.toParent.$$key) || _getParentCom(pageData, obj.to.$$key);
+			const drag = _getCom(pageData, obj.drag.$$key);
+
+			commit('INSERT_SORT', {
+				drag: drag,
+				dragParent: dragParent,
+				toParent: toParent,
+				dragIndex: obj.dragIndex,
+				toIndex: obj.toIndex
+			});
+		})
+	},
+	embedSort ({commit, getters}, obj) {
+		return new Promise((resolve, reject) => {
+			const pageData = getters.getPageData;
+			const dragParent = _getCom(pageData, obj.dragParent.$$key) || _getParentCom(pageData, obj.drag.$$key);
+			const toParent = _getCom(pageData, obj.toParent.$$key);
+			const drag = _getCom(pageData, obj.drag.$$key);
+
+			commit('INSERT_SORT', {
+				drag: drag,
+				dragParent: dragParent,
+				toParent: toParent,
+				dragIndex: obj.dragIndex,
+				toIndex: obj.toIndex
+			});
+		})
 	},
 	setClientWidth ({commit}, obj) {
 		commit('SET_CLIENT_WIDTH', obj)

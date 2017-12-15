@@ -100,11 +100,19 @@
 						v-for="cnt in currentChildComs.content"
 						v-dragging="{item: cnt, list: currentChildComs.content, group: '$$key-c'}">
 					</coms-tree> -->
-					<tree @nodeSelectedClick="nodeSelectedClick"
+					<!-- <tree @nodeSelectedClick="nodeSelectedClick"
 					  	:data="currentChildComs.content"
 					  	:strict="true"
 					  	ref="tree">
-			  	  	</tree>
+			  	  	</tree> -->
+			  	  	<c-tree
+			  	  		:data="currentChildComs.content"
+			  	  		:lineHeight="25"
+			  	  		:accordion="true"
+			  	  		@nodeClick="nodeSelectedClick"
+			  	  		@sortHandle="handleSort"
+			  	  		ref="tree">
+		  	  		</c-tree>
 				</div>
 				<div class="tree-box tree-box__empty" v-if="currentChildComs && currentChildComs.content.length<1">
 					<p>
@@ -125,6 +133,8 @@ import { Message } from 'element-ui'
 import UploadDialog from './../common/upload_base/index'
 
 import Tree from './../common/coms_tree/coms_tree'
+
+import CTree from './../common/ctree/ctree'
 
 let _copy = (obj) => {
 	let type = Object.prototype.toString.call(obj)
@@ -152,7 +162,7 @@ let _changeCopyChild = (content) => {
 	export default{
 		name: 'componentCtrl',
 		components:{
-			Tree
+			Tree, CTree
 		},
 		data () {
 			return {
@@ -226,9 +236,11 @@ let _changeCopyChild = (content) => {
 		},
 		watch:{
 			currentComKey (n, o){
-				if(n !== o && this.$refs.tree){
+				if(n !== o && this.$refs.tree && this.curContainerKey !== n){
 					let com = this.$store.getters.getCurrentCom;
-					this.$refs.tree.setSelected(com);
+					this.$nextTick(() => {
+						this.$refs.tree.setSelected(com);
+					});
 				}
 			}
 		},
@@ -256,8 +268,6 @@ let _changeCopyChild = (content) => {
 		    	this.$store.dispatch('addCom', {com: data, container: container}).then((obj) => {
 		    		if(!container){
 		    			this.curContainerKey = obj.curCon.$$key;
-		    		}else{
-		    			this.$refs.tree.setSelected(obj.com);
 		    		}
 		    	});
 		    },
@@ -310,7 +320,6 @@ let _changeCopyChild = (content) => {
 		    	let container = this._getContainer();
 		    	_changeCopyChild(content);
 		    	this.$store.dispatch('addCom', {com: copyCom, container: container}).then((obj) => {
-		    		this.$refs.tree.setSelected(obj.com);
 		    	});
 		    },
 		    copyToClipboard () {
@@ -351,7 +360,6 @@ let _changeCopyChild = (content) => {
 		    	let container = this._getContainer();
 		    	let copyCom = _copy(this.copy_com);
 		    	this.$store.dispatch('addCom', {com: copyCom, container: container}).then((obj) => {
-		    		this.$refs.tree.setSelected(obj.com);
 		    	});
 		    },
 		    _getContainer (){
@@ -420,7 +428,6 @@ let _changeCopyChild = (content) => {
 			          	message: '已删除当前组件',
 			          	type: 'warning'
 			        });
-			        this.$refs.tree.setSelected();
 		    	});
 		    },
 		    changeContainerKey (key){
@@ -484,6 +491,26 @@ let _changeCopyChild = (content) => {
 		    		return;
 		    	}
 		    	this.$store.dispatch('changeComKey', model.$$key);
+		    },
+		    handleSort (result){
+		    	if(result.type === 'insert'){
+		    		this.$store.dispatch('insertSort', {
+		    			dragIndex: result.dragIndex,
+		    			dragParent: result.dragParent,
+		    			drag: result.drag,
+		    			toIndex: result.toIndex,
+		    			toParent: result.toParent,
+		    			to: result.to
+		    		});
+		    	}else{
+		    		this.$store.dispatch('embedSort', {
+		    			dragIndex: result.dragIndex,
+		    			dragParent: result.dragParent,
+		    			drag: result.drag,
+		    			toIndex: result.toIndex,
+		    			toParent: result.toParent,
+		    		});
+		    	}
 		    }
 		}
 	}
