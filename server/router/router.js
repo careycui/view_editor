@@ -26,4 +26,12 @@ router.get('/pro/getPage/:id', Page.getProPage);
 
 router.get('/topic/getPage/:id', Page.getTopicPage);
 
+router.get('/pro/copy/:id', Page.copyProPage);
+
+router.get('/topic/copy:id', Page.copyTopicPage);
+
+router.get('/pro/delete/:id', Page.deleteProPage);
+
+router.get('/topic/delete:id', Page.deleteTopicPage);
+
 module.exports = router;

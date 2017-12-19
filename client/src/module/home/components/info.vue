@@ -1,6 +1,6 @@
 <template>
 	<transition>
-		<div class="project-body--box">
+		<div class="project-body--box" v-loading.body="loading">
 			<div class="project-body--title">
 				<h3>详情页-<small>{{ type }}</small></h3>
 			</div>
@@ -23,13 +23,13 @@
 		    						<el-button size="mini" class="bottom-bar--btn">
 		    							<i class="fa fa-sign-in bottom-bar--icon"></i>引入
 	    							</el-button>
-		    						<el-button size="mini" class="bottom-bar--btn">
+		    						<el-button size="mini" class="bottom-bar--btn" @click="copyPage(page)">
 		    							<i class="fa fa-copy bottom-bar--icon"></i>复制
 		    						</el-button>
 		    						<el-button size="mini" class="bottom-bar--btn">
 		    							<i class="fa fa-bar-chart bottom-bar--icon"></i>数据
 		    						</el-button>
-		    						<el-button icon="delete" size="mini" class="bottom-bar--btn">删除</el-button>
+		    						<el-button icon="delete" size="mini" class="bottom-bar--btn" @click="deletePage(page)">删除</el-button>
 		    					</div>
 		    					<div class="project-card--btns">
 		    						<span class="update-time">
@@ -74,13 +74,13 @@
 		    						<el-button size="mini" class="bottom-bar--btn">
 		    							<i class="fa fa-sign-in bottom-bar--icon"></i>引入
 	    							</el-button>
-		    						<el-button size="mini" class="bottom-bar--btn">
+		    						<el-button size="mini" class="bottom-bar--btn" @click="copyPage(page)">
 		    							<i class="fa fa-copy bottom-bar--icon"></i>复制
 		    						</el-button>
 		    						<el-button size="mini" class="bottom-bar--btn">
 		    							<i class="fa fa-bar-chart bottom-bar--icon"></i>数据
 		    						</el-button>
-		    						<el-button icon="delete" size="mini" class="bottom-bar--btn">删除</el-button>
+		    						<el-button icon="delete" size="mini" class="bottom-bar--btn" @click="deletePage(page)">删除</el-button>
 		    					</div>
 		    					<div class="project-card--btns">
 		    						<span class="update-time">
@@ -124,13 +124,13 @@
 		    						<el-button size="mini" class="bottom-bar--btn">
 		    							<i class="fa fa-sign-in bottom-bar--icon"></i>引入
 	    							</el-button>
-		    						<el-button size="mini" class="bottom-bar--btn">
+		    						<el-button size="mini" class="bottom-bar--btn" @click="copyPage(page)">
 		    							<i class="fa fa-copy bottom-bar--icon"></i>复制
 		    						</el-button>
 		    						<el-button size="mini" class="bottom-bar--btn">
 		    							<i class="fa fa-bar-chart bottom-bar--icon"></i>数据
 		    						</el-button>
-		    						<el-button icon="delete" size="mini" class="bottom-bar--btn">删除</el-button>
+		    						<el-button icon="delete" size="mini" class="bottom-bar--btn" @click="deletePage(page)">删除</el-button>
 		    					</div>
 		    					<div class="project-card--btns">
 		    						<span class="update-time">
@@ -170,14 +170,16 @@ export default{
 	methods : {
 		setPageList () {
 			var _this = this;
+			this.loading = true;
 			this.$http({
 				url: G.API.host + 'pro/index/'+ this.type,
 				method: 'GET',
 				responseType: 'json'
 			}).then(function(res){
 				_this.pageList = res.data;
+				_this.loading = false;
 			}, function(err){
-
+				_this.loading = false;
 			});
 		}
 	}

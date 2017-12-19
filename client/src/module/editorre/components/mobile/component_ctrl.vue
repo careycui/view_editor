@@ -437,7 +437,7 @@ let _changeCopyChild = (content) => {
 		    	let _this = this;
 		    	let com;
 		    	coms.some((c, i) => {
-		    		if(c.comKey === 'banner'){
+		    		if(c.comKey === 'mBanner'){
 		    			com = c;
 		    			return true;
 		    		}

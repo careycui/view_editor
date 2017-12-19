@@ -2,7 +2,8 @@ var PAGE_MIXIN = {
 	data () {
 		return {
 			activeName: 'all',
-			pageList: ''
+			pageList: '',
+			loading: false
 		}
 	},
 	beforeRouteEnter (to, from, next) {
@@ -67,6 +68,34 @@ var PAGE_MIXIN = {
 		},
 		openEditDialog (page) {
 			this.$emit('openBase',page);
+		},
+		copyPage (page) {
+			var _this = this;
+			this.loading = true;
+			this.$http({
+				url: G.API.host + page.t_type + '/copy/'+ page.id,
+				method: 'GET',
+				responseType: 'json'
+			}).then(function(res){
+				_this.loading = false;
+				_this.setPageList();
+			}, function(err){
+				_this.loading = false;
+			});
+		},
+		deletePage (page) {
+			var _this = this;
+			this.loading = true;
+			this.$http({
+				url: G.API.host + page.t_type + '/delete/'+ page.id,
+				method: 'GET',
+				responseType: 'json'
+			}).then(function(res){
+				_this.loading = false;
+				_this.setPageList();
+			}, function(err){
+				_this.loading = false;
+			});
 		},
 		goPreview (page) {
 			this.$emit('openPreview', page);

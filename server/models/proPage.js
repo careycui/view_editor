@@ -29,7 +29,11 @@ const ProPage = seq.define('pro_page', {
 	page_data: Sequelize.TEXT,
 	html_data: Sequelize.TEXT,
 	css: Sequelize.TEXT,
-	concat_id: Sequelize.STRING
+	concat_id: Sequelize.STRING,
+	trash: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0
+	}
 },{
 	freezeTableName: true,
 	timestamps: false
