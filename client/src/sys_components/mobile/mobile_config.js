@@ -14,6 +14,10 @@ import MText from './mtext/text_ele'
 import MTextEditor from './mtext/text_ele_editor'
 import MTextConfig from  './mtext/text_ele_config'
 
+import MLink from './mlink/mlink'
+import MLinkEditor from './mlink/mlink_editor'
+import MLinkConfig from  './mlink/mlink_config'
+
 /**
  * 基础组件描述对象
  * 	comObj 组件对象
@@ -77,6 +81,19 @@ const ui_desc = [{
 	},
 	data () {
 		return MTextConfig.getData()
+	}
+
+}, {
+	comKey: 'mlink',
+	comObj: MLink,
+	comEditorObj: MLinkEditor,
+	desc: {
+		label: '百分比链接',
+		icon: 'fa-link',
+		level: 0
+	},
+	data () {
+		return MLinkConfig.getData()
 	}
 
 }];
