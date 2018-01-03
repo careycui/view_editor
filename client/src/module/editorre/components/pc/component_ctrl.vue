@@ -467,15 +467,17 @@ let _changeCopyChild = (content) => {
 					    	data.$$level = com.desc.level;
 					    	data.bannerImg = img;
 
-					    	// let imgObj = new Image();
-					    	// imgObj.onload = () => {
-					    	// 	imgObj.onload = null;
-					    	// 	let w = imgObj.width;
-					    	// 	let h = imgObj.height;
-						    // 	data.style.posRect.width = w;
-						    // 	data.style.posRect.height = h;
-					    	// };
-					    	// imgObj.src = img;
+					    	let imgObj = new Image();
+					    	imgObj.onload = () => {
+					    		imgObj.onload = null;
+					    		let w = imgObj.width;
+					    		let h = imgObj.height;
+						    	if(data.style.posRect){
+							    	data.style.posRect.width && (data.style.posRect.width = w);
+							    	data.style.posRect.height && (data.style.posRect.height = h);
+					    		}
+					    	};
+					    	imgObj.src = img;
 					    	_this.$store.dispatch('addCom', {com: data, container: container}).then((obj) => {
 					    		if(!container){
 					    			_this.curContainerKey = obj.curCon.$$key;

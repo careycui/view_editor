@@ -74,7 +74,7 @@
     <el-dialog title="页面全局设置" size="small" custom-class="dialog-size" :visible.sync="globalView">
       <el-row>
         <el-col>
-          <el-input type="textarea" :rows="20" :value="extraCss" v-model="newCss"></el-input>
+          <el-input type="textarea" :rows="15" v-model="newCss"></el-input>
         </el-col>
       </el-row>
       <div slot="footer" class="dialog-footer">
@@ -147,14 +147,12 @@ export default {
     clientWidth () {
       return this.$store.getters.clientWidth;
     },
-    extraCss: {
-      set (newVal){
-        this.$store.dispatch('updateCss', newVal);
-      },
-      get (){
-        return this.$store.getters.getCss;
-      }
+    extraCss () {
+      return this.$store.getters.getCss;
     }
+  },
+  mounted (){
+    this.newCss = this.extraCss;
   },
   watch:{
     clientWidth (n, o) {

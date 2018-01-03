@@ -457,8 +457,10 @@ let _changeCopyChild = (content) => {
 					    		imgObj.onload = null;
 					    		let w = imgObj.width;
 					    		let h = imgObj.height;
-						    	data.style.posRect.width = w;
-						    	data.style.posRect.height = h;
+						    	if(data.style.posRect){
+							    	data.style.posRect.width && (data.style.posRect.width = w);
+							    	data.style.posRect.height && (data.style.posRect.height = h);
+					    		}
 					    	};
 					    	imgObj.src = img;
 					    	_this.$store.dispatch('addCom', {com: data, container: container}).then((obj) => {
