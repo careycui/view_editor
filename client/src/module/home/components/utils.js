@@ -2,7 +2,7 @@ var PAGE_MIXIN = {
 	data () {
 		return {
 			activeName: 'all',
-			pageList: '',
+			pageList: [],
 			loading: false
 		}
 	},
@@ -49,9 +49,6 @@ var PAGE_MIXIN = {
 			}
 			return list;
 		},
-		goEditor (id,type) {
-			window.location.href="/module/editorre.html?key="+id+'&t_type='+type;
-		},
 		handleCommand (page) {
 			var type = event.target.type;
 			if(type === 'set'){
@@ -61,10 +58,6 @@ var PAGE_MIXIN = {
 		handleTabClick (tab) {
 			let clazz = tab.$el.className;
 			tab.$el.className = clazz + ' active';
-		},
-		jumpToCreat () {
-			this.activeName = '';
-			this.$router.push('/create');
 		},
 		openEditDialog (page) {
 			this.$emit('openBase',page);

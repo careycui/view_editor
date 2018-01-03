@@ -1,5 +1,5 @@
 <template>
-	<transition>
+	<transition name="fade-bottom">
 		<div class="project-body--box">
 			<div class="project-body--title">
 				<h3>创建页面</h3>

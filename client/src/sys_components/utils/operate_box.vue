@@ -152,22 +152,30 @@
 				this.currentCom.style.dragPosrect.top = oldt + pointer.y;
 			},
 			_setComRect (type, dis) {
-				this.currentCom.style.dragPosrect.width = this.style.width.replace(/px/g, '') * 1;
-				this.currentCom.style.dragPosrect.height = this.style.height.replace(/px/g, '') * 1;
-
-				if(type === 'left'){
-					let posType = this.currentCom.style.dragPosrect.posType;
-					if(posType === 'LEFT'){
-						this.currentCom.style.dragPosrect.LEFT.left = this.style.left.replace(/px/g, '') * 1;
-					}
-					if(posType === 'CENTER'){
-						let oldl = this.currentCom.style.dragPosrect.CENTER.marginLeft;
-						this.currentCom.style.dragPosrect.CENTER.marginLeft = oldl + dis.disX;
+				if(type === 'left' || type === 'right'){
+					this.currentCom.style.dragPosrect.width = this.style.width.replace(/px/g, '') * 1;
+					if(type === 'left'){
+						let posType = this.currentCom.style.dragPosrect.posType;
+						if(posType === 'LEFT'){
+							this.currentCom.style.dragPosrect.LEFT.left = this.style.left.replace(/px/g, '') * 1;
+						}
+						if(posType === 'CENTER'){
+							let oldl = this.currentCom.style.dragPosrect.CENTER.marginLeft;
+							this.currentCom.style.dragPosrect.CENTER.marginLeft = oldl + dis.disX;
+						}
 					}
 				}
-				if(type === 'top'){
-					let oldt = this.currentCom.style.dragPosrect.top;
-					this.currentCom.style.dragPosrect.top = oldt + dis.disY;
+				if(type === 'top' || type === "bottom"){
+					let hType = this.currentCom.resize;
+					if(hType && hType.indexOf('lh') > -1){
+						this.currentCom.style.ft.lineHeight = this.style.height.replace(/px/g, '') * 1;
+					}else{
+						this.currentCom.style.dragPosrect.height = this.style.height.replace(/px/g, '') * 1;
+					}
+					if(type === 'top'){
+						let oldt = this.currentCom.style.dragPosrect.top;
+						this.currentCom.style.dragPosrect.top = oldt + dis.disY;
+					}
 				}
 			},
 			_topChange (dis) {
@@ -182,13 +190,13 @@
 				let w = this.style.width.replace(/px/g, '') * 1;
 				this.style.width = (w + dis.disX) + 'px';
 
-				this._setComRect();
+				this._setComRect('right');
 			},
 			_bottomChange (dis) {
 				let h = this.style.height.replace(/px/g, '') * 1;
 				this.style.height = (h + dis.disY) + 'px';
 
-				this._setComRect();
+				this._setComRect('bottom');
 			},
 			_leftChange (dis) {
 				let w = this.style.width.replace(/px/g, '') * 1;

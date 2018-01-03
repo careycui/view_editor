@@ -446,4 +446,18 @@
 		background-color: transparent;
 		color: #fff;
 	}
+	.fade-bottom-enter-active{
+		transition: all .5s;
+		transform-origin: right top;
+	}
+	.fade-bottom-leave-active{
+		transition: all .5s;
+		transform-origin: right top;
+	}
+	.fade-bottom-enter{
+		transform: translate(0, 40px);
+	}
+	.fade-bottom-leave-to{
+		transform: scale(0, 40px);
+	}
 </style>

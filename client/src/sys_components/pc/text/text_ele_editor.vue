@@ -45,6 +45,16 @@
 			return {
 				acitveTab: 'style'
 			}
+		},
+		computed:{
+			label () {
+				return this.data.text;
+			}
+		},
+		watch:{
+			label (n) {
+				this.data.label = n;
+			}
 		}
 	}
 </script>
