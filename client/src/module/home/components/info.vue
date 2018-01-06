@@ -11,6 +11,7 @@
 		    				@copyPage="copyPage"
 		    				@deletePage="deletePage"
 		    				@openEditDialog="openEditDialog"
+		    				@appendToFolder="appendToFolder"
 		    				@goPreview="goPreview">
 	    				</page-list>
 		    		</el-tab-pane>
@@ -19,6 +20,7 @@
 		    				@copyPage="copyPage"
 		    				@deletePage="deletePage"
 		    				@openEditDialog="openEditDialog"
+		    				@appendToFolder="appendToFolder"
 		    				@goPreview="goPreview">
 	    				</page-list>
 			    	</el-tab-pane>
@@ -27,6 +29,7 @@
 		    				@copyPage="copyPage"
 		    				@deletePage="deletePage"
 		    				@openEditDialog="openEditDialog"
+		    				@appendToFolder="appendToFolder"
 		    				@goPreview="goPreview">
 	    				</page-list>
 			    	</el-tab-pane>

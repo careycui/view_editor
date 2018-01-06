@@ -56,7 +56,7 @@ Vue.use(Upload);
 Vue.config.productionTip = false
 Vue.prototype.$http = axios;
 const routes = [
-	{ path: '/', component: Info },
+	{ path: '/', redirect: '/info/pc' },
   	{ path: '/info/:type', component: Info },
   	{ path: '/topic/:type', component: Topic },
   	{ path: '/create', component: Create },

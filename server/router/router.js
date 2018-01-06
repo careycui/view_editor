@@ -1,5 +1,6 @@
 const Router = require('koa-router');
 const Page = require('./../apis/pageRelated.js');
+const Folder = require('./../apis/foldersRelated.js');
 const router = new Router();
 
 router.get('/', async (ctx, next) => {
@@ -33,5 +34,17 @@ router.get('/topic/copy:id', Page.copyTopicPage);
 router.get('/pro/delete/:id', Page.deleteProPage);
 
 router.get('/topic/delete:id', Page.deleteTopicPage);
+
+router.post('/pro/appendto/folder', Page.proAppendFolder);
+
+router.post('/topic/appendto/folder', Page.topicAppendFolder);
+
+router.get('/folder/get/:type', Folder.getFolderByType);
+
+router.post('/folder/create', Folder.createFolder);
+
+router.post('/folder/update', Folder.updateFolder);
+
+router.post('/folder/delete', Folder.updateFolder);
 
 module.exports = router;

@@ -90,6 +90,22 @@ var PAGE_MIXIN = {
 				_this.loading = false;
 			});
 		},
+		appendToFolder (page){
+			var _this = this;
+			this.loading = true;
+			console.log('11111111111');
+			this.$http({
+				url: G.API.host + page.t_type + '/appendto/folder',
+				method: 'POST',
+				data: {page_id: page.id, folder_id: 'da9e2441-e21f-42d5-ae37-653a7425894e'},
+				responseType: 'json'
+			}).then(function(res){
+				_this.loading = false;
+				_this.setPageList();
+			}, function(err){
+				_this.loading = false;
+			});
+		},
 		goPreview (page) {
 			this.$emit('openPreview', page);
 		}

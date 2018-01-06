@@ -30,6 +30,7 @@ const ProPage = seq.define('pro_page', {
 	html_data: Sequelize.TEXT,
 	css: Sequelize.TEXT,
 	concat_id: Sequelize.STRING,
+	folder_id: Sequelize.STRING,
 	trash: {
 		type: Sequelize.INTEGER,
 		defaultValue: 0
@@ -39,7 +40,6 @@ const ProPage = seq.define('pro_page', {
 	timestamps: false
 });
 ProPage.hasOne(ProPage, {foreignKey: 'concat_id', as: 'otherPlatform'});
-
 // ProPage.create({
 // 	title: 'Mobile',
 // 	desc: 'Mobile',

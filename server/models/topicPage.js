@@ -30,6 +30,7 @@ const TopicPage = seq.define('topic_page', {
 	html_data: Sequelize.TEXT,
 	css: Sequelize.TEXT,
 	concat_id: Sequelize.STRING,
+	folder_id: Sequelize.STRING,
 	trash: {
 		type: Sequelize.INTEGER,
 		defaultValue: 0

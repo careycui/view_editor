@@ -12,8 +12,8 @@
 			</div>
 			<div class="bottom-bar">
 				<el-button icon="setting" size="mini" class="bottom-bar--btn" @click="openEditDialog(page)">设置</el-button>
-				<el-button size="mini" class="bottom-bar--btn">
-					<i class="fa fa-sign-in bottom-bar--icon"></i>引入
+				<el-button size="mini" class="bottom-bar--btn" @click="appendToFolder(page)">
+					<i class="fa fa-sign-in bottom-bar--icon"></i>移入
 				</el-button>
 				<el-button size="mini" class="bottom-bar--btn" @click="copyPage(page)">
 					<i class="fa fa-copy bottom-bar--icon"></i>复制
@@ -59,6 +59,9 @@
 		methods:{
 			openEditDialog (page){
 				this.$emit('openEditDialog',page);
+			},
+			appendToFolder (page){
+				this.$emit('appendToFolder', page);
 			},
 			copyPage (page){
 				this.$emit('copyPage', page);

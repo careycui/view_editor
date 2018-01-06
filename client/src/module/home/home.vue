@@ -14,22 +14,22 @@
 						</el-button>
 					</div>
 					<hr style="border-top:1px solid #475669;">
-					<el-menu :default-active="activeName" class="el-menu-vertical-demo" theme="dark" :router="true" @select="hangdleSelect">
+					<el-menu :default-active="activeName" :unique-opened="true" class="el-menu-vertical-demo" theme="dark" :router="true" @select="hangdleSelect">
 						<el-submenu index="1">
 							<template slot="title"><i class="el-icon-menu"></i>详情页</template>
-							<el-menu-item index="/info/pc" router="/info">
+							<el-menu-item index="/info/pc" :route="{path:'/info/pc'}">
 								<i class="el-icon-document"></i>PC
 							</el-menu-item>
-							<el-menu-item index="/info/mobile" router="/info">
+							<el-menu-item index="/info/mobile" :route="{path:'/info/mobile'}">
 								<i class="el-icon-document"></i>Mobile
 							</el-menu-item>
 						</el-submenu>
 						<el-submenu index="2">
 							<template slot="title"><i class="el-icon-menu"></i>专题活动页</template>
-							<el-menu-item index="/topic/pc" router="/topic">
+							<el-menu-item index="/topic/pc" :route="{path:'/topic/pc'}">
 								<i class="el-icon-document"></i>PC
 							</el-menu-item>
-							<el-menu-item index="/topic/mobile" router="/topic">
+							<el-menu-item index="/topic/mobile" :route="{path:'/topic/mobile'}">
 								<i class="el-icon-document"></i>Mobile
 							</el-menu-item>
 						</el-submenu>
@@ -38,16 +38,37 @@
 								<i class="el-icon-menu"></i>
 								素材库
 							</template>
-							<el-menu-item index="/assetimg" router="/assetimg">
+							<el-menu-item index="/assetimg" :route="{path:'/assetimg'}">
 								<i class="el-icon-picture"></i>
 								图片
 							</el-menu-item>
-								<el-menu-item index="/assettmp" router="/assettmp">
+								<el-menu-item index="/assettmp" :route="{path:'/assettmp'}">
 								<i class="el-icon-document"></i>
 								模板
 							</el-menu-item>
 						</el-submenu>
 				    </el-menu>
+				    <hr style="border-top:1px solid #475669;">
+				    <div v-if="page_type">
+					    <div class="folders">
+					    	<div class="folders-title">
+					    		{{ page_type==='pro'?'详情页':'专题' }}
+					    	</div>
+					    	<ul class="folders-list el-menu el-menu-vertical-demo el-menu--dark">
+					    		<li class="folders-list__item el-menu-item" v-for="folder in folders">
+					    			<i class="fa fa-folder-o el-icon"></i>
+					    			{{ folder.name }}
+					    			<i class="el-icon-delete" @click.stop="deleteFolder(folder)"></i>
+					    			<i class="el-icon-setting" @click.stop="folderSetting(folder)"></i>
+					    		</li>
+					    	</ul>
+					    </div>
+						<div class="project-bar--btns">
+							<el-button class="dashed-btn" icon="plus" @click="addFolder">
+								创建文件夹
+							</el-button>
+						</div>
+				    </div>
 				</div>
 			</el-col>
 			<el-col :xs="24" :sm="19" :md="20" :lg="20" class="project-body">
@@ -95,15 +116,14 @@
 			<div slot="footer" class="dialog-footer">
 			    <el-button @click="baseDialogVisible = false">取 消</el-button>
 			    <el-button type="primary" @click="submitBase">确 定</el-button>
-			  </div>
+		  	</div>
 		</el-dialog>
 		<preview :visible="isPreview" :srcdoc="html" @updateVisible="updateVisible" :pt="viewPt"></preview>
 	</div>
 </template>
 <script>
 	import Preview from './components/preview_dialog'
-	import { Message } from 'element-ui'
-
+	import { Message,MessageBox } from 'element-ui'
 	export default {
 		name: 'home',
 		components:{
@@ -117,16 +137,45 @@
 				loading: false,
 				isPreview: false,
 				html: '',
-				viewPt: 0
+				viewPt: 0,
+				folders:[],
+				page_type: 'pro'
+			}
+		},
+		watch:{
+			page_type (n, o){
+				if(n && n !== o){
+					this.setFolders(n);
+				}
 			}
 		},
 		beforeMount () {
 			this.activeName = this.$route.path;
+			let path = this.$route.path;
+	    	let type = path.indexOf('info')>-1?'pro':(path.indexOf('topic')>-1?'topic':'');
+	    	this.page_type = type;
+		},
+		mounted (){
+			if(this.page_type){
+				this.setFolders(this.page_type);
+			}
 		},
 		methods : {
+			setFolders (type){
+				let _this = this;
+				this.$http({
+					url: G.API.host + 'folder/get/' + type,
+						method: 'GET',
+						responseType: 'json'
+					}).then(function(res){
+						_this.folders = res.data;
+					}, function(err,xhr){
+
+					});
+			},
 			hangdleSelect (index, indexPath) {
-				console.log(index, this.$route.path);
 				this.activeName = index;
+				this.page_type = indexPath[1].indexOf('info')>-1?'pro':(indexPath[1].indexOf('topic')>-1?'topic':'');
 			},
 			openPage () {
 				this.activeName = '';
@@ -199,6 +248,143 @@
 			},
 		    updateVisible (val) {
 		      this.isPreview = val;
+		    },
+		    addFolder (){
+		    	let type = this.page_type;
+
+		    	let _this = this;
+		    	MessageBox.prompt('请输入文件夹名称', '提示', {
+		    		confirmButtonText: '确定',
+		    		cancelButtonText: '取消'
+		    	}).then(({value}) => {
+		    		_this.$http({
+						url: G.API.host +'folder/create',
+						method: 'POST',
+						data:{name:value,type:type},
+						responseType: 'json'
+					}).then(function(res){
+						_this.folders.push(res.data);
+					}, function(err,xhr){
+						Message({
+							message: '创建文件夹失败,请稍后再试',
+							showClose: true,
+							type: 'error'
+						});
+					});
+		    	}).catch(() => {
+
+		    	});
+		    	
+		    },
+		    deleteFolder (folder){
+		    	const _this = this;
+		    	MessageBox.confirm('确定删除该文件夹？', '提示', {
+		    		confirmButtonText: '确定',
+		    		cancelButtonText: '取消',
+		    		type: 'warning'
+		    	}).then(({value}) => {
+		    		_this.$http({
+							url: G.API.host +'folder/delete',
+							method: 'POST',
+							data:{id:folder.id, trash: 0},
+							responseType: 'json'
+						}).then(function(res){
+							_this.setFolders(_this.page_type);
+							Message({
+				    			type: 'success',
+				    			message: '删除成功'
+				    		});
+						}, function(err,xhr){
+							Message({
+								message: '删除失败',
+								showClose: true,
+								type: 'error'
+							});
+						});
+		    		
+		    	}).catch(() => {
+		    		
+		    	});
+		    },
+		    folderSetting (folder){
+		    	const h = this.$createElement;
+		    	const _this = this;
+		    	let tmpName = folder.name;
+		    	MessageBox({
+		    		title: '文件夹编辑',
+		    		message: h(
+		    			'div',
+		    			{
+		    				class:{
+		    					'el-form-item': true
+		    				},
+		    				style:{
+		    					marginBottom: 0
+		    				}
+		    			},[
+		    				h('label',
+		    					{
+		    						class:{
+		    							'el-form-item__label':true
+		    						},
+		    						style:{
+		    							width:'60px'
+		    						}
+		    					},
+		    					 '文件名'),
+		    				h('div',{
+		    						 class:{
+		    							'el-form-item__content':true
+		    						},
+		    						style:{
+		    							marginLeft: '60px'
+		    						}
+		    				},[
+			    				h('input', 
+			    					{
+			    						class:{
+			    							'el-input__inner': true
+			    						},
+			    						domProps:{
+			    							value: folder.name
+			    						},
+			    						on: {
+								      			input: function (value) {
+									        		tmpName = event.target.value
+							     	 			}
+									    }
+			    					},
+			    					null
+			    				)
+		    					])
+		    			]
+	    			),
+	    			showCancelButton: true,
+		    		confirmButtonText: '确定',
+		    		cancelButtonText: '取消'
+		    	}).then((value) => {
+		    		if(tmpName !== folder.name){
+		    			_this.$http({
+							url: G.API.host +'folder/update',
+							method: 'POST',
+							data:{id:folder.id, name:tmpName, type:folder.type},
+							responseType: 'json'
+						}).then(function(res){
+							folder.name = tmpName;
+						}, function(err,xhr){
+							Message({
+								message: '更新文件夹失败,请稍后再试',
+								showClose: true,
+								type: 'error'
+							});
+						});
+		    		}
+		    	}).catch(() => {
+		    		tmpName = '';
+		    	});
+		    },
+		    submitFolder (){
+
 		    }
 		}
 	}
@@ -223,6 +409,7 @@
 
 		& .project-bar{
 			height: 100%;
+			overflow-y: auto;
 			background-color: #324157;
 
 			& .project-bar--box{
@@ -442,9 +629,22 @@
 	.bottom-bar--icon{
 		margin-right: 5px;
 	}
-	.plain-btn{
+	.el-button.plain-btn{
 		background-color: transparent;
 		color: #fff;
+	}
+	.el-button.dashed-btn{
+		margin-top: 40px;
+		width: 80%;
+		border-radius: 0;
+		border: 1px dashed #607d8b;
+		background-color: transparent;
+		color: #607d8b;
+	}
+	.el-icon{
+		margin-right: 5px;
+		width: 24px;
+		text-align: center;
 	}
 	.fade-bottom-enter-active{
 		transition: all .5s;
@@ -459,5 +659,24 @@
 	}
 	.fade-bottom-leave-to{
 		transform: scale(0, 40px);
+	}
+	.folders-title{
+		padding-left: 20px;
+		height: 56px;
+		line-height: 56px;
+		vertical-align: middle;
+		color: #bfcbd9;
+	}
+	.folders-list__item{
+		& .el-icon-setting, & .el-icon-delete{
+		    position: absolute;
+		    right: 20px;
+		    top: 50%;
+		    margin-top: -7px;
+		}
+		& .el-icon-delete{
+			right: 50px;
+			// color: #20a0ff;
+		}
 	}
 </style>

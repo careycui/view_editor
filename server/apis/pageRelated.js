@@ -128,3 +128,13 @@ module.exports.deleteTopicPage = async (ctx, next) => {
 	let result = await TopicPage.update(page,{ where : { id: { $eq : id } }}, {fields:['update_time', 'trash']});
 	ctx.body = JSON.stringify(result);
 }
+module.exports.proAppendFolder = async (ctx, next) => {
+	let transIds = ctx.request.body;
+	let result = await ProPage.update(transIds,{ where : { id: { $eq : transIds.page_id } }}, {fields:['folder_id']});
+	ctx.body = JSON.stringify(result);
+}
+module.exports.topicAppendFolder = async (ctx, next) => {
+	let transIds = ctx.request.body;
+	let result = await TopicPage.update(transIds,{ where : { id: { $eq : transIds.page_id } }}, {fields:['folder_id']});
+	ctx.body = JSON.stringify(result);
+}
