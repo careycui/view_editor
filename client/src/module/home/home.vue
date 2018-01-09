@@ -2,7 +2,7 @@
 	<div id="home">
 		<el-row class="top-bar">
 			<el-col :span="24" class="top-bar--title">
-				<h3>Home - <small>页面编辑器 V 0.0.1</small> </h3>
+				<h3>Home - <small>页面编辑器 V 2.0.0</small> </h3>
 			</el-col>
 		</el-row>
 		<el-row class="container">
@@ -55,7 +55,7 @@
 					    		{{ page_type==='pro'?'详情页':'专题' }}
 					    	</div>
 					    	<ul class="folders-list el-menu el-menu-vertical-demo el-menu--dark">
-					    		<li class="folders-list__item el-menu-item" v-for="folder in folders">
+					    		<li class="folders-list__item el-menu-item" v-for="folder in folders" @click="jumpToFolder(folder)">
 					    			<i class="fa fa-folder-o el-icon"></i>
 					    			{{ folder.name }}
 					    			<i class="el-icon-delete" @click.stop="deleteFolder(folder)"></i>
@@ -72,7 +72,7 @@
 				</div>
 			</el-col>
 			<el-col :xs="24" :sm="19" :md="20" :lg="20" class="project-body">
-				<router-view @openBase="openBase" @openPreview="openPreview"></router-view>
+				<router-view @openBase="openBase" @openPreview="openPreview" :folders="folders"></router-view>
 			</el-col>
 		</el-row>
 		<el-dialog title="页面信息" size="small" :visible.sync="baseDialogVisible" :close-on-click-modal="false" custom-class="dialog-size" v-loading.body="loading">
@@ -147,12 +147,15 @@
 				if(n && n !== o){
 					this.setFolders(n);
 				}
+			},
+			'$route' (to, from){
+				this.activeName = to.path;
 			}
 		},
 		beforeMount () {
 			this.activeName = this.$route.path;
 			let path = this.$route.path;
-	    	let type = path.indexOf('info')>-1?'pro':(path.indexOf('topic')>-1?'topic':'');
+	    	let type = (path.indexOf('info')>-1||path.indexOf('pro')>-1)?'pro':(path.indexOf('topic')>-1?'topic':'');
 	    	this.page_type = type;
 		},
 		mounted (){
@@ -383,8 +386,8 @@
 		    		tmpName = '';
 		    	});
 		    },
-		    submitFolder (){
-
+		    jumpToFolder (folder){
+		    	this.$router.push('/folder/'+ this.page_type +'/'+folder.id);
 		    }
 		}
 	}

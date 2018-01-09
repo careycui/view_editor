@@ -25,6 +25,25 @@ module.exports.proIndex = async (ctx, next) => {
 				platform_type: platform,
 				trash: {
 					$ne: 1
+				},
+				folder_id: null
+			},
+			order: [['create_time', 'DESC']]
+		});
+	ctx.body = JSON.stringify(pages);
+}
+module.exports.proIndexByFolderId = async (ctx, next) => {
+	let type = ctx.accepts('json');
+	let folder_id = ctx.params.folderid;
+	let pages = await ProPage.findAll({
+			include:[{
+				model: ProPage,
+				as: 'otherPlatform'
+			}],
+			where: {
+				folder_id: folder_id,
+				trash: {
+					$ne: 1
 				}
 			},
 			order: [['create_time', 'DESC']]
@@ -42,6 +61,25 @@ module.exports.topicIndex = async (ctx, next) => {
 			}],
 			where: {
 				platform_type: platform,
+				trash: {
+					$ne: 1
+				},
+				folder_id: null
+			},
+			order: [['create_time', 'DESC']]
+		});
+	ctx.body = JSON.stringify(pages);
+}
+module.exports.topicIndexByFolderId = async (ctx, next) => {
+	let type = ctx.accepts('json');
+	let folder_id = ctx.params.folderid;
+	let pages = await TopicPage.findAll({
+			include:[{
+				model: TopicPage,
+				as: 'otherPlatform'
+			}],
+			where: {
+				folder_id: folder_id,
 				trash: {
 					$ne: 1
 				}
@@ -136,5 +174,15 @@ module.exports.proAppendFolder = async (ctx, next) => {
 module.exports.topicAppendFolder = async (ctx, next) => {
 	let transIds = ctx.request.body;
 	let result = await TopicPage.update(transIds,{ where : { id: { $eq : transIds.page_id } }}, {fields:['folder_id']});
+	ctx.body = JSON.stringify(result);
+}
+module.exports.proShiftOutFolder = async (ctx, next) => {
+	let page = ctx.request.body;
+	let result = await ProPage.update(page,{ where : { id: { $eq : page.id } }}, {fields:['folder_id']});
+	ctx.body = JSON.stringify(result);
+}
+module.exports.topicShiftOutFolder = async (ctx, next) => {
+	let page = ctx.request.body;
+	let result = await TopicPage.update(page,{ where : { id: { $eq : page.id } }}, {fields:['folder_id']});
 	ctx.body = JSON.stringify(result);
 }

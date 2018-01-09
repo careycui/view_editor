@@ -13,7 +13,11 @@ module.exports.getFolderByType = async (ctx, next) => {
 		});
 	ctx.body = JSON.stringify(folders);
 }
-
+module.exports.getFolderById = async (ctx, next) => {
+	let id = ctx.params.id;
+	let folder = await Folders.findById(id);
+	ctx.body = JSON.stringify(folder);
+}
 module.exports.createFolder = async (ctx, next) => {
 	let data = ctx.request.body;
 	let result = await Folders.create(data);

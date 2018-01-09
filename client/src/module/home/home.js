@@ -5,6 +5,7 @@ import axios from 'axios'
 import Home from './home.vue'
 import Info from './components/info'
 import Topic from './components/topic'
+import Folder from './components/folder'
 import AssetImg from './components/asset_img'
 import AssetTmp from './components/asset_tmp'
 import Create from './components/create.vue'
@@ -59,6 +60,7 @@ const routes = [
 	{ path: '/', redirect: '/info/pc' },
   	{ path: '/info/:type', component: Info },
   	{ path: '/topic/:type', component: Topic },
+  	{ path: '/folder/:pagetype/:id', component: Folder },
   	{ path: '/create', component: Create },
   	{ path: '/assetimg', component: AssetImg },
   	{ path: '/assettmp', component: AssetTmp }

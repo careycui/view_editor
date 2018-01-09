@@ -14,7 +14,7 @@
 	            <i class="el-dialog__close el-icon el-icon-minus"></i>
 	          </button>
 	        </div>
-	        <div class="el-dialog__body">
+	        <div class="el-dialog__body" id="preview-body">
 	          <iframe frameborder="0" width="100%" height="100%" id="pre-iframe">
 	          </iframe>
 	        </div>
@@ -120,7 +120,7 @@ export default {
 		      		src = css + css1 + this.srcdoc + lib + lib1 + lib2 + page;
 		      	}
 				loadInstance = Loading.service({
-					target: document.querySelector('#preview-dialog')
+					target: document.querySelector('#preview-body')
 				});
 				let frameDom = this.$el.querySelector('#pre-iframe');
 				frameDom.srcdoc = src;

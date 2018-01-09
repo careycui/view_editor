@@ -9,7 +9,11 @@ router.get('/', async (ctx, next) => {
 
 router.get('/pro/index/:type', Page.proIndex);
 
+router.get('/pro/indexByFolderId/:folderid', Page.proIndexByFolderId);
+
 router.get('/topic/index/:type', Page.topicIndex);
+
+router.get('/topic/indexByFolderId/:folderid', Page.topicIndexByFolderId);
 
 router.post('/pro/save', Page.savePro);
 
@@ -39,7 +43,13 @@ router.post('/pro/appendto/folder', Page.proAppendFolder);
 
 router.post('/topic/appendto/folder', Page.topicAppendFolder);
 
+router.post('/pro/shiftout/folder', Page.proShiftOutFolder);
+
+router.post('/topic/shiftout/folder', Page.topicShiftOutFolder);
+
 router.get('/folder/get/:type', Folder.getFolderByType);
+
+router.get('/folder/getById/:id', Folder.getFolderById);
 
 router.post('/folder/create', Folder.createFolder);
 

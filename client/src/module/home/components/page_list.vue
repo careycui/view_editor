@@ -1,5 +1,13 @@
 <template>
 	<div class="list">
+		<div class="project-card" v-if="!isFolder && folders.length > 0" v-for="folder in folders">
+			<div class="project-card--folder" @click="jumpToFolder(folder)">
+				<h3>
+					<i class="fa fa-folder-o"></i>
+				</h3>
+				<p>{{folder.name}}</p>
+			</div>
+		</div>
 		<div class="project-card" v-if="pageList.length > 0" v-for="page in pageList">
 			<div class="project-card--img">
 				<img :src="page.img_cover">
@@ -12,7 +20,10 @@
 			</div>
 			<div class="bottom-bar">
 				<el-button icon="setting" size="mini" class="bottom-bar--btn" @click="openEditDialog(page)">设置</el-button>
-				<el-button size="mini" class="bottom-bar--btn" @click="appendToFolder(page)">
+				<el-button size="mini" class="bottom-bar--btn" @click="shiftOutFolder(page)" v-if="page.folder_id">
+					<i class="fa fa-sign-out bottom-bar--icon"></i>移出
+				</el-button>
+				<el-button size="mini" class="bottom-bar--btn" @click="appendToFolder(page)" v-if="!page.folder_id">
 					<i class="fa fa-sign-in bottom-bar--icon"></i>移入
 				</el-button>
 				<el-button size="mini" class="bottom-bar--btn" @click="copyPage(page)">
@@ -54,6 +65,28 @@
 			pageList:{
 				type: Array,
 				default: []
+			},
+			isFolder:{
+				type: Boolean,
+				default: false
+			},
+			folders:{
+				type: Array,
+				default: () => {
+					return [];
+				}
+			}
+		},
+		data (){
+			return {
+				page_type: ''
+			}
+		},
+		beforeMount (){
+			if(!this.isFolder){
+				let path = this.$route.path;
+		    	let type = path.indexOf('info')>-1?'pro':(path.indexOf('topic')>-1?'topic':'');
+		    	this.page_type = type;
 			}
 		},
 		methods:{
@@ -78,7 +111,41 @@
 			jumpToCreat (){
 				this.activeName = '';
 				this.$router.push('/create');
+			},
+			jumpToFolder (folder){
+				this.$router.push('/folder/'+ this.page_type +'/'+folder.id);
+			},
+			shiftOutFolder (page){
+				this.$emit('shiftOutFolder', page);
 			}
 		}
 	}
 </script>
+<style lang="scss">
+.project-card--empty,.project-card--folder{
+	width: 100%;
+	height: 100px;
+	margin-top: 70px;
+	text-align: center;
+	cursor: pointer;
+
+	& h3{
+		color: #d6d6d6;
+		font-size: 36px;
+		transition: all .3s;
+	}
+	& p{
+		color: #d6d6d6;
+		font-size: 18px;
+		transition: all .3s;
+	}
+}
+.project-card--folder:hover{
+	& h3{
+		color: #20A0FF;
+	}
+	& p{
+		color: #20A0FF;
+	}
+}
+</style>

@@ -28,17 +28,6 @@ import PreviewRender from './../common/preview_render'
 				return this.$store.getters.getCss;
 			}
 		},
-	  	filters: {
-	  		copyObj (obj) {
-		  		let type = Object.prototype.toString.call(obj)
-		  		if( type === '[object Object]' || type === '[object Array]'){
-			  		let copyObj = JSON.parse(JSON.stringify(obj));
-			  		return copyObj;
-		  		}else{
-		  			return obj;
-		  		}
-	  		}
-	  	},
 	  	methods:{
 	  		changCurrKey (key) {
 	  			this.$store.dispatch('changeComKey', key);

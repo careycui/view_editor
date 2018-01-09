@@ -8,6 +8,7 @@
 				<el-tabs v-model="activeName" @tab-click="handleTabClick">
 		    		<el-tab-pane label="全部" name="all" class="ani slideInDownSm delay active">
 		    			<page-list :pageList="pageList"
+		    				:folders="folders"
 		    				@copyPage="copyPage"
 		    				@deletePage="deletePage"
 		    				@openEditDialog="openEditDialog"
@@ -17,6 +18,7 @@
 		    		</el-tab-pane>
 			    	<el-tab-pane label="普通" name="base" class="ani slideInDownSm delay">
 			    		<page-list :pageList="getBaseList()"
+			    			:folders="folders"
 		    				@copyPage="copyPage"
 		    				@deletePage="deletePage"
 		    				@openEditDialog="openEditDialog"
@@ -26,6 +28,7 @@
 			    	</el-tab-pane>
 			    	<el-tab-pane label="海报" name="h5" class="ani slideInDownSm delay">
 			    		<page-list :pageList="getH5List()"
+			    			:folders="folders"
 		    				@copyPage="copyPage"
 		    				@deletePage="deletePage"
 		    				@openEditDialog="openEditDialog"
@@ -43,6 +46,12 @@ import { page_common } from './utils.js'
 import PageList from './page_list'
 export default{
 	name: 'info',
+	props:{
+		folders:{
+			type: Array,
+			default: []
+		}
+	},
 	components:{
 		PageList
 	},
